@@ -86,6 +86,18 @@ class IRC:
     def say(self, msg):
         self.send(f'PRIVMSG #{self.ch} :{msg}')
     
+    def is_mod_or_broadcaster(self, tags_string, username):
+        """Prüft ob User Mod oder Broadcaster ist"""
+        # Broadcaster check
+        if username == self.ch:
+            return True
+        
+        # Mod check - suche nach "mod=1" in den Tags
+        if 'mod=1' in tags_string:
+            return True
+        
+        return False
+    
     def loop(self, obs):
         try:
             while True:
@@ -95,15 +107,30 @@ class IRC:
                         self.send('PONG :tmi.twitch.tv')
                     if 'PRIVMSG' in line and '!' in line:
                         try:
-                            user = line.split('!')[0][1:]
+                            # Parse tags und user
+                            parts = line.split(' ')
+                            tags = parts[0] if parts[0].startswith('@') else ''
+                            user = line.split('!')[0][1:] if '@' in line else line.split('!')[0][1:]
+                            
+                            # Entferne @ von user falls vorhanden
+                            if user.startswith('@'):
+                                user = user[1:]
+                            
                             msg = line.split(':', 2)[2].lower().strip()
+                            
                             print(f'[CMD] {user}: {msg}')
+                            
+                            # Permission check
+                            if not self.is_mod_or_broadcaster(tags, user):
+                                self.say(f'@{user} Nur Mods und Broadcaster dürfen das')
+                                continue
+                            
                             if msg == '!rec':
                                 obs.start()
-                                self.say('Recording started')
+                                self.say(f'@{user} Recording started')
                             elif msg == '!stoprec':
                                 obs.stop()
-                                self.say('Recording stopped')
+                                self.say(f'@{user} Recording stopped')
                         except:
                             pass
         except KeyboardInterrupt:
