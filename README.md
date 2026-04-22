@@ -173,16 +173,16 @@ Bot kann Tage laufen ohne Probleme.
 ## FAQ
 
 **F: Nur Mods dürfen Commands?**  
-A: Aktuell jeder. Code kann angepasst werden.
+  A: MODs .
 
 **F: Mehrere Kanäle?**  
 A: Nein. Eine Installation = ein Channel.
 
 **F: Szenen wechseln?**  
-A: Nicht in dieser Version. Nur Recording.
+  A: Nicht in dieser Version. Nur Recording.
 
 **F: Sicherheit?**  
-A: OAuth Token nicht public machen. config.json lokal halten.
+  A: OAuth Token nicht public machen. config.json lokal halten.
 
 ## Support
 
