@@ -1,0 +1,10 @@
+{
+  "software": {
+    "host": "192.000.0.00",
+    "port": 4455,
+    "password": "1456562asdfgdf"
+  },
+  "chat": {
+    "username": "deinname"
+  }
+}
