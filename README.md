@@ -173,7 +173,7 @@ Bot kann Tage laufen ohne Probleme.
 ## FAQ
 
 **F: Nur Mods dürfen Commands?**  
-  A: MODs .
+  A: Nein noch alle, aber wird alles gemacht .
 
 **F: Mehrere Kanäle?**  
 A: Nein. Eine Installation = ein Channel.
