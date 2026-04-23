@@ -95,7 +95,7 @@ Das ist wichtig!
 1. OBS öffnen
 2. Werkzeuge → WebSocket Server Einstellungen
 3. **Häkchen setzen bei:** "WebSocket-Server aktivieren"
-4. **KEIN Häkchen bei:** "Authentifizierung aktivieren" (!)
+4. **JA Häkchen bei:** "Authentifizierung aktivieren" (!)
 5. OK
 
 ### 6. Bot starten
