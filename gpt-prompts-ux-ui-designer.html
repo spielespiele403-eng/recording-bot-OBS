@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>50 GPT-Prompts für UX/UI-Designer</title>
+<meta name="description" content="Eine kuratierte Sammlung von 50 fertigen GPT-Prompts für UX/UI-Designer in 10 Kategorien.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<style>
+  :root{
+    --bg: #0b0d12;
+    --bg-alt: #12151d;
+    --card: #161a23;
+    --card-hover: #1b202b;
+    --border: #262c39;
+    --text: #e7e9ee;
+    --text-dim: #9aa2b1;
+    --text-faint: #6b7280;
+    --accent: #7c5cff;
+    --accent-2: #22d3c9;
+    --accent-soft: rgba(124,92,255,0.15);
+    --success: #22c55e;
+    --radius: 14px;
+    --maxw: 1180px;
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    background:
+      radial-gradient(1000px 500px at 15% -10%, rgba(124,92,255,0.18), transparent 60%),
+      radial-gradient(900px 500px at 90% 0%, rgba(34,211,201,0.12), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--accent-2);}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+
+  /* HERO */
+  header.hero{
+    padding:72px 0 48px;
+    border-bottom:1px solid var(--border);
+    position:relative;
+    overflow:hidden;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--accent-2);
+    background:rgba(34,211,201,0.1);
+    border:1px solid rgba(34,211,201,0.25);
+    padding:6px 14px; border-radius:999px;
+    margin-bottom:22px;
+  }
+  h1{
+    font-size:clamp(2rem, 5vw, 3.2rem);
+    margin:0 0 18px;
+    line-height:1.15;
+    background:linear-gradient(120deg, #fff 30%, #b9b3ff 65%, var(--accent-2) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    max-width:20ch;
+  }
+  .lede{
+    font-size:1.08rem;
+    color:var(--text-dim);
+    max-width:70ch;
+    margin:0 0 28px;
+  }
+  .hero-stats{
+    display:flex; flex-wrap:wrap; gap:14px;
+    margin-bottom:32px;
+  }
+  .stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px 20px;
+    min-width:140px;
+  }
+  .stat b{display:block; font-size:1.5rem; color:#fff;}
+  .stat span{font-size:.82rem; color:var(--text-faint);}
+
+  .intro-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:28px 30px;
+    box-shadow:var(--shadow);
+  }
+  .intro-card h2{margin-top:0; font-size:1.05rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:.05em; font-weight:700;}
+  .intro-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:18px;}
+  .intro-grid h3{margin:0 0 8px; font-size:1rem; color:#fff; display:flex; align-items:center; gap:8px;}
+  .intro-grid h3 i{color:var(--accent-2);}
+  .intro-grid p{margin:0; font-size:.92rem; color:var(--text-dim);}
+
+  /* NAV */
+  nav.category-nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,13,18,0.88);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+    padding:14px 0;
+  }
+  .nav-inner{display:flex; gap:12px; align-items:center;}
+  .pill-row{
+    display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding:2px 2px;
+    flex:1;
+  }
+  .pill-row::-webkit-scrollbar{display:none;}
+  .pill{
+    flex:0 0 auto;
+    white-space:nowrap;
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:.82rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.15s ease;
+    text-decoration:none;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .pill i{font-size:.78rem;}
+  .pill:hover{border-color:var(--accent); color:#fff;}
+  .pill.active{
+    background:linear-gradient(120deg, var(--accent), #5b3df0);
+    border-color:transparent;
+    color:#fff;
+  }
+  .search-box{
+    position:relative;
+    flex:0 0 auto;
+  }
+  .search-box input{
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:9px 14px 9px 36px;
+    border-radius:999px;
+    font-size:.85rem;
+    width:200px;
+    outline:none;
+    transition:.15s;
+  }
+  .search-box input:focus{border-color:var(--accent);}
+  .search-box i{
+    position:absolute; left:13px; top:50%; transform:translateY(-50%);
+    color:var(--text-faint); font-size:.82rem;
+  }
+
+  /* CATEGORY SECTIONS */
+  main{padding:56px 0;}
+  section.category{
+    padding:44px 0;
+    scroll-margin-top:80px;
+    border-bottom:1px solid var(--border);
+  }
+  section.category:last-of-type{border-bottom:none;}
+  .cat-head{
+    display:flex; align-items:flex-start; gap:16px;
+    margin-bottom:8px;
+  }
+  .cat-icon{
+    width:52px; height:52px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem; color:#fff;
+    flex:0 0 auto;
+    box-shadow:0 6px 18px -4px rgba(0,0,0,0.5);
+  }
+  .cat-title-wrap{flex:1;}
+  .cat-num{
+    font-size:.78rem; color:var(--text-faint); font-weight:700; letter-spacing:.08em;
+  }
+  .cat-title-wrap h2{margin:2px 0 6px; font-size:1.5rem; color:#fff;}
+  .cat-title-wrap p{margin:0; color:var(--text-dim); font-size:.95rem; max-width:70ch;}
+
+  .prompt-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+    gap:18px;
+    margin-top:26px;
+  }
+
+  .prompt-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    transition:.18s ease;
+    position:relative;
+  }
+  .prompt-card:hover{
+    background:var(--card-hover);
+    border-color:var(--accent);
+    transform:translateY(-2px);
+  }
+  .prompt-card .badge{
+    align-self:flex-start;
+    font-size:.7rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    padding:4px 10px;
+    border-radius:999px;
+    color:#fff;
+  }
+  .prompt-card h4{
+    margin:0;
+    font-size:1rem;
+    color:#fff;
+    line-height:1.35;
+  }
+  .prompt-card .prompt-text{
+    font-size:.88rem;
+    color:var(--text-dim);
+    flex:1;
+    margin:0;
+    white-space:pre-line;
+  }
+  .card-actions{
+    display:flex; justify-content:flex-end;
+  }
+  .copy-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:8px 14px;
+    border-radius:10px;
+    font-size:.82rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.15s;
+  }
+  .copy-btn:hover{border-color:var(--accent); color:#fff;}
+  .copy-btn.copied{
+    background:rgba(34,197,94,0.15);
+    border-color:var(--success);
+    color:var(--success);
+  }
+
+  /* BONUS SECTION */
+  section.bonus{
+    background:linear-gradient(180deg, rgba(124,92,255,0.06), transparent);
+  }
+  section.bonus .cat-icon{
+    background:linear-gradient(135deg, #f59e0b, #ef4444);
+  }
+
+  /* FOOTER */
+  footer{
+    background:var(--bg-alt);
+    border-top:1px solid var(--border);
+    padding:56px 0 40px;
+  }
+  footer h2{font-size:1.4rem; color:#fff; margin-top:0;}
+  .tips-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:20px;
+    margin:24px 0 40px;
+  }
+  .tip{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:20px;
+  }
+  .tip i{color:var(--accent-2); margin-right:8px;}
+  .tip h3{margin:0 0 8px; font-size:.98rem; color:#fff;}
+  .tip p{margin:0; font-size:.88rem; color:var(--text-dim);}
+  .footer-bottom{
+    text-align:center;
+    color:var(--text-faint);
+    font-size:.85rem;
+    padding-top:24px;
+    border-top:1px solid var(--border);
+  }
+
+  .back-top{
+    position:fixed; bottom:26px; right:26px;
+    width:46px; height:46px; border-radius:50%;
+    background:linear-gradient(120deg, var(--accent), #5b3df0);
+    color:#fff; border:none; box-shadow:var(--shadow);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:1rem;
+    opacity:0; pointer-events:none; transform:translateY(10px);
+    transition:.25s;
+    z-index:60;
+  }
+  .back-top.show{opacity:1; pointer-events:auto; transform:translateY(0);}
+
+  .no-results{
+    display:none;
+    text-align:center;
+    color:var(--text-faint);
+    padding:60px 20px;
+    font-size:1rem;
+  }
+  .no-results.show{display:block;}
+
+  @media (max-width: 860px){
+    .intro-grid{grid-template-columns:1fr;}
+    .tips-grid{grid-template-columns:1fr;}
+    .search-box input{width:140px;}
+  }
+  @media (max-width: 600px){
+    header.hero{padding:48px 0 32px;}
+    .hero-stats{gap:10px;}
+    .stat{min-width:110px; padding:10px 14px;}
+    .intro-card{padding:20px;}
+    .nav-inner{flex-wrap:wrap;}
+    .search-box{width:100%;}
+    .search-box input{width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> Prompt-Bibliothek für UX/UI-Design</span>
+    <h1>50 fertige GPT-Prompts für UX/UI-Designer</h1>
+    <p class="lede">Eine kuratierte Sammlung sofort einsetzbarer Prompts für den gesamten Design-Prozess – von der Nutzerforschung über Wireframes und visuelles Design bis hin zu Usability-Tests und Stakeholder-Präsentationen.</p>
+
+    <div class="hero-stats">
+      <div class="stat"><b>55</b><span>Prompts insgesamt</span></div>
+      <div class="stat"><b>10</b><span>Kategorien</span></div>
+      <div class="stat"><b>5</b><span>Bonus-Prompts</span></div>
+      <div class="stat"><b>1 Klick</b><span>zum Kopieren</span></div>
+    </div>
+
+    <div class="intro-card">
+      <h2>Einführung</h2>
+      <p style="color:var(--text-dim); margin-top:14px;">
+        Diese Sammlung enthält 50 sorgfältig formulierte GPT-Prompts, die den kompletten UX/UI-Design-Workflow abdecken – gegliedert in zehn Phasen des Design-Prozesses, ergänzt um fünf fortgeschrittene Bonus-Prompts für komplexere Aufgaben. Jeder Prompt ist so geschrieben, dass er direkt in ChatGPT, Claude oder ein anderes KI-Modell kopiert werden kann: klare Rolle, konkreter Kontext und eine erwartete Ausgabestruktur sind bereits enthalten. Platzhalter in <code>[eckigen Klammern]</code> markieren die Stellen, an denen du eigene Informationen einfügst.
+      </p>
+      <div class="intro-grid">
+        <div>
+          <h3><i class="fa-solid fa-user-check"></i> Für wen?</h3>
+          <p>UX-/UI-Designer:innen, Produktdesigner:innen, Researcher:innen sowie Product Manager:innen, die Design-Aufgaben mit KI-Unterstützung schneller und strukturierter angehen möchten – vom Junior-Level bis Senior.</p>
+        </div>
+        <div>
+          <h3><i class="fa-solid fa-list-check"></i> Was ist enthalten?</h3>
+          <p>Prompts für Research, Ideation, Wireframing, visuelles Design, Prototyping, Usability-Testing, Design-Systeme, Barrierefreiheit, Feedback-Iteration sowie Präsentation & Kommunikation.</p>
+        </div>
+        <div>
+          <h3><i class="fa-solid fa-graduation-cap"></i> Beste Nutzung</h3>
+          <p>Kopiere den Prompt, ersetze alle Platzhalter durch dein konkretes Projekt und passe Tonalität sowie Detailtiefe bei Bedarf an. Nutze die Ausgabe als Startpunkt – nicht als Endergebnis.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="category-nav">
+  <div class="wrap nav-inner">
+    <div class="pill-row" id="pillRow">
+      <a class="pill active" data-target="cat-1"><i class="fa-solid fa-comments"></i> Research</a>
+      <a class="pill" data-target="cat-2"><i class="fa-solid fa-lightbulb"></i> Ideation</a>
+      <a class="pill" data-target="cat-3"><i class="fa-solid fa-pen-ruler"></i> Wireframing</a>
+      <a class="pill" data-target="cat-4"><i class="fa-solid fa-palette"></i> UI-Design</a>
+      <a class="pill" data-target="cat-5"><i class="fa-solid fa-diagram-project"></i> Prototyping</a>
+      <a class="pill" data-target="cat-6"><i class="fa-solid fa-vial"></i> Testing</a>
+      <a class="pill" data-target="cat-7"><i class="fa-solid fa-shapes"></i> Design-Systeme</a>
+      <a class="pill" data-target="cat-8"><i class="fa-solid fa-universal-access"></i> Barrierefreiheit</a>
+      <a class="pill" data-target="cat-9"><i class="fa-solid fa-arrows-rotate"></i> Feedback</a>
+      <a class="pill" data-target="cat-10"><i class="fa-solid fa-chalkboard-user"></i> Präsentation</a>
+      <a class="pill" data-target="cat-bonus"><i class="fa-solid fa-star"></i> Bonus</a>
+    </div>
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Prompts durchsuchen…">
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div id="categoriesRoot"></div>
+  <div class="no-results" id="noResults"><i class="fa-solid fa-magnifying-glass" style="font-size:1.4rem; display:block; margin-bottom:10px;"></i>Keine Prompts gefunden. Versuche einen anderen Suchbegriff.</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2><i class="fa-solid fa-graduation-cap" style="color:var(--accent-2);"></i> Tipps zur optimalen Nutzung</h2>
+    <div class="tips-grid">
+      <div class="tip">
+        <h3><i class="fa-solid fa-brackets-curly"></i>Platzhalter konsequent ersetzen</h3>
+        <p>Ersetze jeden Text in <code>[eckigen Klammern]</code> durch dein konkretes Projekt, deine Zielgruppe oder deine Daten. Je präziser der Input, desto brauchbarer die Antwort.</p>
+      </div>
+      <div class="tip">
+        <h3><i class="fa-solid fa-layer-group"></i>Prompts kombinieren</h3>
+        <p>Viele Prompts bauen aufeinander auf – z.B. Persona → Journey Map → How-Might-We-Fragen. Nutze die Ausgabe eines Prompts als Input für den nächsten.</p>
+      </div>
+      <div class="tip">
+        <h3><i class="fa-solid fa-comments"></i>Nachfragen & iterieren</h3>
+        <p>Behandle die erste Antwort als Entwurf. Stelle Rückfragen wie "Mach es konkreter für [Zielgruppe]" oder "Kürze auf die wichtigsten 3 Punkte".</p>
+      </div>
+      <div class="tip">
+        <h3><i class="fa-solid fa-sliders"></i>Ton & Format anpassen</h3>
+        <p>Ergänze am Ende eines Prompts z.B. "Antworte als Tabelle", "in maximal 150 Wörtern" oder "in einem lockeren, informellen Ton", um das Ergebnis zu steuern.</p>
+      </div>
+      <div class="tip">
+        <h3><i class="fa-solid fa-shield-halved"></i>Kritisch prüfen</h3>
+        <p>KI-Ausgaben ersetzen keine echte Nutzerforschung. Nutze sie als Startpunkt, Strukturhilfe und Zeitsparer – validiere zentrale Annahmen immer mit echten Nutzer:innen.</p>
+      </div>
+      <div class="tip">
+        <h3><i class="fa-solid fa-bookmark"></i>Eigene Bibliothek aufbauen</h3>
+        <p>Speichere abgewandelte Prompts, die für dein Team gut funktionieren, in einer eigenen Sammlung – so wächst mit der Zeit ein persönliches Prompt-Set für deinen Workflow.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      50 fertige GPT-Prompts für UX/UI-Designer &middot; Erstellt zur freien Nutzung in deinem Design-Prozess
+    </div>
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" aria-label="Nach oben scrollen"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script>
+const CATEGORIES = [
+  {
+    id: "cat-1", num: "Kategorie 01", icon: "fa-solid fa-comments", color: "#7c5cff",
+    title: "User Research & Interviews",
+    desc: "Prompts, um Nutzerinterviews vorzubereiten, Umfragen zu erstellen und Feedback sowie Personas systematisch aufzubereiten.",
+    prompts: [
+      { title: "Interview-Leitfaden erstellen", text: "Erstelle einen Interview-Leitfaden für Nutzerinterviews zum Thema [Produkt/Projekt]. Ich möchte herausfinden, wie [Zielgruppe] aktuell [Aufgabe/Problem] löst, welche Frustrationen dabei auftreten und welche Erwartungen an eine ideale Lösung bestehen. Strukturiere den Leitfaden in: Einstieg & Warm-up, Kontext & aktuelles Verhalten, Pain Points, Wünsche & Erwartungen, Abschluss. Formuliere pro Abschnitt 3-5 offene, nicht suggestive Fragen und gib mir zusätzlich 2-3 Follow-up-Fragen pro Hauptfrage." },
+      { title: "10 Fragen für Nutzerinterviews", text: "Formuliere 10 offene, nicht suggestive Fragen für ein Nutzerinterview zum Thema [Thema/Feature]. Die Zielgruppe sind [Zielgruppenbeschreibung]. Die Fragen sollen das tatsächliche Verhalten, konkrete Erlebnisse aus der Vergangenheit und emotionale Reaktionen erfassen – keine hypothetischen 'Würdest du...'-Fragen. Sortiere die Fragen vom Allgemeinen zum Spezifischen und markiere, welche Fragen als Eisbrecher geeignet sind." },
+      { title: "Umfrage erstellen", text: "Erstelle eine Online-Umfrage mit 8-12 Fragen, um [Forschungsziel, z.B. die Zufriedenheit mit Feature X] bei [Zielgruppe] zu messen. Kombiniere geschlossene Fragen (Skala 1-5, Multiple Choice) mit 1-2 offenen Fragen für qualitatives Feedback. Gib für jede Frage den Fragetyp, mögliche Antwortoptionen und eine kurze Begründung an, warum die Frage wichtig ist. Schlage außerdem eine sinnvolle Reihenfolge und eine geschätzte Bearbeitungszeit vor." },
+      { title: "Nutzerfeedback-Daten analysieren", text: "Analysiere die folgenden Nutzerfeedback-Daten: [Feedback/Daten hier einfügen]. Identifiziere die 5 häufigsten wiederkehrenden Themen, clustere sie nach Kategorien (z.B. Usability, Performance, Feature-Wünsche, Content), bewerte jedes Thema nach Häufigkeit und vermuteter Priorität und leite konkrete, umsetzbare Handlungsempfehlungen für das Designteam ab. Gib das Ergebnis als übersichtliche Tabelle aus." },
+      { title: "User Persona erstellen", text: "Erstelle eine detaillierte User Persona für [Produkt/Zielgruppe]. Nutze die folgende Struktur: Name, Alter, Beruf, Foto-Beschreibung, Zitat, Ziele, Frustrationen (Pain Points), typisches Verhalten/Tech-Affinität, bevorzugte Kanäle und ein kurzes 'Ein Tag im Leben von...'-Szenario. Stütze die Persona auf folgende Annahmen/Daten: [Recherche-Notizen, Umfrageergebnisse oder Annahmen einfügen]." }
+    ]
+  },
+  {
+    id: "cat-2", num: "Kategorie 02", icon: "fa-solid fa-lightbulb", color: "#f59e0b",
+    title: "Ideation & Brainstorming",
+    desc: "Prompts, um Ideen zu generieren, Journeys zu mappen und Probleme mit erprobten Kreativitätstechniken zu strukturieren.",
+    prompts: [
+      { title: "20 Ideen generieren", text: "Generiere 20 Ideen, wie [Problem/Herausforderung] für [Zielgruppe] gelöst werden könnte. Nutze dabei mindestens 4 verschiedene Denkrichtungen (z.B. Automatisierung, Gamification, Vereinfachung, Social/Community, Personalisierung). Gruppiere die Ideen nach Denkrichtung, bewerte jede Idee kurz nach Aufwand (niedrig/mittel/hoch) und potenziellem Impact (niedrig/mittel/hoch) und markiere die 3 vielversprechendsten Ideen." },
+      { title: "Customer Journey Map erstellen", text: "Erstelle eine Customer Journey Map für [Produkt/Service] aus Sicht von [Persona/Zielgruppe]. Gliedere die Journey in die Phasen: Awareness, Consideration, Onboarding, Nutzung, Loyalität/Weiterempfehlung. Beschreibe für jede Phase: Handlungen des Nutzers, Touchpoints, Gedanken & Gefühle, Pain Points sowie Chancen für Verbesserungen. Gib das Ergebnis als strukturierte Tabelle aus." },
+      { title: "'How Might We'-Fragen formulieren", text: "Formuliere 10 'How Might We'-Fragen basierend auf folgendem Problem/Insight: [Problem/Insight einfügen]. Die Fragen sollen weder zu breit (unfokussiert) noch zu eng (bereits eine Lösung implizierend) formuliert sein. Variiere den Fokus zwischen Nutzerbedürfnissen, Kontext, Technologie und Geschäftsmodell und sortiere sie von allgemein zu spezifisch." },
+      { title: "Value Proposition Canvas erstellen", text: "Erstelle einen Value Proposition Canvas für [Produkt/Feature] und die Zielgruppe [Persona/Segment]. Fülle die Kundenseite mit Customer Jobs, Pains und Gains und die Wertangebot-Seite mit Pain Relievers, Gain Creators und Products & Services. Nutze dafür folgende Informationen: [Recherche-Erkenntnisse/Annahmen]. Leite abschließend 3 zentrale Botschaften für die Kommunikation ab." },
+      { title: "Lösungen brainstormen", text: "Brainstorme praxisnahe Lösungen für folgendes Problem: [Problembeschreibung]. Betrachte das Problem aus 3 Perspektiven: Nutzer, Business und Technik. Nutze die SCAMPER-Methode (Substitute, Combine, Adapt, Modify, Put to other use, Eliminate, Reverse), um pro Perspektive mindestens 2 Lösungsansätze zu entwickeln, und fasse am Ende die 5 stärksten Ansätze mit kurzer Begründung zusammen." }
+    ]
+  },
+  {
+    id: "cat-3", num: "Kategorie 03", icon: "fa-solid fa-pen-ruler", color: "#22c55e",
+    title: "Wireframing & Low-Fidelity",
+    desc: "Prompts für Skizzen, Wireframe-Strukturen, User Flows und Low-Fidelity-Prototypen als Basis für erste Konzepte.",
+    prompts: [
+      { title: "Skizze für einen Screen beschreiben", text: "Beschreibe eine Low-Fidelity-Skizze für einen [Bildschirm/Screen, z.B. Checkout-Prozess] der App/Website [Produktname]. Liste alle benötigten UI-Elemente auf (Header, Buttons, Formularfelder etc.), beschreibe deren grobe Anordnung (oben/mittig/unten, links/rechts) und begründe die Reihenfolge der Elemente anhand des Nutzerziels [Nutzerziel einfügen]. Gib die Beschreibung so präzise an, dass sie direkt in Papier oder ein Wireframe-Tool übertragen werden kann." },
+      { title: "Wireframe-Struktur beschreiben", text: "Beschreibe eine vollständige Wireframe-Struktur für [Seiten-/Screen-Name] von [Produkt]. Gliedere in Header, Hauptbereich (mit Content-Blöcken), Sidebar (falls relevant) und Footer. Nenne für jeden Bereich die enthaltenen Elemente, deren Priorität (primär/sekundär) und Hinweise zur visuellen Hierarchie. Berücksichtige, dass das wichtigste Nutzerziel [Nutzerziel] ist." },
+      { title: "User Flow erstellen", text: "Erstelle einen detaillierten User Flow für den Prozess [z.B. Registrierung, Kauf, Onboarding] in [Produkt]. Liste alle Schritte, Bildschirme, Entscheidungspunkte und möglichen Fehlerzustände (z.B. falsche Eingabe, Abbruch) chronologisch auf. Kennzeichne Punkte, an denen Nutzer aussteigen könnten, und schlage jeweils eine Maßnahme zur Reduzierung des Abbruchs vor." },
+      { title: "Mobile Navigation skizzieren", text: "Skizziere eine mobile Navigationsstruktur für eine App mit folgenden Hauptbereichen: [Bereiche/Features auflisten]. Schlage vor, ob Tab-Bar, Hamburger-Menü, Bottom-Sheet oder eine Kombination am besten geeignet ist, begründe die Wahl anhand der Anzahl und Wichtigkeit der Bereiche und beschreibe, wie tiefere Ebenen (Untermenüs) navigierbar bleiben, ohne die Nutzer zu verwirren." },
+      { title: "Low-Fidelity-Prototyp erstellen", text: "Beschreibe einen Low-Fidelity-Prototyp für [Feature/Flow] mit 4-6 aufeinanderfolgenden Screens. Beschreibe für jeden Screen den Inhalt, die wichtigsten Interaktionsmöglichkeiten (Buttons, Links, Gesten) und den Übergang zum nächsten Screen. Weise am Ende darauf hin, welche Annahmen im nächsten Testschritt mit echten Nutzern validiert werden sollten." }
+    ]
+  },
+  {
+    id: "cat-4", num: "Kategorie 04", icon: "fa-solid fa-palette", color: "#ec4899",
+    title: "Visuelles Design & UI",
+    desc: "Prompts für Design-Systeme, Landingpages, Dashboards, Icon-Sets und mobile App-Konzepte.",
+    prompts: [
+      { title: "Design-System mit Farben erstellen", text: "Erstelle ein Design-System-Grundgerüst für [Produkt/Marke] basierend auf der Farbpalette [Primärfarbe, Sekundärfarbe, Akzentfarbe]. Definiere Primär-, Sekundär- und Statusfarben (Erfolg, Warnung, Fehler, Info) inklusive Hex-Codes, Kontrastempfehlungen für Text auf Hintergrund und Anwendungsbeispiele (Buttons, Badges, Alerts). Achte auf WCAG-AA-konforme Kontrastwerte." },
+      { title: "Landingpage entwerfen", text: "Entwirf das Konzept für eine Landingpage für [Produkt/Kampagne] mit dem Ziel [Conversion-Ziel, z.B. Newsletter-Anmeldung]. Beschreibe Sektion für Sektion (Hero, Value Proposition, Social Proof, Feature-Übersicht, FAQ, Call-to-Action) den Inhalt, die Bildsprache und die Kernbotschaft. Formuliere zusätzlich 3 Varianten für die Hero-Headline im Stil von [Tonalität, z.B. seriös, verspielt, technisch]." },
+      { title: "Dashboard gestalten", text: "Gestalte das Konzept für ein Dashboard für [Zielgruppe, z.B. Projektmanager] zur Übersicht über [Kennzahlen/Daten]. Definiere die wichtigsten 5-8 KPIs, schlage eine sinnvolle visuelle Priorisierung (oben links = wichtigste Kennzahl) vor und empfehle passende Diagrammtypen (z.B. Liniendiagramm, Balkendiagramm, KPI-Kachel) pro Kennzahl inklusive Begründung." },
+      { title: "Icon-Sammlung erstellen", text: "Erstelle eine konzeptionelle Icon-Sammlung zum Thema [Thema/Bereich, z.B. Finanzen, Gesundheit] mit 12 Icons. Liste für jedes Icon den Namen, den Verwendungszweck und einen kurzen Beschreibungstext für die visuelle Gestaltung (Stil: Outline/Filled, geometrisch/organisch). Achte auf einen konsistenten Strichstärken- und Stilansatz über alle Icons hinweg." },
+      { title: "Mobile App designen", text: "Beschreibe das UI-Konzept für eine mobile App im Bereich [Branche/Thema] mit den Kernfunktionen [Funktion 1, Funktion 2, Funktion 3]. Definiere Designsprache (modern/minimalistisch/verspielt), Farbschema, Typografie-Empfehlung und beschreibe die 3 wichtigsten Screens (z.B. Home, Detailansicht, Profil) inklusive Layout und Schlüsselelementen." }
+    ]
+  },
+  {
+    id: "cat-5", num: "Kategorie 05", icon: "fa-solid fa-diagram-project", color: "#06b6d4",
+    title: "Prototyping & Interaktion",
+    desc: "Prompts für interaktive Prototypen, Mikrointeraktionen, Animationen und Click-Dummys.",
+    prompts: [
+      { title: "Interaktives Prototyp erstellen", text: "Beschreibe den Aufbau eines interaktiven Prototyps für den Ablauf [Flow/Feature] in [Prototyping-Tool, z.B. Figma]. Liste alle benötigten Screens/Frames, die Verknüpfungen (Klickziele) zwischen ihnen und die verwendeten Übergangsarten (Instant, Dissolve, Slide) auf. Weise darauf hin, welche Interaktionen für einen realistischen Klick-Test unbedingt funktionieren müssen." },
+      { title: "Mikrointeraktionen definieren", text: "Definiere Mikrointeraktionen für [Element/Aktion, z.B. Like-Button, Formular-Absenden]. Beschreibe die 4 Phasen: Trigger (was löst sie aus), Regeln (was passiert), Feedback (visuelle/akustische Rückmeldung) und Loops/Modes (Wiederholung, Enddauer). Schlage konkrete Timing-Werte (in ms) und Easing-Kurven vor und begründe, wie die Mikrointeraktion das Nutzererlebnis verbessert." },
+      { title: "Animation erstellen", text: "Erstelle ein detailliertes Konzept für eine UI-Animation beim Übergang von [Screen A] zu [Screen B]. Beschreibe Bewegungsrichtung, Dauer, Easing-Funktion und beteiligte Elemente. Erkläre, welchen funktionalen Zweck die Animation erfüllt (z.B. Orientierung, Kontinuität, Aufmerksamkeitslenkung) und wie sie reduziert werden sollte, wenn ein Nutzer 'reduzierte Bewegung' aktiviert hat." },
+      { title: "User Flow für ein Feature beschreiben", text: "Beschreibe detailliert den User Flow für das Feature [Feature-Name] inklusive aller Zustände: Leerzustand (Empty State), Ladezustand (Loading State), Erfolgszustand und Fehlerzustand. Gib für jeden Zustand an, welche Inhalte, Texte und Handlungsoptionen dem Nutzer angezeigt werden sollten, damit er nie ohne Orientierung dasteht." },
+      { title: "Click-Dummy erstellen", text: "Beschreibe den Aufbau eines Click-Dummys für [Anzahl] Kernscreens zum Testen des Flows [Flow-Name]. Liste die Screens in der richtigen Reihenfolge auf, benenne die klickbaren Bereiche pro Screen und definiere, wohin jeder Klick führt. Ergänze, welche Screens als Sackgassen (Dead Ends) markiert werden sollten, um Testnutzer nicht zu verwirren." }
+    ]
+  },
+  {
+    id: "cat-6", num: "Kategorie 06", icon: "fa-solid fa-vial", color: "#a855f7",
+    title: "Usability-Testing",
+    desc: "Prompts für Testpläne, Testaufgaben, Checklisten sowie die Analyse und Dokumentation von Testergebnissen.",
+    prompts: [
+      { title: "Testplan erstellen", text: "Erstelle einen vollständigen Testplan für einen Usability-Test von [Produkt/Feature]. Definiere: Testziel, Zielgruppe & Rekrutierungskriterien, Anzahl der Teilnehmenden, Testmethode (moderiert/unmoderiert, remote/vor Ort), benötigte Materialien/Prototyp, Ablaufplan mit Zeitangaben sowie die zu erhebenden Erfolgsmetriken (z.B. Task-Erfolgsquote, Zeit, Zufriedenheit)." },
+      { title: "10 Testaufgaben formulieren", text: "Formuliere 10 realistische Testaufgaben für einen Usability-Test von [Produkt/Feature]. Jede Aufgabe soll als Szenario formuliert sein (nicht als direkte Anleitung), ein konkretes Nutzerziel enthalten und keine Hinweise auf den erwarteten Lösungsweg geben. Ergänze pro Aufgabe ein Erfolgskriterium, anhand dessen erkennbar ist, ob die Aufgabe gelöst wurde." },
+      { title: "Checkliste erstellen", text: "Erstelle eine Checkliste zur Vorbereitung, Durchführung und Nachbereitung eines Usability-Tests für [Produkt/Feature]. Gliedere in die 3 Phasen und liste je Phase alle relevanten Punkte auf (z.B. Einverständniserklärung, Technik-Check, Leitfragen, Notizen-Vorlage, Dankeschön, Auswertungstermin)." },
+      { title: "Testergebnisse analysieren", text: "Analysiere die folgenden Usability-Test-Ergebnisse: [Testergebnisse/Notizen einfügen]. Identifiziere die kritischsten Usability-Probleme, bewerte sie nach Schweregrad (kritisch, schwerwiegend, gering, kosmetisch) gemäß gängiger Severity-Skalen, ordne sie den betroffenen Screens/Flows zu und schlage je Problem eine konkrete Lösung vor." },
+      { title: "Bericht erstellen", text: "Erstelle einen professionellen Usability-Test-Bericht basierend auf folgenden Rohdaten: [Testdaten/Beobachtungen einfügen]. Gliedere den Bericht in: Executive Summary, Methodik, Teilnehmerprofil, zentrale Erkenntnisse (mit Screenshots-Platzhaltern), priorisierte Empfehlungen und nächste Schritte. Schreibe die Executive Summary so, dass sie auch von Stakeholdern ohne UX-Hintergrund verstanden wird." }
+    ]
+  },
+  {
+    id: "cat-7", num: "Kategorie 07", icon: "fa-solid fa-shapes", color: "#3b82f6",
+    title: "Design-Systeme",
+    desc: "Prompts für den Aufbau, die Typografie, Komponenten und die Qualitätssicherung von Design-Systemen.",
+    prompts: [
+      { title: "Design-System erstellen", text: "Erstelle die Grundstruktur eines Design-Systems für [Produkt/Unternehmen]. Definiere die Kernbestandteile: Design-Prinzipien (3-5), Foundations (Farben, Typografie, Spacing, Grid), Komponenten-Übersicht (Kategorien wie Buttons, Formulare, Navigation, Feedback) und Governance (wer pflegt das System, wie werden Änderungen freigegeben)." },
+      { title: "Typografie definieren", text: "Definiere ein vollständiges Typografie-System für [Produkt/Marke]. Lege eine Schriftart-Empfehlung (Headline & Fließtext), eine Skala mit 6-8 Schriftgrößen (inkl. Zeilenhöhe und Schriftgewicht) sowie Verwendungsregeln für H1-H6, Body-Text, Captions und Buttons fest. Achte auf gute Lesbarkeit auf Mobilgeräten." },
+      { title: "Komponenten-Bibliothek erstellen", text: "Erstelle eine Übersicht für eine Komponenten-Bibliothek für [Produkt]. Liste die wichtigsten 15 UI-Komponenten (z.B. Button, Input, Card, Modal, Toast) auf und beschreibe je Komponente: Varianten (z.B. primary/secondary), Zustände (default, hover, disabled, error) und wichtige Nutzungsregeln (Do's & Don'ts)." },
+      { title: "Zugänglichkeit definieren", text: "Definiere Accessibility-Anforderungen für das Design-System von [Produkt]. Lege Mindest-Kontrastwerte, Mindestgrößen für Touch-Targets, Fokus-Zustände für Tastaturnavigation sowie Anforderungen an ARIA-Labels für die wichtigsten Komponenten fest. Orientiere dich an den WCAG 2.1 AA-Richtlinien und erkläre die Anforderungen verständlich für Entwickler:innen und Designer:innen." },
+      { title: "Checkliste für Design-Systeme erstellen", text: "Erstelle eine praxisnahe Checkliste zur Bewertung der Reife eines Design-Systems für [Produkt/Unternehmen]. Berücksichtige die Bereiche: Dokumentation, Konsistenz, Zugänglichkeit, Wartbarkeit/Governance, Adoption durch Teams und technische Umsetzung (z.B. Code-Komponenten vs. reine Design-Dateien). Gib pro Bereich 3-5 konkrete Prüfpunkte an." }
+    ]
+  },
+  {
+    id: "cat-8", num: "Kategorie 08", icon: "fa-solid fa-universal-access", color: "#14b8a6",
+    title: "Barrierefreiheit (Accessibility)",
+    desc: "Prompts für WCAG-Prüfungen, Alternativtexte, barrierefreie Navigation und Team-Leitfäden.",
+    prompts: [
+      { title: "Seite auf Barrierefreiheit prüfen", text: "Prüfe die folgende Seitenbeschreibung/den folgenden Screen auf Barrierefreiheit: [Beschreibung/Text/HTML einfügen]. Bewerte Farbkontraste, Lesbarkeit, Struktur (Überschriftenhierarchie), Fokus-Reihenfolge und Alternativtexte für Bilder. Liste alle gefundenen Probleme mit WCAG-Kriterium (z.B. 1.4.3 Kontrast) und Schweregrad auf und schlage konkrete Lösungen vor." },
+      { title: "Checkliste für WCAG erstellen", text: "Erstelle eine praxisnahe Checkliste zur Prüfung der WCAG-2.1-AA-Konformität für [Produkt/Website]. Gliedere nach den 4 WCAG-Prinzipien (Wahrnehmbar, Bedienbar, Verständlich, Robust) und liste je Prinzip 5-7 konkrete, für Designer:innen überprüfbare Kriterien auf (z.B. Kontrast, Tastaturbedienbarkeit, Fehlermeldungen, Alt-Texte)." },
+      { title: "Alternativtexte formulieren", text: "Formuliere aussagekräftige Alternativtexte für die folgenden Bilder/Grafiken: [Bildbeschreibungen einfügen]. Jeder Alt-Text soll kurz, präzise und funktional sein (keine 'Bild von...'-Floskeln), dekorative Elemente als solche kennzeichnen und bei komplexen Grafiken (z.B. Diagrammen) zusätzlich einen längeren Beschreibungstext vorschlagen." },
+      { title: "Barrierefreie Navigation entwerfen", text: "Entwirf eine barrierefreie Navigationsstruktur für [Produkt/Website] mit den Hauptbereichen [Bereiche auflisten]. Berücksichtige Tastaturbedienbarkeit (logische Tab-Reihenfolge), sichtbare Fokus-Zustände, eine 'Skip to Content'-Option und verständliche, konsistente Bezeichnungen für Screenreader-Nutzer:innen." },
+      { title: "Leitfaden für Accessibility erstellen", text: "Erstelle einen kompakten Leitfaden zum Thema Accessibility für Design-Teams bei [Unternehmen/Produkt]. Erkläre die wichtigsten Grundprinzipien verständlich, liste die 10 häufigsten Barrierefreiheits-Fehler im UI-Design auf und gib je Fehler eine kurze, umsetzbare Lösung. Der Leitfaden soll auch von Designer:innen ohne Vorwissen genutzt werden können." }
+    ]
+  },
+  {
+    id: "cat-9", num: "Kategorie 09", icon: "fa-solid fa-arrows-rotate", color: "#eab308",
+    title: "Feedback & Iteration",
+    desc: "Prompts zur Analyse von Feedback, Planung von Iterationen, A/B-Tests und Dokumentation von Entscheidungen.",
+    prompts: [
+      { title: "Feedback analysieren", text: "Analysiere das folgende Stakeholder-/Nutzer-Feedback zu [Design/Feature]: [Feedback einfügen]. Trenne das Feedback in Fakten/Beobachtungen, Meinungen und konkrete Verbesserungsvorschläge, gruppiere es nach Themen und bewerte, welche Punkte mit welcher Begründung in die nächste Design-Iteration einfließen sollten." },
+      { title: "Iterationsplan erstellen", text: "Erstelle einen strukturierten Iterationsplan für [Produkt/Feature] basierend auf folgenden Erkenntnissen: [Testergebnisse/Feedback einfügen]. Priorisiere die Punkte nach Aufwand und Nutzen (z.B. mit einer Aufwand-Nutzen-Matrix), definiere 2-3 Iterationsstufen (Quick Wins, mittelfristig, langfristig) und formuliere für jede Stufe konkrete nächste Schritte." },
+      { title: "Verbesserungsvorschläge formulieren", text: "Formuliere konkrete, konstruktive Verbesserungsvorschläge für [Design/Screen/Flow] basierend auf folgender Problembeschreibung: [Problem einfügen]. Jeder Vorschlag soll das Problem benennen, die vorgeschlagene Lösung beschreiben und kurz begründen, welchen Effekt sie auf Nutzer:innen und/oder Geschäftsziele hat." },
+      { title: "A/B-Test erstellen", text: "Konzipiere einen A/B-Test für [Element/Feature, z.B. Call-to-Action-Button] mit dem Ziel, [Metrik, z.B. Klickrate] zu verbessern. Definiere Hypothese, Variante A (Kontrolle) und Variante B (Testvariante), die primäre Erfolgsmetrik, die Mindeststichprobengröße/Testdauer sowie mögliche Störfaktoren, die das Ergebnis verfälschen könnten." },
+      { title: "Design-Entscheidungen dokumentieren", text: "Dokumentiere die folgende Design-Entscheidung nachvollziehbar für das Team: [Entscheidung/Kontext einfügen]. Nutze die Struktur: Kontext & Problem, betrachtete Alternativen, getroffene Entscheidung, Begründung sowie Konsequenzen/offene Risiken. Schreibe so, dass auch Teammitglieder, die nicht am Entscheidungsprozess beteiligt waren, die Entscheidung nachvollziehen können." }
+    ]
+  },
+  {
+    id: "cat-10", num: "Kategorie 10", icon: "fa-solid fa-chalkboard-user", color: "#f43f5e",
+    title: "Präsentation & Kommunikation",
+    desc: "Prompts, um Design-Arbeit überzeugend zu präsentieren, zu erklären und zu dokumentieren.",
+    prompts: [
+      { title: "Präsentation erstellen", text: "Erstelle eine Gliederung für eine Design-Präsentation zu [Projekt/Feature] vor [Zielgruppe, z.B. Produktteam, Führungsebene]. Strukturiere in: Ausgangslage & Problem, Nutzer-Insights, präsentierte Lösung(en), Begründung der Design-Entscheidungen, nächste Schritte. Gib pro Abschnitt 2-3 Stichpunkte an, was inhaltlich hinein sollte, sowie einen Vorschlag für die passende Foliendauer." },
+      { title: "Design-Erklärung formulieren", text: "Formuliere eine klare, für Nicht-Designer:innen verständliche Erklärung für die Design-Entscheidung, [Entscheidung/Design-Element] so umzusetzen. Vermeide Fachjargon, erkläre den Nutzernutzen zuerst und die Business-Wirkung danach, und antizipiere 2 wahrscheinliche Rückfragen inklusive passender Antworten." },
+      { title: "Case-Study erstellen", text: "Erstelle eine Case-Study über das Projekt [Projektname] für [Zweck, z.B. Portfolio, internes Wiki]. Gliedere in: Ausgangssituation & Herausforderung, Rolle & Prozess (Research, Ideation, Design, Test), zentrale Erkenntnisse, finale Lösung mit Begründung sowie messbare Ergebnisse/Impact. Schreibe in einem professionellen, aber zugänglichen Ton." },
+      { title: "Blog-Post schreiben", text: "Schreibe einen Blog-Post (ca. 600-800 Wörter) über das Thema [UX/UI-Thema, z.B. 'Warum Barrierefreiheit kein Nice-to-have ist']. Struktur: einprägsame Einleitung mit Hook, 3-4 inhaltliche Abschnitte mit Zwischenüberschriften, praktische Beispiele sowie ein handlungsorientierter Schluss. Zielgruppe: [Zielgruppe, z.B. Produktmanager:innen ohne Design-Hintergrund]." },
+      { title: "Präsentation für Stakeholder erstellen", text: "Erstelle eine überzeugende Präsentation für Stakeholder, um Budget/Zustimmung für [Projekt/Initiative, z.B. Redesign, Accessibility-Audit] zu gewinnen. Strukturiere in: Problem & Kosten des Status quo, vorgeschlagene Lösung, erwarteter Business-Impact (in Zahlen, falls möglich), Zeitplan & benötigte Ressourcen sowie ein klarer Call-to-Action am Ende." }
+    ]
+  },
+  {
+    id: "cat-bonus", num: "Bonus", icon: "fa-solid fa-star", color: "#f59e0b", bonus: true,
+    title: "Bonus: 5 fortgeschrittene Prompts",
+    desc: "Anspruchsvollere Prompts für komplexe, mehrstufige Aufgaben – von heuristischen Evaluationen bis zur End-to-End-Redesign-Strategie.",
+    prompts: [
+      { title: "Heuristische Evaluation durchführen", text: "Führe eine vollständige heuristische Evaluation von [Produkt/Screen] nach Jakob Nielsens 10 Usability-Heuristiken durch. Prüfe systematisch jede Heuristik, dokumentiere gefundene Verstöße mit Schweregrad (0-4), betroffenem Screen und konkretem Verbesserungsvorschlag, und fasse die 5 kritischsten Probleme in einer priorisierten Zusammenfassung zusammen." },
+      { title: "Wettbewerbsanalyse erstellen", text: "Erstelle eine detaillierte Wettbewerbsanalyse (Competitive Analysis) für [Produkt/Branche] mit den Wettbewerbern [Wettbewerber 1, 2, 3]. Vergleiche sie anhand von: Onboarding-Erlebnis, Kernfunktionen, visuelle Sprache, Preismodell und Stärken/Schwächen aus UX-Sicht. Leite daraus 3 konkrete Differenzierungschancen für unser Produkt ab und gib das Ergebnis als Vergleichstabelle aus." },
+      { title: "Design-System-Migrationsplan entwickeln", text: "Entwickle einen strukturierten Migrationsplan, um das bestehende Design-System von [aktueller Zustand] auf [Zielzustand, z.B. neue Tokens-Architektur, neues Branding] umzustellen, ohne den laufenden Betrieb zu gefährden. Definiere Phasen, betroffene Komponenten/Teams, Risiken sowie eine Kommunikationsstrategie für betroffene Entwickler:innen und Designer:innen." },
+      { title: "KI-Personalisierungsstrategie entwickeln", text: "Entwickle eine Content- und Personalisierungsstrategie für [Produkt/Feature], die KI-gestützte Personalisierung nutzt, um [Ziel, z.B. Relevanz erhöhen, Conversion steigern]. Beschreibe, welche Datenpunkte für die Personalisierung sinnvoll sind, wie sich das UI je nach Nutzersegment unterscheiden sollte und wie Transparenz/Kontrolle für Nutzer:innen sichergestellt wird (ethische Leitplanken)." },
+      { title: "End-to-End-Redesign-Strategie entwerfen", text: "Entwirf eine vollständige End-to-End-Redesign-Strategie für [Produkt] über alle UX-Phasen hinweg: Research-Ansatz (Methoden & Zeitrahmen), Ideation-Prozess, Design- und Prototyping-Ansatz, Testing-Strategie sowie Rollout-Plan (z.B. schrittweise Migration, Feature-Flags). Gib für jede Phase die wichtigsten Meilensteine, benötigten Rollen und geschätzten Zeitrahmen an." }
+    ]
+  }
+];
+
+const root = document.getElementById('categoriesRoot');
+
+function escapeHtml(str){
+  return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+CATEGORIES.forEach((cat, ci) => {
+  const section = document.createElement('section');
+  section.className = 'category' + (cat.bonus ? ' bonus' : '');
+  section.id = cat.id;
+
+  const cardsHtml = cat.prompts.map((p, pi) => {
+    const idx = `${ci}-${pi}`;
+    return `
+      <article class="prompt-card" data-search="${escapeHtml((p.title + ' ' + p.text).toLowerCase())}">
+        <span class="badge" style="background:${cat.color}">Prompt ${pi + 1}</span>
+        <h4>${escapeHtml(p.title)}</h4>
+        <p class="prompt-text">${escapeHtml(p.text)}</p>
+        <div class="card-actions">
+          <button class="copy-btn" data-idx="${idx}"><i class="fa-regular fa-copy"></i><span>Kopieren</span></button>
+        </div>
+      </article>`;
+  }).join('');
+
+  section.innerHTML = `
+    <div class="cat-head">
+      <div class="cat-icon" style="background:linear-gradient(135deg, ${cat.color}, ${cat.color}99)">
+        <i class="${cat.icon}"></i>
+      </div>
+      <div class="cat-title-wrap">
+        <div class="cat-num">${cat.num}</div>
+        <h2>${escapeHtml(cat.title)}</h2>
+        <p>${escapeHtml(cat.desc)}</p>
+      </div>
+    </div>
+    <div class="prompt-grid">${cardsHtml}</div>
+  `;
+  root.appendChild(section);
+});
+
+const PROMPT_TEXT_MAP = {};
+CATEGORIES.forEach((cat, ci) => {
+  cat.prompts.forEach((p, pi) => {
+    PROMPT_TEXT_MAP[`${ci}-${pi}`] = p.text;
+  });
+});
+
+root.addEventListener('click', (e) => {
+  const btn = e.target.closest('.copy-btn');
+  if(!btn) return;
+  const text = PROMPT_TEXT_MAP[btn.dataset.idx];
+  const done = () => {
+    const span = btn.querySelector('span');
+    const icon = btn.querySelector('i');
+    const prevText = span.textContent;
+    const prevIcon = icon.className;
+    btn.classList.add('copied');
+    icon.className = 'fa-solid fa-check';
+    span.textContent = 'Kopiert!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      icon.className = prevIcon;
+      span.textContent = prevText;
+    }, 1800);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+  } else {
+    fallbackCopy(text, done);
+  }
+});
+
+function fallbackCopy(text, cb){
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try{ document.execCommand('copy'); }catch(err){}
+  document.body.removeChild(ta);
+  cb();
+}
+
+/* Category nav: scroll + active state */
+const pills = Array.from(document.querySelectorAll('.pill'));
+pills.forEach(pill => {
+  pill.addEventListener('click', () => {
+    const target = document.getElementById(pill.dataset.target);
+    if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+const sections = Array.from(document.querySelectorAll('section.category'));
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const id = entry.target.id;
+      pills.forEach(p => p.classList.toggle('active', p.dataset.target === id));
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+sections.forEach(s => io.observe(s));
+
+/* Search */
+const searchInput = document.getElementById('searchInput');
+const noResults = document.getElementById('noResults');
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  let anyVisible = false;
+
+  sections.forEach(section => {
+    const cards = Array.from(section.querySelectorAll('.prompt-card'));
+    let sectionHasMatch = false;
+    cards.forEach(card => {
+      const match = !q || card.dataset.search.includes(q);
+      card.style.display = match ? '' : 'none';
+      if(match) sectionHasMatch = true;
+    });
+    section.style.display = sectionHasMatch ? '' : 'none';
+    if(sectionHasMatch) anyVisible = true;
+  });
+
+  noResults.classList.toggle('show', !anyVisible);
+});
+
+/* Back to top */
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  backTop.classList.toggle('show', window.scrollY > 500);
+});
+backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
