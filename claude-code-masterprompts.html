@@ -153,6 +153,9 @@
     color:#fff;font-size:1.1rem;
   }
   .cat-header h2{margin:0;font-size:1.35rem;}
+  .cat-context{
+    font-size:0.8rem;color:var(--text-faint);margin-top:3px;
+  }
   .cat-header .cat-num{
     color:var(--text-faint);font-size:0.85rem;font-weight:600;
     margin-left:auto;
@@ -181,7 +184,30 @@
   .card p.prompt-text{
     margin:0;font-size:0.92rem;color:var(--text);flex:1;
   }
-  .card p.prompt-text .ph{color:var(--text-faint);font-style:italic;}
+  .card p.prompt-text .ex{
+    color:var(--accent);
+    border-bottom:1px dashed rgba(255,138,61,0.55);
+    padding-bottom:1px;
+  }
+  .card p.prompt-text code{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:0.82rem;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:5px;
+    padding:1px 6px;
+    color:#ffb787;
+    word-break:break-word;
+  }
+  .legend{
+    display:flex;align-items:center;gap:8px;
+    font-size:0.76rem;color:var(--text-faint);
+    margin:-10px 0 16px 4px;
+  }
+  .legend .ex-swatch{
+    color:var(--accent);
+    border-bottom:1px dashed rgba(255,138,61,0.55);
+  }
   .copy-btn{
     align-self:flex-start;
     display:inline-flex;align-items:center;gap:7px;
@@ -249,7 +275,7 @@
 
         <h3>Wie nutzt man sie effektiv?</h3>
         <ul>
-          <li>Ersetze die Platzhalter (z. B. „…" oder „[Code]") durch konkrete Angaben zu deinem Projekt, deiner Technologie und deinem Ziel.</li>
+          <li>Jeder Prompt ist mit einem konkreten Beispiel ausformuliert — der <span style="color:var(--accent);border-bottom:1px dashed rgba(255,138,61,0.55);">orange unterstrichene Teil</span> markiert, was du durch dein eigenes Projekt, deine Technologie oder deinen Code ersetzt.</li>
           <li>Kombiniere mehrere Prompts nacheinander, um komplexe Aufgaben Schritt für Schritt zu lösen.</li>
           <li>Gib Kontext mit: Framework, Programmiersprache, Codebasis-Ausschnitte oder bestehende Konventionen.</li>
         </ul>
@@ -270,6 +296,7 @@
       <input type="text" id="searchInput" placeholder="Prompts durchsuchen…">
     </div>
     <div id="resultCount"></div>
+    <p class="legend"><span class="ex-swatch">markiert</span> = anpassbares Beispiel</p>
     <ul class="nav-list" id="navList"></ul>
   </nav>
 
@@ -292,167 +319,178 @@
 const DATA = [
   {
     key: "setup", title: "Projekt-Setup & Architektur", icon: "fa-solid fa-sitemap",
+    context: "Beispielprojekt: Online-Marktplatz für handgefertigte Möbel",
     prompts: [
-      "Erstelle eine Projektstruktur für eine ...",
-      "Entwirf eine Microservices-Architektur für ...",
-      "Erstelle ein ER-Diagramm für ...",
-      "Definiere den Tech-Stack für ...",
-      "Erstelle ein Domain-Modell für ...",
-      "Entwirf eine CI/CD-Pipeline für ...",
-      "Erstelle eine API-Dokumentation für ...",
-      "Definiere die Datenbank-Schemata für ...",
-      "Erstelle ein Security-Konzept für ...",
-      "Entwirf eine Monitoring-Strategie für ..."
+      "Erstelle eine Projektstruktur für **einen Online-Marktplatz für handgefertigte Möbel mit Next.js und einem separaten Node.js-Backend**.",
+      "Entwirf eine Microservices-Architektur für **den Marktplatz mit getrennten Services für Produkte, Bestellungen, Zahlungen und Benachrichtigungen**.",
+      "Erstelle ein ER-Diagramm für **Verkäufer, Produkte, Bestellungen und Bewertungen im Möbelmarktplatz**.",
+      "Definiere den Tech-Stack für **eine skalierbare E-Commerce-Plattform mit erwarteten 50.000 Nutzern im ersten Jahr**.",
+      "Erstelle ein Domain-Modell für **den Bestellprozess vom Warenkorb bis zur Auslieferung**.",
+      "Entwirf eine CI/CD-Pipeline für **das Marktplatz-Backend mit automatisierten Tests und Staging-Deployment auf AWS**.",
+      "Erstelle eine API-Dokumentation für **die Produkt- und Bestell-Endpoints des Marktplatzes**.",
+      "Definiere die Datenbank-Schemata für **Nutzer, Produkte, Bestellungen und Zahlungen in PostgreSQL**.",
+      "Erstelle ein Security-Konzept für **die Zahlungsabwicklung und Nutzerdaten im Marktplatz**.",
+      "Entwirf eine Monitoring-Strategie für **Verfügbarkeit und Antwortzeiten der Marktplatz-APIs**."
     ]
   },
   {
     key: "code", title: "Code-Generierung & Refactoring", icon: "fa-solid fa-code",
+    context: "Beispielprojekt: Task-Manager-App",
     prompts: [
-      "Generiere eine Klasse für ...",
-      "Refactoriere diesen Code: [Code]",
-      "Erstelle ein Interface für ...",
-      "Konvertiere diesen Code von JavaScript nach TypeScript: [Code]",
-      "Erstelle eine Utility-Funktion für ...",
-      "Optimiere diesen Code für Performance: [Code]",
-      "Erstelle einen Decorator für ...",
-      "Refactoriere diese Funktion für Lesbarkeit: [Code]",
-      "Erstelle einen Mixin für ...",
-      "Generiere einen Service für ..."
+      "Generiere eine Klasse für **eine Aufgabe (Task) mit Titel, Fälligkeitsdatum, Priorität und Status**.",
+      "Refactoriere diesen Code: `function getTasks(u){var r=[];for(var i=0;i<tasks.length;i++){if(tasks[i].user==u){r.push(tasks[i])}}return r}`",
+      "Erstelle ein Interface für **ein Repository, das Aufgaben speichert, lädt und aktualisiert**.",
+      "Konvertiere diesen Code von JavaScript nach TypeScript: `function addTask(title, dueDate) { return { title, dueDate, done: false }; }`",
+      "Erstelle eine Utility-Funktion für **die Formatierung relativer Fälligkeitsdaten (z. B. „in 2 Tagen“, „überfällig“)**.",
+      "Optimiere diesen Code für Performance: `tasks.filter(t => !t.done).sort((a,b) => new Date(a.due) - new Date(b.due)).map(t => renderTask(t))`",
+      "Erstelle einen Decorator für **das Protokollieren von Ausführungszeit und Fehlern im Task-Service**.",
+      "Refactoriere diese Funktion für Lesbarkeit: `function f(t){return t.p==1&&!t.d&&new Date(t.due)<new Date()}`",
+      "Erstelle einen Mixin für **Sortier- und Filterlogik, die von mehreren Listen-Komponenten wiederverwendet wird**.",
+      "Generiere einen Service für **die Zwei-Wege-Synchronisation von Aufgaben mit dem Google-Kalender**."
     ]
   },
   {
     key: "testing", title: "Testing & Debugging", icon: "fa-solid fa-bug",
+    context: "Beispielprojekt: Checkout-Prozess eines Online-Shops",
     prompts: [
-      "Erstelle Unit-Tests für ...",
-      "Schreibe Integrationstests für ...",
-      "Erstelle einen Debugging-Guide für ...",
-      "Generiere Testdaten für ...",
-      "Erstelle einen Testplan für ...",
-      "Simuliere einen Fehlerfall für ...",
-      "Erstelle einen Mock für ...",
-      "Schreibe End-to-End-Tests für ...",
-      "Erstelle ein Performance-Test-Script für ...",
-      "Erstelle einen Security-Test-Report für ..."
+      "Erstelle Unit-Tests für **die Rabattberechnung im Checkout-Prozess (Prozent-, Fest- und Versandrabatte)**.",
+      "Schreibe Integrationstests für **den kompletten Bestellablauf vom Warenkorb bis zur Zahlungsbestätigung**.",
+      "Erstelle einen Debugging-Guide für **doppelte Bestellungen bei gleichzeitigen Checkout-Anfragen**.",
+      "Generiere Testdaten für **200 Bestellungen mit unterschiedlichen Zahlungsarten und Versandländern**.",
+      "Erstelle einen Testplan für **den Release der neuen Gutschein-Funktion im Checkout**.",
+      "Simuliere einen Fehlerfall für **einen Zahlungsdienstleister, der während des Checkouts nicht antwortet**.",
+      "Erstelle einen Mock für **den externen Zahlungsanbieter Stripe im Checkout-Test**.",
+      "Schreibe End-to-End-Tests für **den Kaufabschluss als Gast ohne Benutzerkonto**.",
+      "Erstelle ein Performance-Test-Script für **1000 gleichzeitige Checkout-Anfragen am Black-Friday-Peak**.",
+      "Erstelle einen Security-Test-Report für **die Eingabefelder im Zahlungsformular (XSS, SQL-Injection, CSRF)**."
     ]
   },
   {
     key: "api", title: "API-Entwicklung", icon: "fa-solid fa-plug",
+    context: "Beispielprojekt: Rezept-Plattform mit Bewertungen",
     prompts: [
-      "Erstelle eine REST-API für ...",
-      "Entwirf eine GraphQL-API für ...",
-      "Erstelle eine API-Dokumentation für ...",
-      "Definiere API-Endpoints für ...",
-      "Erstelle einen API-Client für ...",
-      "Implementiere Authentifizierung für ...",
-      "Erstelle eine Rate-Limiting-Strategie für ...",
-      "Erstelle einen Webhook für ...",
-      "Simuliere API-Antworten für ...",
-      "Erstelle eine OpenAPI-Spezifikation für ..."
+      "Erstelle eine REST-API für **eine Rezept-Plattform mit Suche, Bewertungen und Favoritenliste**.",
+      "Entwirf eine GraphQL-API für **das Abfragen von Rezepten inklusive Zutaten, Nährwerten und Bewertungen in einer Anfrage**.",
+      "Erstelle eine API-Dokumentation für **die öffentlichen Rezept- und Bewertungs-Endpoints**.",
+      "Definiere API-Endpoints für **das Anlegen, Bearbeiten und Löschen eigener Rezepte**.",
+      "Erstelle einen API-Client für **den Zugriff auf die Rezept-API aus einer mobilen App**.",
+      "Implementiere Authentifizierung für **die Rezept-API mit JWT und Refresh-Tokens**.",
+      "Erstelle eine Rate-Limiting-Strategie für **die öffentliche Such-API, um Scraping zu verhindern**.",
+      "Erstelle einen Webhook für **Benachrichtigungen, wenn ein Rezept eine neue Bewertung erhält**.",
+      "Simuliere API-Antworten für **die Rezept-Suche während der Frontend-Entwicklung, bevor das Backend fertig ist**.",
+      "Erstelle eine OpenAPI-Spezifikation für **alle Endpoints der Rezept-Plattform**."
     ]
   },
   {
     key: "frontend", title: "Frontend & UI", icon: "fa-solid fa-palette",
+    context: "Beispielprojekt: Fitness-Tracking-App",
     prompts: [
-      "Erstelle eine React-Komponente für ...",
-      "Entwirf ein CSS-Layout für ...",
-      "Erstelle eine Animation für ...",
-      "Erstelle eine responsive Navigation für ...",
-      "Entwirf ein Dashboard für ...",
-      "Erstelle ein Formular für ...",
-      "Entwirf eine Landingpage für ...",
-      "Erstelle ein Dark-Mode-Design für ...",
-      "Erstelle eine mobile Version für ...",
-      "Entwirf eine interaktive Komponente für ..."
+      "Erstelle eine React-Komponente für **eine Fortschrittsanzeige des täglichen Schritteziels**.",
+      "Entwirf ein CSS-Layout für **den Trainingsplan-Kalender mit Wochen- und Monatsansicht**.",
+      "Erstelle eine Animation für **das Erreichen eines neuen persönlichen Rekords beim Training**.",
+      "Erstelle eine responsive Navigation für **die Fitness-App mit Tab-Bar auf Mobile und Sidebar auf Desktop**.",
+      "Entwirf ein Dashboard für **die wöchentliche Trainingsübersicht mit Kalorien, Distanz und Herzfrequenz**.",
+      "Erstelle ein Formular für **das Anlegen eines neuen Trainingsplans mit Übungen, Sätzen und Wiederholungen**.",
+      "Entwirf eine Landingpage für **den Launch der Fitness-App mit Fokus auf die Community-Funktion**.",
+      "Erstelle ein Dark-Mode-Design für **die Trainingsansicht, die häufig frühmorgens genutzt wird**.",
+      "Erstelle eine mobile Version für **die Desktop-Statistikseite mit Trainingsverlauf**.",
+      "Entwirf eine interaktive Komponente für **das Ziehen und Neuanordnen von Übungen im Trainingsplan**."
     ]
   },
   {
     key: "backend", title: "Backend & Datenbanken", icon: "fa-solid fa-database",
+    context: "Beispielprojekt: Ferienwohnungs-Buchungssystem",
     prompts: [
-      "Erstelle ein Datenbank-Modell für ...",
-      "Implementiere eine Datenbank-Query für ...",
-      "Erstelle eine Datenbank-Migration für ...",
-      "Entwirf eine Datenbank-Indexierung für ...",
-      "Erstelle eine Caching-Strategie für ...",
-      "Implementiere eine Datenbank-Transaktion für ...",
-      "Erstelle einen Datenbank-Seeder für ...",
-      "Entwirf eine Datenbank-Backup-Strategie für ...",
-      "Erstelle eine Datenbank-Optimierung für ...",
-      "Implementiere eine Datenbank-Replikation für ..."
+      "Erstelle ein Datenbank-Modell für **Unterkünfte, Verfügbarkeiten, Buchungen und Gastprofile**.",
+      "Implementiere eine Datenbank-Query für **die Suche nach verfügbaren Unterkünften in einem Zeitraum und einer Region**.",
+      "Erstelle eine Datenbank-Migration für **das Hinzufügen einer Stornierungsfrist zu bestehenden Buchungen**.",
+      "Entwirf eine Datenbank-Indexierung für **schnelle Verfügbarkeitsabfragen bei über 100.000 Unterkünften**.",
+      "Erstelle eine Caching-Strategie für **häufig abgerufene Unterkunftsdetails und Bildergalerien**.",
+      "Implementiere eine Datenbank-Transaktion für **das gleichzeitige Anlegen einer Buchung und das Blockieren des Zeitraums**.",
+      "Erstelle einen Datenbank-Seeder für **100 Beispiel-Unterkünfte mit Buchungen für die lokale Entwicklung**.",
+      "Entwirf eine Datenbank-Backup-Strategie für **die Buchungs- und Zahlungsdaten mit täglichen Snapshots**.",
+      "Erstelle eine Datenbank-Optimierung für **die langsame Abfrage der Buchungshistorie eines Gastes**.",
+      "Implementiere eine Datenbank-Replikation für **die Lesezugriffe der Suchfunktion, getrennt vom Schreibbetrieb der Buchungen**."
     ]
   },
   {
     key: "devops", title: "DevOps & Deployment", icon: "fa-solid fa-server",
+    context: "Beispielprojekt: Node.js-Microservices-Anwendung",
     prompts: [
-      "Erstelle ein Dockerfile für ...",
-      "Entwirf eine Kubernetes-Konfiguration für ...",
-      "Erstelle ein Deployment-Script für ...",
-      "Definiere eine CI/CD-Pipeline für ...",
-      "Erstelle eine Monitoring-Konfiguration für ...",
-      "Entwirf eine Logging-Strategie für ...",
-      "Erstelle ein Backup-Script für ...",
-      "Definiere eine Disaster-Recovery-Strategie für ...",
-      "Erstelle ein Skript für den Server-Setup ...",
-      "Entwirf eine Load-Balancing-Strategie für ..."
+      "Erstelle ein Dockerfile für **einen Node.js-Microservice mit mehrstufigem Build für kleinere Images**.",
+      "Entwirf eine Kubernetes-Konfiguration für **drei Microservices mit eigenen Deployments, Services und Health-Checks**.",
+      "Erstelle ein Deployment-Script für **das Rolling-Update der Microservices ohne Downtime**.",
+      "Definiere eine CI/CD-Pipeline für **automatische Tests, Docker-Build und Deployment bei jedem Merge in main**.",
+      "Erstelle eine Monitoring-Konfiguration für **CPU-, Speicher- und Latenz-Metriken aller Microservices mit Prometheus**.",
+      "Entwirf eine Logging-Strategie für **zentrales, durchsuchbares Logging über alle Microservices hinweg**.",
+      "Erstelle ein Backup-Script für **die Konfigurationsdaten und Secrets des Kubernetes-Clusters**.",
+      "Definiere eine Disaster-Recovery-Strategie für **den Ausfall einer kompletten Availability-Zone**.",
+      "Erstelle ein Skript für den Server-Setup **eines neuen Staging-Servers mit Docker, Nginx und SSL-Zertifikaten**.",
+      "Entwirf eine Load-Balancing-Strategie für **den Traffic zwischen mehreren Instanzen des Bestell-Services**."
     ]
   },
   {
     key: "security", title: "Security & Performance", icon: "fa-solid fa-shield-halved",
+    context: "Beispielprojekt: Banking-App",
     prompts: [
-      "Erstelle ein Security-Audit für ...",
-      "Implementiere eine Authentifizierung für ...",
-      "Erstelle ein Permissions-System für ...",
-      "Definiere eine Verschlüsselungs-Strategie für ...",
-      "Erstelle einen Performance-Testing-Report für ...",
-      "Optimiere die Ladezeit für ...",
-      "Erstelle einen Security-Report für ...",
-      "Implementiere eine Input-Validierung für ...",
-      "Erstelle ein Audit-Log für ...",
-      "Definiere eine Threat-Modellierung für ..."
+      "Erstelle ein Security-Audit für **die Login- und Überweisungsfunktion der Banking-App**.",
+      "Implementiere eine Authentifizierung für **die Banking-App mit Zwei-Faktor-Authentifizierung per App und SMS**.",
+      "Erstelle ein Permissions-System für **unterschiedliche Rollen wie Kontoinhaber, Prokurist und Kundenservice**.",
+      "Definiere eine Verschlüsselungs-Strategie für **gespeicherte Kontodaten und Transaktionshistorien**.",
+      "Erstelle einen Performance-Testing-Report für **die Kontoübersicht bei 10.000 gleichzeitigen Nutzern**.",
+      "Optimiere die Ladezeit für **die Transaktionshistorie mit mehreren tausend Einträgen pro Konto**.",
+      "Erstelle einen Security-Report für **verdächtige Login-Versuche und ungewöhnliche Überweisungsmuster**.",
+      "Implementiere eine Input-Validierung für **das Überweisungsformular (IBAN, Betrag, Verwendungszweck)**.",
+      "Erstelle ein Audit-Log für **alle Kontoänderungen und Überweisungen zur Nachvollziehbarkeit**.",
+      "Definiere eine Threat-Modellierung für **die mobile Banking-App inklusive Geräteverlust und Phishing**."
     ]
   },
   {
     key: "design", title: "Design & UX", icon: "fa-solid fa-pen-ruler",
+    context: "Beispielprojekt: Meditations-App",
     prompts: [
-      "Erstelle ein Design-System für ...",
-      "Entwirf eine User Journey für ...",
-      "Erstelle eine Persona für ...",
-      "Definiere einen Styleguide für ...",
-      "Erstelle eine Accessibility-Checkliste für ...",
-      "Entwirf ein User-Flow-Diagramm für ...",
-      "Erstelle ein Moodboard für ...",
-      "Definiere einen Design-Sprint für ...",
-      "Erstelle einen Prototyp für ...",
-      "Entwirf eine User-Testing-Strategie für ..."
+      "Erstelle ein Design-System für **eine Meditations-App mit ruhigen Farben, Typografie und wiederverwendbaren Komponenten**.",
+      "Entwirf eine User Journey für **einen neuen Nutzer von der Installation bis zur ersten abgeschlossenen Meditation**.",
+      "Erstelle eine Persona für **eine gestresste Berufstätige, die abends zur Ruhe kommen möchte**.",
+      "Definiere einen Styleguide für **Ton und Sprache der App-Texte (beruhigend, ermutigend, nie belehrend)**.",
+      "Erstelle eine Accessibility-Checkliste für **die audio-geführten Meditationen inklusive Untertiteln und Screenreader-Support**.",
+      "Entwirf ein User-Flow-Diagramm für **das Erstellen einer personalisierten Meditationsroutine**.",
+      "Erstelle ein Moodboard für **die visuelle Sprache der App: warm, minimalistisch, naturverbunden**.",
+      "Definiere einen Design-Sprint für **die Entwicklung einer neuen Schlaf-Geschichten-Funktion in fünf Tagen**.",
+      "Erstelle einen Prototyp für **den Onboarding-Flow mit Auswahl der Meditationsziele**.",
+      "Entwirf eine User-Testing-Strategie für **die neue Atemübungs-Funktion vor dem Rollout**."
     ]
   },
   {
     key: "business", title: "Business & Produktentwicklung", icon: "fa-solid fa-briefcase",
+    context: "Beispielprojekt: B2B-SaaS-Tool für Projektmanagement",
     prompts: [
-      "Erstelle einen Business-Plan für ...",
-      "Definiere eine Marketing-Strategie für ...",
-      "Erstelle eine Roadmap für ...",
-      "Definiere eine Pricing-Strategie für ...",
-      "Erstelle eine SWOT-Analyse für ...",
-      "Entwirf eine Go-to-Market-Strategie für ...",
-      "Erstelle einen Kunden-Entwicklungsplan für ...",
-      "Definiere eine Vertriebsstrategie für ...",
-      "Erstelle ein Pitch-Deck für ...",
-      "Definiere eine Produkt-Roadmap für ..."
+      "Erstelle einen Business-Plan für **ein B2B-SaaS-Tool für Projektmanagement in kleinen Agenturen**.",
+      "Definiere eine Marketing-Strategie für **die Positionierung gegenüber etablierten Tools wie Asana und Trello**.",
+      "Erstelle eine Roadmap für **die ersten zwölf Monate nach dem Launch mit Kernfunktionen und Erweiterungen**.",
+      "Definiere eine Pricing-Strategie für **drei Abo-Stufen je nach Teamgröße und Funktionsumfang**.",
+      "Erstelle eine SWOT-Analyse für **den Markteintritt in einem von wenigen großen Anbietern dominierten Markt**.",
+      "Entwirf eine Go-to-Market-Strategie für **den Launch bei kleinen Design- und Marketingagenturen**.",
+      "Erstelle einen Kunden-Entwicklungsplan für **die Validierung des Funktionsumfangs mit zehn Pilotkunden**.",
+      "Definiere eine Vertriebsstrategie für **den Self-Service-Verkauf ohne eigenes Sales-Team**.",
+      "Erstelle ein Pitch-Deck für **eine Seed-Finanzierungsrunde von 500.000 Euro**.",
+      "Definiere eine Produkt-Roadmap für **die Einführung von Zeiterfassung und Rechnungsstellung als Erweiterung**."
     ]
   },
   {
     key: "bonus", title: "Bonus: Fortgeschrittene Prompts", icon: "fa-solid fa-rocket", bonus: true,
+    context: "Beispiele: verschiedene Enterprise-Szenarien",
     prompts: [
-      "Analysiere diesen Code für Optimierung: [Code]",
-      "Entwirf eine Microservices-Architektur mit ...",
-      "Erstelle eine vollständige CI/CD-Pipeline mit ...",
-      "Implementiere ein Event-Sourcing-System für ...",
-      "Erstelle ein CQRS-Muster für ...",
-      "Entwirf eine Big-Data-Architektur für ...",
-      "Erstelle eine Blockchain-Lösung für ...",
-      "Implementiere eine KI-Integration für ...",
-      "Entwirf eine IoT-Lösung für ...",
-      "Erstelle eine Serverless-Architektur für ..."
+      "Analysiere diesen Code für Optimierung: `for(let i=0;i<orders.length;i++){for(let j=0;j<orders.length;j++){if(orders[i].id===orders[j].customerId){/* ... */}}}`",
+      "Entwirf eine Microservices-Architektur mit **ereignisgesteuerter Kommunikation über Kafka für ein Logistik-Tracking-System**.",
+      "Erstelle eine vollständige CI/CD-Pipeline mit **Canary-Deployments und automatischem Rollback für eine Zahlungsplattform**.",
+      "Implementiere ein Event-Sourcing-System für **die Bestandsführung eines Lagerverwaltungssystems**.",
+      "Erstelle ein CQRS-Muster für **die Trennung von Lese- und Schreiboperationen in einem Bestellsystem mit hohem Leseaufkommen**.",
+      "Entwirf eine Big-Data-Architektur für **die Auswertung von Sensordaten aus 10.000 IoT-Geräten in Echtzeit**.",
+      "Erstelle eine Blockchain-Lösung für **die fälschungssichere Nachverfolgung von Bio-Lebensmitteln in der Lieferkette**.",
+      "Implementiere eine KI-Integration für **automatische Produktempfehlungen basierend auf dem Kaufverhalten im Online-Shop**.",
+      "Entwirf eine IoT-Lösung für **die Fernüberwachung von Kühlschränken in Supermarktfilialen**.",
+      "Erstelle eine Serverless-Architektur für **die Bildverarbeitung hochgeladener Produktfotos mit AWS Lambda**."
     ]
   }
 ];
@@ -466,10 +504,25 @@ function escapeHtml(str){
   return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-function renderPromptText(text){
-  return escapeHtml(text)
-    .replace(/\.\.\./g, '<span class="ph">…</span>')
-    .replace(/\[Code\]/g, '<span class="ph">[Code]</span>');
+function parseMarkup(raw){
+  const parts = raw.split(/(\*\*.+?\*\*|`[^`]+`)/g);
+  let html = '', plain = '';
+  parts.forEach(part => {
+    if(!part) return;
+    if(part.startsWith('**') && part.endsWith('**')){
+      const inner = part.slice(2, -2);
+      html += `<span class="ex">${escapeHtml(inner)}</span>`;
+      plain += inner;
+    } else if(part.startsWith('`') && part.endsWith('`')){
+      const inner = part.slice(1, -1);
+      html += `<code>${escapeHtml(inner)}</code>`;
+      plain += inner;
+    } else {
+      html += escapeHtml(part);
+      plain += part;
+    }
+  });
+  return { html, plain };
 }
 
 DATA.forEach((cat, idx) => {
@@ -482,18 +535,24 @@ DATA.forEach((cat, idx) => {
   section.className = 'category' + (cat.bonus ? ' bonus' : '');
   section.id = cat.key;
 
-  const cardsHtml = cat.prompts.map((p, i) => `
-    <div class="card" data-text="${escapeHtml(p.toLowerCase())}">
+  const cardsHtml = cat.prompts.map((p, i) => {
+    const { html, plain } = parseMarkup(p);
+    return `
+    <div class="card" data-text="${escapeHtml(plain.toLowerCase())}">
       <span class="tag">${cat.bonus ? 'Bonus' : 'Kategorie ' + (idx+1)} · #${i+1}</span>
-      <p class="prompt-text">${renderPromptText(p)}</p>
-      <button class="copy-btn" data-prompt="${escapeHtml(p)}"><i class="fa-regular fa-copy"></i><span>Kopieren</span></button>
+      <p class="prompt-text">${html}</p>
+      <button class="copy-btn" data-prompt="${escapeHtml(plain)}"><i class="fa-regular fa-copy"></i><span>Kopieren</span></button>
     </div>
-  `).join('');
+  `;
+  }).join('');
 
   section.innerHTML = `
     <div class="cat-header">
       <div class="cat-icon"><i class="${cat.icon}"></i></div>
-      <h2>${cat.title}</h2>
+      <div>
+        <h2>${cat.title}</h2>
+        ${cat.context ? `<div class="cat-context">${escapeHtml(cat.context)}</div>` : ''}
+      </div>
       <span class="cat-num">${cat.bonus ? '10 Prompts' : `Kategorie ${idx+1} · 10 Prompts`}</span>
     </div>
     <div class="grid">${cardsHtml}</div>
