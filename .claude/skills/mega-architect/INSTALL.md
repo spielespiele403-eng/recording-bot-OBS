@@ -49,6 +49,45 @@ Prompt erkannt. Falls der Skill nicht in der Skill-Liste auftaucht:
 3. Prüfe mit dem `ListSkills`-Werkzeug (falls verfügbar), ob `mega-architect` gelistet
    wird.
 
+## Globale Installation (personenbezogen, projektübergreifend)
+
+Zusätzlich zur projektgebundenen Installation (`.claude/skills/mega-architect/` im
+Repo) kannst du den Skill **global** installieren, damit er in *jedem* Projekt zur
+Verfügung steht, nicht nur in diesem Repo:
+
+```bash
+mkdir -p ~/.claude/skills
+cp -r .claude/skills/mega-architect ~/.claude/skills/mega-architect
+```
+
+Für den zugehörigen Slash-Command global installieren:
+
+```bash
+mkdir -p ~/.claude/commands
+cp .claude/commands/mega-architect.md ~/.claude/commands/mega-architect.md
+```
+
+Danach ist `/mega-architect <anfrage>` in jeder neuen Session unter deinem
+Benutzerkonto verfügbar, unabhängig vom aktuellen Projekt.
+
+**Wichtiger Unterschied lokal vs. Remote-Umgebung (Claude Code on the web / Cowork):**
+
+- Läuft Claude Code **lokal auf deinem eigenen Rechner**, ist `~/.claude/` dein echtes,
+  dauerhaftes Home-Verzeichnis – eine globale Installation dort bleibt über alle
+  Projekte und Sessions hinweg erhalten.
+- Läuft die Session dagegen in einer **isolierten Remote-Umgebung** (Cloud-Container),
+  ist `~/.claude/` das Home-Verzeichnis *dieses Containers* – es lebt nur für die
+  Dauer dieser Umgebung/Session. Wird der Container neu erstellt (z.B. neue Umgebung,
+  langer Leerlauf), geht eine dort global installierte Kopie verloren.
+- **Verlässliche Quelle bleibt immer die Repo-Version** unter
+  `.claude/skills/mega-architect/` und `.claude/commands/mega-architect.md` – die ist
+  committed, gepusht und wird bei jedem `git clone`/jeder neuen Session dieses Repos
+  automatisch wieder verfügbar. Die globale Installation ist eine Bequemlichkeits-
+  Kopie zusätzlich dazu, kein Ersatz.
+- Wer den Skill wirklich dauerhaft global auf dem eigenen Rechner nutzen will: die
+  beiden `cp`-Befehle oben einmalig auf der eigenen Maschine ausführen (nicht nur
+  innerhalb einer Remote-Session).
+
 ## Schritt 4: Zustandsordner (optional, wird automatisch angelegt)
 
 Der Skill schreibt seine Reports standardmäßig nach `.claude/mega-architect/state/`.
