@@ -1,0 +1,532 @@
+<title>Claude Code Skills – Sammlung & Geld verdienen</title>
+<meta name="description" content="Vollständige Sammlung der besten Claude Code Skills und Strategien, um damit Geld zu verdienen.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<style>
+  :root {
+    --bg-0: #0D1117;
+    --bg-1: #161B22;
+    --bg-2: #1C2128;
+    --border: #30363D;
+    --accent: #F0B429;
+    --accent-2: #58A6FF;
+    --text-1: #E6EDF3;
+    --text-2: #8B949E;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    background: var(--bg-0);
+    color: var(--text-1);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+  }
+  .card {
+    background: var(--bg-1);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .card:hover { border-color: #484f58; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .badge-official { background: rgba(88,166,255,.12); color: var(--accent-2); border: 1px solid rgba(88,166,255,.35); }
+  .badge-bestseller { background: rgba(240,180,41,.12); color: var(--accent); border: 1px solid rgba(240,180,41,.35); }
+  .badge-revenue { background: rgba(63,185,80,.12); color: #3fb950; border: 1px solid rgba(63,185,80,.35); }
+  .badge-free { background: rgba(139,148,158,.12); color: var(--text-2); border: 1px solid rgba(139,148,158,.35); }
+
+  .code-box {
+    background: #010409;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.82rem;
+    position: relative;
+  }
+  .copy-btn {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    border-radius: 6px;
+    transition: all .15s ease;
+  }
+  .copy-btn:hover { color: var(--text-1); border-color: #6e7681; }
+  .copy-btn.copied { color: #3fb950; border-color: #3fb950; }
+
+  .nav-link { color: var(--text-2); transition: color .15s ease; }
+  .nav-link:hover, .nav-link.active { color: var(--text-1); }
+
+  table.ref { border-collapse: collapse; width: 100%; }
+  table.ref th, table.ref td {
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 0.9rem;
+  }
+  table.ref th { background: var(--bg-2); color: var(--text-1); }
+  table.ref td { color: var(--text-2); }
+  table.ref tr:hover td { background: rgba(255,255,255,.02); color: var(--text-1); }
+
+  ::-webkit-scrollbar { height: 8px; width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg-0); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .glow {
+    background: radial-gradient(600px circle at 20% 0%, rgba(88,166,255,.08), transparent 40%),
+                radial-gradient(600px circle at 80% 10%, rgba(240,180,41,.06), transparent 40%);
+  }
+
+  .step-num {
+    width: 28px; height: 28px; min-width: 28px;
+    border-radius: 999px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700; color: var(--accent);
+  }
+
+  a.src-link { color: var(--accent-2); text-decoration: none; border-bottom: 1px dotted rgba(88,166,255,.4); }
+  a.src-link:hover { border-bottom-style: solid; }
+</style>
+
+<body class="min-h-screen glow">
+
+  <!-- Header / Nav -->
+  <header class="sticky top-0 z-40 backdrop-blur border-b" style="background: rgba(13,17,23,.85); border-color: var(--border);">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-2 font-semibold">
+        <i class="fa-solid fa-terminal" style="color: var(--accent);"></i>
+        <span>Claude Code Skills</span>
+        <span class="hidden sm:inline text-sm" style="color: var(--text-2);">· Geld verdienen</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-5 text-sm">
+        <a href="#was-sind-skills" class="nav-link">Skills</a>
+        <a href="#beste-skills" class="nav-link">Sammlung</a>
+        <a href="#geld-verdienen" class="nav-link">Geld verdienen</a>
+        <a href="#quick-reference" class="nav-link">Quick-Ref</a>
+        <a href="#ressourcen" class="nav-link">Ressourcen</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-5 pt-16 pb-10 text-center">
+    <div class="inline-flex items-center gap-2 badge badge-official mb-5">
+      <i class="fa-solid fa-star"></i> Kuratierter Guide 2026
+    </div>
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+      Claude Code Skills<br>
+      <span style="color: var(--accent);">— die vollständige Sammlung</span>
+    </h1>
+    <p class="max-w-2xl mx-auto text-lg" style="color: var(--text-2);">
+      Offizielle Skills, Top-Community-Pakete und fünf konkrete Wege, mit Claude Code Skills
+      Geld zu verdienen — von eigenen Skill-Verkäufen bis zum vollautomatischen 24/7-Business.
+    </p>
+  </section>
+
+  <main class="max-w-6xl mx-auto px-5 pb-24 space-y-20">
+
+    <!-- Teil 1 -->
+    <section id="was-sind-skills">
+      <h2 class="text-2xl font-bold mb-5 flex items-center gap-3">
+        <span class="step-num">1</span> Was sind Claude Code Skills?
+      </h2>
+      <div class="card p-6 space-y-4 leading-relaxed" style="color: var(--text-2);">
+        <p>
+          <strong style="color: var(--text-1);">Skills</strong> sind wiederverwendbare Prompt- und Tool-Pakete,
+          die Claude bei Bedarf neue Fähigkeiten geben — ohne dass Claude selbst neu trainiert werden muss.
+          Statt jedes Mal eine lange Anleitung in den Chat zu schreiben, packt man Wissen, Anweisungen und
+          optionale Hilfsskripte in ein Paket, das Claude eigenständig lädt, sobald es zur Aufgabe passt.
+        </p>
+        <p>
+          Technisch besteht ein Skill im Kern aus einer <code class="px-1 rounded" style="background: var(--bg-2); color: var(--accent-2);">SKILL.md</code>-Datei
+          mit einem YAML-Frontmatter (Name, Beschreibung, Trigger-Bedingungen), gefolgt vom eigentlichen
+          Anweisungstext. Claude scannt die verfügbaren Skill-Beschreibungen, erkennt Relevanz für die
+          aktuelle Aufgabe und lädt nur den passenden Skill vollständig nach — das spart Kontext und Tokens.
+        </p>
+        <p>
+          <strong style="color: var(--text-1);">Skills vs. Agenten vs. Personas:</strong>
+          Ein Skill beschreibt <em>wie</em> eine Aufgabe ausgeführt wird (Methodik, Best Practices, Werkzeuge),
+          während ein Agent definiert, <em>welche</em> Aufgabe überhaupt zu erledigen ist (Rolle, Ziel, Autonomiegrad).
+          Personas wiederum bestimmen den Kommunikationsstil. In der Praxis kombiniert man oft alle drei:
+          ein Agent mit klarem Auftrag, ausgestattet mit den passenden Skills, in einem gewünschten Ton.
+        </p>
+      </div>
+    </section>
+
+    <!-- Teil 2 -->
+    <section id="beste-skills">
+      <h2 class="text-2xl font-bold mb-2 flex items-center gap-3">
+        <span class="step-num">2</span> Die besten Skills (kuratiert)
+      </h2>
+      <p class="mb-8" style="color: var(--text-2);">Offizielle Anthropic-Skills und die stärksten Community-Pakete im Überblick.</p>
+
+      <!-- Offizielle Skills -->
+      <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-shield-halved" style="color: var(--accent-2);"></i> Offizielle Anthropic-Skills
+      </h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2">
+            <h4 class="font-semibold">Creative &amp; Design</h4>
+            <span class="badge badge-official"><i class="fa-solid fa-star"></i> Offiziell</span>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">Algorithmic Art, Canvas Design, Slack GIF Creator — generative Kunst, Layout-Design und animierte GIFs direkt aus Claude Code.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add anthropics/creative-skills</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add anthropics/creative-skills"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2">
+            <h4 class="font-semibold">Development &amp; Technical</h4>
+            <span class="badge badge-official"><i class="fa-solid fa-star"></i> Offiziell</span>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">Artifacts Builder, MCP Builder, Webapp Testing — Skills für den kompletten Dev-Workflow von UI-Prototypen bis MCP-Server-Architektur.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add anthropics/dev-skills</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add anthropics/dev-skills"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2">
+            <h4 class="font-semibold">Enterprise &amp; Communication</h4>
+            <span class="badge badge-official"><i class="fa-solid fa-star"></i> Offiziell</span>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">Brand Guidelines, Internal Comms — konsistente Markensprache und interne Kommunikation im Unternehmensstil.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add anthropics/enterprise-skills</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add anthropics/enterprise-skills"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2">
+            <h4 class="font-semibold">Document Skills</h4>
+            <span class="badge badge-official"><i class="fa-solid fa-star"></i> Offiziell</span>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">DOCX, PDF, PPTX, XLSX Manipulation — Dokumente lesen, erstellen und bearbeiten, inklusive Vorlagen und Formularen.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add anthropics/document-skills</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add anthropics/document-skills"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2">
+            <h4 class="font-semibold">Meta Skills</h4>
+            <span class="badge badge-official"><i class="fa-solid fa-star"></i> Offiziell</span>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">Skill Creator, Template Skill — Skills, die dir helfen, eigene Skills zu bauen, zu testen und zu optimieren.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add anthropics/skill-creator</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add anthropics/skill-creator"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2">
+            <h4 class="font-semibold">Notion Skills</h4>
+            <span class="badge badge-official"><i class="fa-solid fa-star"></i> Offiziell</span>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">Meeting Intelligence, Research &amp; Documentation — Notion-Workspaces automatisch pflegen und mit Meeting-Insights füllen.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add anthropics/notion-skills</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add anthropics/notion-skills"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Community Skills -->
+      <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-users" style="color: var(--accent);"></i> Community-Skills (Top-Performer)
+      </h3>
+      <div class="grid sm:grid-cols-2 gap-4">
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2 gap-2">
+            <h4 class="font-semibold">1. Show Me The Money</h4>
+            <div class="flex flex-wrap gap-1 justify-end">
+              <span class="badge badge-bestseller"><i class="fa-solid fa-fire"></i> Bestseller</span>
+              <span class="badge badge-revenue"><i class="fa-solid fa-sack-dollar"></i> $1M+</span>
+            </div>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">25 Agent-Skills, die ein 24/7 automatisiertes Business von der Idee bis zum ersten Umsatz aufbauen und betreiben — Opportunity Discovery, Produktentwicklung, Marketing, Ads.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add show-me-the-money/skills</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add show-me-the-money/skills"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2 gap-2">
+            <h4 class="font-semibold">2. Ryan Doser's Skills Stack V2</h4>
+            <div class="flex flex-wrap gap-1 justify-end">
+              <span class="badge badge-bestseller"><i class="fa-solid fa-fire"></i> Bestseller</span>
+              <span class="badge badge-revenue"><i class="fa-solid fa-sack-dollar"></i> $10k+</span>
+            </div>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">40+ Skills in 8 Kategorien (SEO, Content, YouTube, Design, Research). Über $10.000 Umsatz erzielt, Einmalkauf für $99.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add ryandoser/skills-stack-v2</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add ryandoser/skills-stack-v2"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2 gap-2">
+            <h4 class="font-semibold">3. Claude Skills Library (frankxai)</h4>
+            <span class="badge badge-free"><i class="fa-solid fa-heart"></i> Kostenlos · MIT</span>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">107 professionelle Skills unter MIT-Lizenz, komplett kostenlos nutz- und anpassbar.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add frankxai/claude-skills-library</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add frankxai/claude-skills-library"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2 gap-2">
+            <h4 class="font-semibold">4. Claude Skills &amp; Plugins (alirezarezvani)</h4>
+            <span class="badge badge-free"><i class="fa-solid fa-heart"></i> Kostenlos</span>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">355 Skills, 30+ Agenten, 70+ Commands, 602 Python-Tools — die größte frei verfügbare Sammlung.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add alirezarezvani/claude-skills</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add alirezarezvani/claude-skills"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2 gap-2">
+            <h4 class="font-semibold">5. awesomeAgentskills</h4>
+            <span class="badge badge-free"><i class="fa-solid fa-heart"></i> Kostenlos</span>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">Kuratierte Übersicht aus offiziellen und Community-Skills — guter Startpunkt zum Stöbern.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add awesome-agent-skills/list</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add awesome-agent-skills/list"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2 gap-2">
+            <h4 class="font-semibold">6. Security Scanner</h4>
+            <span class="badge badge-free"><i class="fa-solid fa-shield-halved"></i> Sicherheit</span>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">OWASP-Top-10-Sicherheitsprüfung mit klarer 3-Phasen-Methodik: Scan, Analyse, Report.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add security-scanner/owasp-top10</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add security-scanner/owasp-top10"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2 gap-2">
+            <h4 class="font-semibold">7. Dashboard Builder</h4>
+            <span class="badge badge-free"><i class="fa-solid fa-chart-line"></i> Tooling</span>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">Generiert production-ready Dashboards für Grafana und SigNoz direkt aus Metrik-Beschreibungen.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add dashboard-builder/grafana-signoz</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add dashboard-builder/grafana-signoz"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex items-start justify-between mb-2 gap-2">
+            <h4 class="font-semibold">8. Token Optimization Skill</h4>
+            <div class="flex flex-wrap gap-1 justify-end">
+              <span class="badge badge-bestseller"><i class="fa-solid fa-fire"></i> Bestseller-Kandidat</span>
+              <span class="badge badge-revenue"><i class="fa-solid fa-tag"></i> $29</span>
+            </div>
+          </div>
+          <p class="text-sm mb-3" style="color: var(--text-2);">Spart Token-Kosten durch intelligentes Routing zwischen Modellen und Kontext-Kompression.</p>
+          <div class="code-box p-3 flex items-center justify-between">
+            <code style="color: var(--text-1);">npx skills add token-optimization/smart-routing</code>
+            <button class="copy-btn px-2 py-1 text-xs ml-2" data-copy="npx skills add token-optimization/smart-routing"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Teil 3 -->
+    <section id="geld-verdienen">
+      <h2 class="text-2xl font-bold mb-2 flex items-center gap-3">
+        <span class="step-num">3</span> Wie man mit Skills Geld verdient
+      </h2>
+      <p class="mb-8" style="color: var(--text-2);">Fünf konkrete Wege — vom ersten Skill-Verkauf bis zur eigenen Marketplace-Plattform.</p>
+
+      <div class="space-y-5">
+
+        <!-- Weg 1 -->
+        <div class="card p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="step-num" style="color: var(--accent-2);">1</div>
+            <h3 class="text-lg font-semibold">Eigene Skills verkaufen</h3>
+          </div>
+          <ul class="list-disc list-inside space-y-1.5 text-sm" style="color: var(--text-2);">
+            <li>Ein Skill ist im Kern nur eine <code class="px-1 rounded" style="background: var(--bg-2); color: var(--accent-2);">.md</code>-Datei mit strukturierten Anweisungen — kein SDK, kein Build-Step, keine Infrastruktur nötig.</li>
+            <li>Ryan Doser verdiente über <strong style="color: var(--text-1);">$3.000</strong> in 30–45 Tagen mit seinem Skills Stack.</li>
+            <li>Übliche Preise: <strong style="color: var(--text-1);">$10–$99</strong> pro Skill, meist als einmaliger Kauf.</li>
+            <li>Vertriebswege: Gumroad, eigene Landingpage oder ein Skills-Marketplace.</li>
+            <li>Themen sind fast beliebig: Marketing, SEO, YouTube, Gartenarbeit, Trading Cards — jede Nische mit wiederholbarem Workflow eignet sich.</li>
+          </ul>
+        </div>
+
+        <!-- Weg 2 -->
+        <div class="card p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="step-num" style="color: var(--accent-2);">2</div>
+            <h3 class="text-lg font-semibold">Show Me The Money – 24/7 Business-OS</h3>
+          </div>
+          <ul class="list-disc list-inside space-y-1.5 text-sm" style="color: var(--text-2);">
+            <li>Open-Source-Skill-Suite, die ein Business weitgehend autonom betreibt.</li>
+            <li>25 Skills decken Opportunity Discovery, Produktentwicklung, Marketing und Ads-Management ab.</li>
+            <li>Ein Founder betreibt damit 6 SaaS-Produkte parallel — Ergebnis: <strong style="color: var(--text-1);">$1M+ Lifetime-Revenue</strong>, über <strong style="color: var(--text-1);">10.000 Kunden</strong>.</li>
+          </ul>
+        </div>
+
+        <!-- Weg 3 -->
+        <div class="card p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="step-num" style="color: var(--accent-2);">3</div>
+            <h3 class="text-lg font-semibold">Passive Einnahmen während der Arbeit</h3>
+          </div>
+          <ul class="list-disc list-inside space-y-1.5 text-sm" style="color: var(--text-2);">
+            <li><strong style="color: var(--text-1);">ClaudeCash</strong> — zeigt gesponserte Karten während der kurzen Wartezeit an; Werbeeinnahmen werden geteilt.</li>
+            <li><strong style="color: var(--text-1);">Dawdlo</strong> — native Statuszeilen-Werbung, funktioniert mit Claude Code, Codex und Cursor.</li>
+          </ul>
+        </div>
+
+        <!-- Weg 4 -->
+        <div class="card p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="step-num" style="color: var(--accent-2);">4</div>
+            <h3 class="text-lg font-semibold">Freelancing &amp; Agentur-Modelle</h3>
+          </div>
+          <ul class="list-disc list-inside space-y-1.5 text-sm" style="color: var(--text-2);">
+            <li>Contractors verdienen bis zu <strong style="color: var(--text-1);">$280/Stunde</strong> bei Anthropic-nahen Projekten.</li>
+            <li>Eigene Skills lassen sich zusätzlich als Service anbieten — z. B. White-Label-Anpassungen für Kundenprojekte.</li>
+          </ul>
+        </div>
+
+        <!-- Weg 5 -->
+        <div class="card p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="step-num" style="color: var(--accent-2);">5</div>
+            <h3 class="text-lg font-semibold">Eigene Skills-Plattform aufbauen</h3>
+          </div>
+          <ul class="list-disc list-inside space-y-1.5 text-sm" style="color: var(--text-2);">
+            <li>Eigenen Plugin-Marketplace erstellen und betreiben, statt nur einzelne Skills zu verkaufen.</li>
+            <li><strong style="color: var(--text-1);">AgentStore</strong> — Open-Source-Marketplace, bei dem 80 % der Verkäufe in USDC ausgezahlt werden.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Teil 4 -->
+    <section id="quick-reference">
+      <h2 class="text-2xl font-bold mb-5 flex items-center gap-3">
+        <span class="step-num">4</span> Quick-Reference
+      </h2>
+      <div class="card p-2 sm:p-4 overflow-x-auto">
+        <table class="ref">
+          <thead>
+            <tr><th>Zweck</th><th>Empfohlener Skill</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Vollautomatisches Business</td><td>Show Me The Money</td></tr>
+            <tr><td>SEO &amp; Content Marketing</td><td>Ryan Doser Skills Stack</td></tr>
+            <tr><td>Sicherheitsprüfung</td><td>Security Scanner</td></tr>
+            <tr><td>Dashboard-Erstellung</td><td>Dashboard Builder</td></tr>
+            <tr><td>Token-Kosten sparen</td><td>Token Optimization Skill</td></tr>
+            <tr><td>MCP-Architektur</td><td>MCP Architecture Skill</td></tr>
+            <tr><td>Code-Review</td><td>GitHub Code Review Skill</td></tr>
+            <tr><td>Notion-Integration</td><td>Notion Skills (offiziell)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Teil 5 -->
+    <section id="ressourcen">
+      <h2 class="text-2xl font-bold mb-5 flex items-center gap-3">
+        <span class="step-num">5</span> Ressourcen &amp; Links
+      </h2>
+      <div class="card p-6">
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start gap-3">
+            <i class="fa-brands fa-github mt-0.5" style="color: var(--text-2);"></i>
+            <span>Offizielles Anthropic-Skills-Repository — <a class="src-link" href="https://github.com/anthropics">github.com/anthropics</a></span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-store mt-0.5" style="color: var(--text-2);"></i>
+            <span>Community-Marketplace — <a class="src-link" href="https://github.com/topics/skills-public">skills-public</a></span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-book mt-0.5" style="color: var(--text-2);"></i>
+            <span>Claude Code Docs: Plugins &amp; Marketplaces — <a class="src-link" href="https://code.claude.com/docs">code.claude.com/docs</a></span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fa-brands fa-github mt-0.5" style="color: var(--text-2);"></i>
+            <span>GitHub: <a class="src-link" href="https://github.com/alirezarezvani/claude-skills">alirezarezvani/claude-skills</a> (355 Skills)</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fa-brands fa-github mt-0.5" style="color: var(--text-2);"></i>
+            <span>GitHub: <a class="src-link" href="https://github.com/frankxai/claude-skills-library">frankxai/claude-skills-library</a> (107 Skills)</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t py-8 text-center text-sm" style="border-color: var(--border); color: var(--text-2);">
+    Erstellt als Referenz-Sammlung rund um Claude Code Skills · Alle Angaben ohne Gewähr, Preise &amp; Zahlen können sich ändern.
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var text = btn.getAttribute('data-copy');
+        navigator.clipboard.writeText(text).then(function () {
+          var icon = btn.querySelector('i');
+          var original = icon.className;
+          icon.className = 'fa-solid fa-check';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            icon.className = original;
+            btn.classList.remove('copied');
+          }, 1500);
+        });
+      });
+    });
+
+    var sections = document.querySelectorAll('main section[id]');
+    var navLinks = document.querySelectorAll('.nav-link');
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          navLinks.forEach(function (link) {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(function (s) { observer.observe(s); });
+  </script>
+</body>
