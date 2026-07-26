@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>YouTube Boost</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="yb-header">
+    <img src="../icons/icon48.png" alt="" class="yb-logo" />
+    <div>
+      <h1>YouTube Boost</h1>
+      <p class="yb-subtitle">Smart Recommendations</p>
+    </div>
+  </header>
+
+  <nav class="yb-tabs">
+    <button class="yb-tab active" data-tab="stats">Watch-Time</button>
+    <button class="yb-tab" data-tab="playlists">Playlists</button>
+    <button class="yb-tab" data-tab="filter">Filter</button>
+  </nav>
+
+  <main>
+    <section id="tab-stats" class="yb-panel active">
+      <div class="yb-stat-grid">
+        <div class="yb-stat-card">
+          <span class="yb-stat-value" id="stat-today">0m</span>
+          <span class="yb-stat-label">Heute</span>
+        </div>
+        <div class="yb-stat-card">
+          <span class="yb-stat-value" id="stat-week">0m</span>
+          <span class="yb-stat-label">Diese Woche</span>
+        </div>
+        <div class="yb-stat-card">
+          <span class="yb-stat-value" id="stat-total">0m</span>
+          <span class="yb-stat-label">Gesamt</span>
+        </div>
+      </div>
+      <ul id="stat-daily-list" class="yb-daily-list"></ul>
+    </section>
+
+    <section id="tab-playlists" class="yb-panel">
+      <div class="yb-row">
+        <input type="text" id="playlist-name" placeholder="Neue Playlist..." />
+        <button id="playlist-add" class="yb-btn">+</button>
+      </div>
+      <ul id="playlist-list" class="yb-list"></ul>
+      <p class="yb-hint">Öffne ein YouTube-Video und klicke "Zu Playlist hinzufügen" um Videos zu speichern.</p>
+    </section>
+
+    <section id="tab-filter" class="yb-panel">
+      <label class="yb-switch-row">
+        <span>Empfehlungsfilter aktiv</span>
+        <input type="checkbox" id="filter-enabled" />
+      </label>
+      <label class="yb-field">
+        Blockierte Stichwörter (Komma-getrennt)
+        <textarea id="filter-keywords" rows="3" placeholder="z.B. Clickbait, Prank"></textarea>
+      </label>
+      <label class="yb-field">
+        Blockierte Kanäle (Komma-getrennt)
+        <textarea id="filter-channels" rows="3" placeholder="z.B. Kanalname"></textarea>
+      </label>
+      <label class="yb-switch-row">
+        <span>Anzeigen im Sidebar anzeigen</span>
+        <input type="checkbox" id="ads-enabled" />
+      </label>
+      <button id="filter-save" class="yb-btn yb-btn-primary">Speichern</button>
+      <p id="filter-saved" class="yb-hint yb-hidden">Gespeichert ✓</p>
+    </section>
+  </main>
+
+  <footer class="yb-footer">
+    <button id="open-dashboard" class="yb-btn yb-btn-secondary">Admin-Dashboard öffnen</button>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

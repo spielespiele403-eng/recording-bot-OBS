@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>YouTube Boost – Admin-Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <header class="db-header">
+    <img src="../icons/icon48.png" alt="" />
+    <div>
+      <h1>YouTube Boost – Admin-Dashboard</h1>
+      <p>Anzeigenverwaltung &amp; Statistiken</p>
+    </div>
+  </header>
+
+  <main class="db-main">
+    <section class="db-summary">
+      <div class="db-summary-card">
+        <span class="db-summary-value" id="sum-impressions">0</span>
+        <span class="db-summary-label">Impressionen gesamt</span>
+      </div>
+      <div class="db-summary-card">
+        <span class="db-summary-value" id="sum-clicks">0</span>
+        <span class="db-summary-label">Klicks gesamt</span>
+      </div>
+      <div class="db-summary-card">
+        <span class="db-summary-value" id="sum-ctr">0%</span>
+        <span class="db-summary-label">Ø CTR</span>
+      </div>
+      <div class="db-summary-card">
+        <span class="db-summary-value" id="sum-revenue">0,00 €</span>
+        <span class="db-summary-label">Geschätzte Einnahmen</span>
+      </div>
+    </section>
+
+    <section class="db-panel">
+      <div class="db-panel-header">
+        <h2>Anzeigen</h2>
+        <div>
+          <button id="export-csv" class="db-btn db-btn-secondary">CSV-Export</button>
+          <button id="add-ad" class="db-btn db-btn-primary">+ Neue Anzeige</button>
+        </div>
+      </div>
+
+      <table class="db-table">
+        <thead>
+          <tr>
+            <th>Aktiv</th>
+            <th>Titel</th>
+            <th>Ziel-URL</th>
+            <th>CPM (€)</th>
+            <th>Impressionen</th>
+            <th>Klicks</th>
+            <th>CTR</th>
+            <th>Einnahmen (€)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="ads-table-body"></tbody>
+      </table>
+      <p id="ads-empty" class="db-hint yb-hidden">Noch keine Anzeigen. Klicke auf "+ Neue Anzeige".</p>
+    </section>
+  </main>
+
+  <dialog id="ad-dialog">
+    <form id="ad-form" method="dialog">
+      <h2 id="ad-dialog-title">Anzeige</h2>
+      <input type="hidden" id="ad-id" />
+
+      <label>
+        Titel
+        <input type="text" id="ad-title" required />
+      </label>
+
+      <label>
+        Anzeigentext
+        <textarea id="ad-text" rows="2"></textarea>
+      </label>
+
+      <label>
+        Bild-URL (optional)
+        <input type="url" id="ad-image" placeholder="https://..." />
+      </label>
+
+      <label>
+        Ziel-URL
+        <input type="url" id="ad-url" required placeholder="https://..." />
+      </label>
+
+      <label>
+        CPM in € (Preis pro 1.000 Impressionen)
+        <input type="number" id="ad-cpm" min="0" step="0.1" required />
+      </label>
+
+      <label class="db-checkbox-row">
+        <input type="checkbox" id="ad-active" checked />
+        Aktiv
+      </label>
+
+      <div class="db-dialog-actions">
+        <button type="button" id="ad-cancel" class="db-btn db-btn-secondary">Abbrechen</button>
+        <button type="submit" id="ad-save" class="db-btn db-btn-primary">Speichern</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

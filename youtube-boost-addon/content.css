@@ -1,0 +1,68 @@
+.yb-ad-sidebar {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 260px;
+  z-index: 2147483000;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  font-family: "Roboto", Arial, sans-serif;
+  overflow: hidden;
+}
+
+.yb-ad-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: #f2f2f2;
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.yb-ad-close {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  color: #666;
+  padding: 0 4px;
+}
+
+.yb-ad-close:hover {
+  color: #111;
+}
+
+.yb-ad-card {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.yb-ad-image {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.yb-ad-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: #0f0f0f;
+  margin-bottom: 4px;
+}
+
+.yb-ad-text {
+  font-size: 12px;
+  color: #444;
+  line-height: 1.35;
+}
+
+[data-yb-filtered="true"] {
+  display: none !important;
+}
