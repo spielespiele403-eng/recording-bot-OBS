@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 Masterprompts für Claude Code</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<style>
+  :root{
+    --bg:#0d1117;
+    --bg-alt:#11161d;
+    --card:#161b22;
+    --card-hover:#1c232c;
+    --border:#262c36;
+    --text:#e6edf3;
+    --text-dim:#9aa7b4;
+    --text-faint:#6b7686;
+    --accent:#ff8a3d;
+    --accent-2:#7c5cff;
+    --accent-soft:rgba(255,138,61,0.12);
+    --success:#3fb950;
+    --radius:12px;
+    --shadow: 0 4px 18px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(124,92,255,0.18), transparent 60%),
+      radial-gradient(ellipse 900px 500px at 90% 0%, rgba(255,138,61,0.14), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  a{color:inherit;}
+
+  /* ---------- Layout ---------- */
+  .wrap{
+    display:grid;
+    grid-template-columns:260px 1fr;
+    max-width:1400px;
+    margin:0 auto;
+  }
+  header.hero{
+    padding:56px 32px 40px;
+    border-bottom:1px solid var(--border);
+    grid-column:1 / -1;
+  }
+  .hero-inner{max-width:900px;margin:0 auto;text-align:center;}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+    color:var(--accent);
+    background:var(--accent-soft);
+    border:1px solid rgba(255,138,61,0.35);
+    padding:6px 14px;border-radius:999px;
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(2rem, 4vw, 3rem);
+    margin:0 0 14px;
+    background:linear-gradient(120deg,#fff, #cfd8e3 60%, var(--accent));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    letter-spacing:-0.02em;
+  }
+  .subtitle{color:var(--text-dim);font-size:1.08rem;max-width:680px;margin:0 auto 28px;}
+  .intro{
+    text-align:left;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:24px 28px;
+    margin-top:24px;
+    box-shadow:var(--shadow);
+  }
+  .intro h2{margin-top:0;font-size:1.15rem;color:var(--accent);}
+  .intro h3{font-size:0.98rem;color:var(--text);margin:18px 0 6px;}
+  .intro p{color:var(--text-dim);margin:6px 0;}
+  .intro ul{margin:6px 0;padding-left:20px;color:var(--text-dim);}
+
+  /* ---------- Sidebar ---------- */
+  nav.sidebar{
+    position:sticky;top:0;align-self:start;
+    height:100vh;
+    overflow-y:auto;
+    padding:24px 16px;
+    border-right:1px solid var(--border);
+    background:var(--bg-alt);
+  }
+  .search-box{
+    position:relative;
+    margin-bottom:18px;
+  }
+  .search-box i{
+    position:absolute;left:12px;top:50%;transform:translateY(-50%);
+    color:var(--text-faint);font-size:0.85rem;
+  }
+  .search-box input{
+    width:100%;
+    padding:10px 12px 10px 34px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    font-size:0.9rem;
+    outline:none;
+    transition:border-color .15s ease;
+  }
+  .search-box input:focus{border-color:var(--accent);}
+  #resultCount{
+    font-size:0.75rem;
+    color:var(--text-faint);
+    margin:-10px 0 16px 4px;
+    display:none;
+  }
+  .nav-list{list-style:none;margin:0;padding:0;}
+  .nav-list li a{
+    display:flex;align-items:center;gap:10px;
+    padding:9px 10px;
+    border-radius:8px;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:0.88rem;
+    margin-bottom:2px;
+    transition:background .12s ease, color .12s ease;
+  }
+  .nav-list li a i{width:16px;text-align:center;color:var(--text-faint);}
+  .nav-list li a:hover{background:var(--card-hover);color:var(--text);}
+  .nav-list li a .count{
+    margin-left:auto;font-size:0.72rem;color:var(--text-faint);
+    background:var(--bg);border:1px solid var(--border);border-radius:999px;
+    padding:1px 7px;
+  }
+  .nav-list li.bonus a{color:var(--accent);}
+  .nav-list li.bonus a i{color:var(--accent);}
+
+  /* ---------- Main content ---------- */
+  main{padding:36px 32px 80px;min-width:0;}
+  section.category{margin-bottom:52px;scroll-margin-top:20px;}
+  .cat-header{
+    display:flex;align-items:center;gap:14px;
+    margin-bottom:18px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--border);
+  }
+  .cat-icon{
+    width:42px;height:42px;flex:0 0 42px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:10px;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    color:#fff;font-size:1.1rem;
+  }
+  .cat-header h2{margin:0;font-size:1.35rem;}
+  .cat-header .cat-num{
+    color:var(--text-faint);font-size:0.85rem;font-weight:600;
+    margin-left:auto;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+    position:relative;
+  }
+  .card:hover{border-color:rgba(255,138,61,0.4);background:var(--card-hover);transform:translateY(-2px);}
+  .card .tag{
+    font-size:0.7rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
+    color:var(--accent);
+  }
+  .card p.prompt-text{
+    margin:0;font-size:0.92rem;color:var(--text);flex:1;
+  }
+  .card p.prompt-text .ph{color:var(--text-faint);font-style:italic;}
+  .copy-btn{
+    align-self:flex-start;
+    display:inline-flex;align-items:center;gap:7px;
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:6px 12px;
+    border-radius:8px;
+    font-size:0.8rem;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .copy-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .copy-btn.copied{border-color:var(--success);color:var(--success);}
+
+  section.bonus .cat-icon{background:linear-gradient(135deg, var(--accent-2), #ff5fa2);}
+
+  footer.outro{
+    grid-column:1/-1;
+    border-top:1px solid var(--border);
+    padding:44px 32px 60px;
+    background:var(--bg-alt);
+  }
+  .outro-inner{max-width:800px;margin:0 auto;}
+  .outro-inner h2{color:var(--accent);font-size:1.2rem;}
+  .outro-inner p{color:var(--text-dim);}
+  .outro-inner .made{
+    margin-top:26px;font-size:0.8rem;color:var(--text-faint);
+    text-align:center;
+  }
+
+  .no-results{
+    display:none;text-align:center;color:var(--text-faint);
+    padding:60px 0;font-size:0.95rem;
+  }
+
+  @media (max-width: 900px){
+    .wrap{grid-template-columns:1fr;}
+    nav.sidebar{
+      position:relative;height:auto;
+      border-right:none;border-bottom:1px solid var(--border);
+    }
+    .nav-list{
+      display:flex;flex-wrap:wrap;gap:6px;
+    }
+    .nav-list li a{font-size:0.8rem;padding:7px 10px;}
+    .nav-list li a .count{display:none;}
+    main{padding:28px 18px 60px;}
+    header.hero{padding:40px 18px 32px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Claude Code Masterprompts</span>
+      <h1>100 Masterprompts für Claude Code</h1>
+      <p class="subtitle">Eine kuratierte Sammlung bewährter Prompt-Vorlagen für jede Phase der Softwareentwicklung — von der Architektur bis zum Pitch Deck.</p>
+
+      <div class="intro">
+        <h2><i class="fa-solid fa-circle-info"></i> Einführung</h2>
+        <p>Masterprompts sind sorgfältig formulierte, wiederverwendbare Anfragen, die als zuverlässiger Ausgangspunkt für die Arbeit mit Claude Code dienen. Statt jedes Mal neu zu überlegen, wie man eine Aufgabe formuliert, greifst du auf eine bewährte Struktur zurück und passt sie an dein konkretes Projekt an.</p>
+
+        <h3>Wie nutzt man sie effektiv?</h3>
+        <ul>
+          <li>Ersetze die Platzhalter (z. B. „…" oder „[Code]") durch konkrete Angaben zu deinem Projekt, deiner Technologie und deinem Ziel.</li>
+          <li>Kombiniere mehrere Prompts nacheinander, um komplexe Aufgaben Schritt für Schritt zu lösen.</li>
+          <li>Gib Kontext mit: Framework, Programmiersprache, Codebasis-Ausschnitte oder bestehende Konventionen.</li>
+        </ul>
+
+        <h3>Tipps für optimale Ergebnisse</h3>
+        <ul>
+          <li>Sei so spezifisch wie möglich — konkrete Anforderungen liefern konkrete Ergebnisse.</li>
+          <li>Nutze Folgefragen, um Ergebnisse zu verfeinern statt von vorn zu beginnen.</li>
+          <li>Lasse dir bei komplexen Aufgaben zuerst einen Plan erstellen, bevor Code generiert wird.</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Prompts durchsuchen…">
+    </div>
+    <div id="resultCount"></div>
+    <ul class="nav-list" id="navList"></ul>
+  </nav>
+
+  <main>
+    <div id="categoriesContainer"></div>
+    <div class="no-results" id="noResults"><i class="fa-solid fa-magnifying-glass" style="font-size:1.6rem;display:block;margin-bottom:10px;"></i>Keine Prompts gefunden.</div>
+  </main>
+
+  <footer class="outro">
+    <div class="outro-inner">
+      <h2><i class="fa-solid fa-flag-checkered"></i> Abschluss</h2>
+      <p>Diese 100 Masterprompts sind als Ausgangspunkt gedacht, nicht als starres Regelwerk. Passe Formulierungen, Umfang und Detailgrad an dein Projekt, dein Team und deinen Tech-Stack an — je präziser der Kontext, desto treffsicherer das Ergebnis. Fortgeschrittene Nutzer kombinieren mehrere Prompts zu Ketten (z. B. Architektur → Code → Tests → Deployment), lassen Claude Code Zwischenergebnisse kritisch prüfen und bauen sich eigene Bibliotheken projektspezifischer Varianten auf. Je öfter du die Prompts wiederverwendest und anpasst, desto mehr entwickeln sie sich zu einem persönlichen Werkzeugkasten für effizientere Softwareentwicklung.</p>
+      <p class="made">Erstellt für die effektive Nutzung von Claude Code · 100 Masterprompts in 10 Kategorien + Bonus</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const DATA = [
+  {
+    key: "setup", title: "Projekt-Setup & Architektur", icon: "fa-solid fa-sitemap",
+    prompts: [
+      "Erstelle eine Projektstruktur für eine ...",
+      "Entwirf eine Microservices-Architektur für ...",
+      "Erstelle ein ER-Diagramm für ...",
+      "Definiere den Tech-Stack für ...",
+      "Erstelle ein Domain-Modell für ...",
+      "Entwirf eine CI/CD-Pipeline für ...",
+      "Erstelle eine API-Dokumentation für ...",
+      "Definiere die Datenbank-Schemata für ...",
+      "Erstelle ein Security-Konzept für ...",
+      "Entwirf eine Monitoring-Strategie für ..."
+    ]
+  },
+  {
+    key: "code", title: "Code-Generierung & Refactoring", icon: "fa-solid fa-code",
+    prompts: [
+      "Generiere eine Klasse für ...",
+      "Refactoriere diesen Code: [Code]",
+      "Erstelle ein Interface für ...",
+      "Konvertiere diesen Code von JavaScript nach TypeScript: [Code]",
+      "Erstelle eine Utility-Funktion für ...",
+      "Optimiere diesen Code für Performance: [Code]",
+      "Erstelle einen Decorator für ...",
+      "Refactoriere diese Funktion für Lesbarkeit: [Code]",
+      "Erstelle einen Mixin für ...",
+      "Generiere einen Service für ..."
+    ]
+  },
+  {
+    key: "testing", title: "Testing & Debugging", icon: "fa-solid fa-bug",
+    prompts: [
+      "Erstelle Unit-Tests für ...",
+      "Schreibe Integrationstests für ...",
+      "Erstelle einen Debugging-Guide für ...",
+      "Generiere Testdaten für ...",
+      "Erstelle einen Testplan für ...",
+      "Simuliere einen Fehlerfall für ...",
+      "Erstelle einen Mock für ...",
+      "Schreibe End-to-End-Tests für ...",
+      "Erstelle ein Performance-Test-Script für ...",
+      "Erstelle einen Security-Test-Report für ..."
+    ]
+  },
+  {
+    key: "api", title: "API-Entwicklung", icon: "fa-solid fa-plug",
+    prompts: [
+      "Erstelle eine REST-API für ...",
+      "Entwirf eine GraphQL-API für ...",
+      "Erstelle eine API-Dokumentation für ...",
+      "Definiere API-Endpoints für ...",
+      "Erstelle einen API-Client für ...",
+      "Implementiere Authentifizierung für ...",
+      "Erstelle eine Rate-Limiting-Strategie für ...",
+      "Erstelle einen Webhook für ...",
+      "Simuliere API-Antworten für ...",
+      "Erstelle eine OpenAPI-Spezifikation für ..."
+    ]
+  },
+  {
+    key: "frontend", title: "Frontend & UI", icon: "fa-solid fa-palette",
+    prompts: [
+      "Erstelle eine React-Komponente für ...",
+      "Entwirf ein CSS-Layout für ...",
+      "Erstelle eine Animation für ...",
+      "Erstelle eine responsive Navigation für ...",
+      "Entwirf ein Dashboard für ...",
+      "Erstelle ein Formular für ...",
+      "Entwirf eine Landingpage für ...",
+      "Erstelle ein Dark-Mode-Design für ...",
+      "Erstelle eine mobile Version für ...",
+      "Entwirf eine interaktive Komponente für ..."
+    ]
+  },
+  {
+    key: "backend", title: "Backend & Datenbanken", icon: "fa-solid fa-database",
+    prompts: [
+      "Erstelle ein Datenbank-Modell für ...",
+      "Implementiere eine Datenbank-Query für ...",
+      "Erstelle eine Datenbank-Migration für ...",
+      "Entwirf eine Datenbank-Indexierung für ...",
+      "Erstelle eine Caching-Strategie für ...",
+      "Implementiere eine Datenbank-Transaktion für ...",
+      "Erstelle einen Datenbank-Seeder für ...",
+      "Entwirf eine Datenbank-Backup-Strategie für ...",
+      "Erstelle eine Datenbank-Optimierung für ...",
+      "Implementiere eine Datenbank-Replikation für ..."
+    ]
+  },
+  {
+    key: "devops", title: "DevOps & Deployment", icon: "fa-solid fa-server",
+    prompts: [
+      "Erstelle ein Dockerfile für ...",
+      "Entwirf eine Kubernetes-Konfiguration für ...",
+      "Erstelle ein Deployment-Script für ...",
+      "Definiere eine CI/CD-Pipeline für ...",
+      "Erstelle eine Monitoring-Konfiguration für ...",
+      "Entwirf eine Logging-Strategie für ...",
+      "Erstelle ein Backup-Script für ...",
+      "Definiere eine Disaster-Recovery-Strategie für ...",
+      "Erstelle ein Skript für den Server-Setup ...",
+      "Entwirf eine Load-Balancing-Strategie für ..."
+    ]
+  },
+  {
+    key: "security", title: "Security & Performance", icon: "fa-solid fa-shield-halved",
+    prompts: [
+      "Erstelle ein Security-Audit für ...",
+      "Implementiere eine Authentifizierung für ...",
+      "Erstelle ein Permissions-System für ...",
+      "Definiere eine Verschlüsselungs-Strategie für ...",
+      "Erstelle einen Performance-Testing-Report für ...",
+      "Optimiere die Ladezeit für ...",
+      "Erstelle einen Security-Report für ...",
+      "Implementiere eine Input-Validierung für ...",
+      "Erstelle ein Audit-Log für ...",
+      "Definiere eine Threat-Modellierung für ..."
+    ]
+  },
+  {
+    key: "design", title: "Design & UX", icon: "fa-solid fa-pen-ruler",
+    prompts: [
+      "Erstelle ein Design-System für ...",
+      "Entwirf eine User Journey für ...",
+      "Erstelle eine Persona für ...",
+      "Definiere einen Styleguide für ...",
+      "Erstelle eine Accessibility-Checkliste für ...",
+      "Entwirf ein User-Flow-Diagramm für ...",
+      "Erstelle ein Moodboard für ...",
+      "Definiere einen Design-Sprint für ...",
+      "Erstelle einen Prototyp für ...",
+      "Entwirf eine User-Testing-Strategie für ..."
+    ]
+  },
+  {
+    key: "business", title: "Business & Produktentwicklung", icon: "fa-solid fa-briefcase",
+    prompts: [
+      "Erstelle einen Business-Plan für ...",
+      "Definiere eine Marketing-Strategie für ...",
+      "Erstelle eine Roadmap für ...",
+      "Definiere eine Pricing-Strategie für ...",
+      "Erstelle eine SWOT-Analyse für ...",
+      "Entwirf eine Go-to-Market-Strategie für ...",
+      "Erstelle einen Kunden-Entwicklungsplan für ...",
+      "Definiere eine Vertriebsstrategie für ...",
+      "Erstelle ein Pitch-Deck für ...",
+      "Definiere eine Produkt-Roadmap für ..."
+    ]
+  },
+  {
+    key: "bonus", title: "Bonus: Fortgeschrittene Prompts", icon: "fa-solid fa-rocket", bonus: true,
+    prompts: [
+      "Analysiere diesen Code für Optimierung: [Code]",
+      "Entwirf eine Microservices-Architektur mit ...",
+      "Erstelle eine vollständige CI/CD-Pipeline mit ...",
+      "Implementiere ein Event-Sourcing-System für ...",
+      "Erstelle ein CQRS-Muster für ...",
+      "Entwirf eine Big-Data-Architektur für ...",
+      "Erstelle eine Blockchain-Lösung für ...",
+      "Implementiere eine KI-Integration für ...",
+      "Entwirf eine IoT-Lösung für ...",
+      "Erstelle eine Serverless-Architektur für ..."
+    ]
+  }
+];
+
+const container = document.getElementById('categoriesContainer');
+const navList = document.getElementById('navList');
+const noResults = document.getElementById('noResults');
+const resultCount = document.getElementById('resultCount');
+
+function escapeHtml(str){
+  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderPromptText(text){
+  return escapeHtml(text)
+    .replace(/\.\.\./g, '<span class="ph">…</span>')
+    .replace(/\[Code\]/g, '<span class="ph">[Code]</span>');
+}
+
+DATA.forEach((cat, idx) => {
+  const navLi = document.createElement('li');
+  if(cat.bonus) navLi.className = 'bonus';
+  navLi.innerHTML = `<a href="#${cat.key}"><i class="${cat.icon}"></i><span>${cat.title}</span><span class="count">${cat.prompts.length}</span></a>`;
+  navList.appendChild(navLi);
+
+  const section = document.createElement('section');
+  section.className = 'category' + (cat.bonus ? ' bonus' : '');
+  section.id = cat.key;
+
+  const cardsHtml = cat.prompts.map((p, i) => `
+    <div class="card" data-text="${escapeHtml(p.toLowerCase())}">
+      <span class="tag">${cat.bonus ? 'Bonus' : 'Kategorie ' + (idx+1)} · #${i+1}</span>
+      <p class="prompt-text">${renderPromptText(p)}</p>
+      <button class="copy-btn" data-prompt="${escapeHtml(p)}"><i class="fa-regular fa-copy"></i><span>Kopieren</span></button>
+    </div>
+  `).join('');
+
+  section.innerHTML = `
+    <div class="cat-header">
+      <div class="cat-icon"><i class="${cat.icon}"></i></div>
+      <h2>${cat.title}</h2>
+      <span class="cat-num">${cat.bonus ? '10 Prompts' : `Kategorie ${idx+1} · 10 Prompts`}</span>
+    </div>
+    <div class="grid">${cardsHtml}</div>
+  `;
+  container.appendChild(section);
+});
+
+container.addEventListener('click', (e) => {
+  const btn = e.target.closest('.copy-btn');
+  if(!btn) return;
+  const text = btn.getAttribute('data-prompt');
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    const span = btn.querySelector('span');
+    const original = span.textContent;
+    span.textContent = 'Kopiert!';
+    btn.querySelector('i').className = 'fa-solid fa-check';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      span.textContent = original;
+      btn.querySelector('i').className = 'fa-regular fa-copy';
+    }, 1500);
+  });
+});
+
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  let totalVisible = 0;
+
+  document.querySelectorAll('section.category').forEach(section => {
+    let visibleInSection = 0;
+    section.querySelectorAll('.card').forEach(card => {
+      const match = !q || card.getAttribute('data-text').includes(q) ||
+        section.querySelector('h2').textContent.toLowerCase().includes(q);
+      card.style.display = match ? '' : 'none';
+      if(match) visibleInSection++;
+    });
+    section.style.display = visibleInSection ? '' : 'none';
+    totalVisible += visibleInSection;
+  });
+
+  if(q){
+    resultCount.style.display = 'block';
+    resultCount.textContent = `${totalVisible} Treffer`;
+  } else {
+    resultCount.style.display = 'none';
+  }
+  noResults.style.display = totalVisible === 0 ? 'block' : 'none';
+});
+</script>
+</body>
+</html>
