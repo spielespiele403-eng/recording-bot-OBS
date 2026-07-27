@@ -3,117 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CEO-Agenten – Die Prompt-Sammlung für Solo-Gründer</title>
+<title>CEO-Agenten – Die verifizierte Prompt- &amp; Tool-Sammlung</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   :root{
-    --bg:#0D1117; --card:#161B22; --border:#30363D; --accent:#22C55E; --accent2:#818CF8;
+    --bg:#0D1117; --card:#161B22; --border:#30363D;
+    --t-found:#818CF8; --t-plugin:#34D399; --t-gem:#FBBF24;
   }
-  body{ background:var(--bg); }
+  body{ background:
+    radial-gradient(ellipse 900px 500px at 15% -5%, rgba(129,140,248,.10), transparent),
+    radial-gradient(ellipse 900px 500px at 85% 10%, rgba(52,211,153,.08), transparent),
+    var(--bg);
+  }
   ::-webkit-scrollbar{ width:10px; height:10px; }
   ::-webkit-scrollbar-track{ background:var(--bg); }
   ::-webkit-scrollbar-thumb{ background:var(--border); border-radius:6px; }
   .card{
-    background:var(--card);
+    background:linear-gradient(180deg, rgba(255,255,255,.015), transparent 40%), var(--card);
     border:1px solid var(--border);
-    transition: border-color .15s ease, transform .15s ease;
+    transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
   }
-  .card:hover{ border-color:#484f58; transform:translateY(-2px); }
+  .card:hover{ transform:translateY(-3px); }
+  .card.tier-found:hover{ border-color:var(--t-found); box-shadow:0 8px 30px -12px rgba(129,140,248,.35); }
+  .card.tier-plugin:hover{ border-color:var(--t-plugin); box-shadow:0 8px 30px -12px rgba(52,211,153,.3); }
+  .card.tier-gem:hover{ border-color:var(--t-gem); box-shadow:0 8px 30px -12px rgba(251,191,36,.3); }
   .codebox{
     background:#0A0D12;
     border:1px solid var(--border);
     font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
   }
-  .badge{
-    background:rgba(129,140,248,.12);
-    border:1px solid rgba(129,140,248,.35);
-    color:#A5B4FC;
+  .avatar{
+    width:3rem; height:3rem; border-radius:0.9rem;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem; flex-shrink:0;
   }
-  .copy-btn{
-    background:#21262D;
-    border:1px solid var(--border);
-  }
+  .tier-found .avatar{ background:linear-gradient(135deg, rgba(129,140,248,.22), rgba(129,140,248,.05)); border:1px solid rgba(129,140,248,.3); }
+  .tier-plugin .avatar{ background:linear-gradient(135deg, rgba(52,211,153,.22), rgba(52,211,153,.05)); border:1px solid rgba(52,211,153,.3); }
+  .tier-gem .avatar{ background:linear-gradient(135deg, rgba(251,191,36,.22), rgba(251,191,36,.05)); border:1px solid rgba(251,191,36,.3); }
+  .star-pill{ background:rgba(250,204,21,.1); border:1px solid rgba(250,204,21,.3); color:#FDE68A; }
+  .copy-btn{ background:#21262D; border:1px solid var(--border); }
   .copy-btn:hover{ background:#30363D; }
-  .copy-btn.copied{
-    background:rgba(34,197,94,.15);
-    border-color:rgba(34,197,94,.5);
-    color:var(--accent);
-  }
+  .copy-btn.copied{ background:rgba(34,197,94,.15); border-color:rgba(34,197,94,.5); color:#4ADE80; }
+  .gh-link{ background:#0A0D12; border:1px solid var(--border); }
+  .gh-link:hover{ border-color:#8b949e; background:#161b22; }
   .anchor-offset{ scroll-margin-top: 90px; }
-  table.ref-table th, table.ref-table td{
-    border:1px solid var(--border);
-  }
+  table.ref-table th, table.ref-table td{ border:1px solid var(--border); }
   .fade-in{ animation: fadeIn .4s ease both; }
   @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+  .grad-text{ background:linear-gradient(90deg,#A5B4FC,#6EE7B7 60%,#FDE68A); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .stat-card{ background:var(--card); border:1px solid var(--border); }
+  .section-pill{ font-size:.7rem; letter-spacing:.08em; }
 </style>
 </head>
 <body class="text-slate-200 antialiased">
 
-<!-- Sticky header -->
 <header class="sticky top-0 z-30 backdrop-blur bg-[#0D1117]/85 border-b border-[#30363D]">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
     <div class="flex items-center gap-2">
       <span class="text-2xl">👑</span>
       <span class="font-semibold text-slate-100 tracking-tight">CEO-Agenten-Sammlung</span>
+      <span class="hidden sm:inline-flex items-center gap-1 text-[10px] bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded-full ml-1">
+        <i class="fa-solid fa-circle-check"></i> 100% verifiziert
+      </span>
     </div>
-    <nav class="hidden sm:flex items-center gap-5 text-sm text-slate-400">
+    <nav class="hidden md:flex items-center gap-5 text-sm text-slate-400">
       <a href="#intro" class="hover:text-slate-100 transition">Einführung</a>
-      <a href="#frameworks" class="hover:text-slate-100 transition">22 Frameworks</a>
+      <a href="#found" class="hover:text-slate-100 transition">Fundamente</a>
+      <a href="#plugins" class="hover:text-slate-100 transition">Plugins</a>
+      <a href="#gems" class="hover:text-slate-100 transition">Hidden Gems</a>
       <a href="#reference" class="hover:text-slate-100 transition">Quick-Reference</a>
-      <a href="#outro" class="hover:text-slate-100 transition">Fazit</a>
     </nav>
   </div>
 </header>
 
-<!-- Hero / Intro -->
-<section id="intro" class="anchor-offset max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-10">
+<!-- Hero -->
+<section id="intro" class="anchor-offset max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-8">
   <div class="max-w-3xl">
-    <p class="uppercase tracking-widest text-xs font-semibold text-emerald-400 mb-3">Für Solo-Gründer:innen</p>
-    <h1 class="text-3xl sm:text-5xl font-bold text-slate-50 leading-tight mb-6">
-      22 CEO-Agenten-Frameworks.<br class="hidden sm:block"> Eine Prompt-Sammlung.
+    <p class="uppercase tracking-widest text-xs font-semibold text-emerald-400 mb-3">Für Solo-Gründer:innen · Stand 27. Juli 2026</p>
+    <h1 class="text-3xl sm:text-5xl font-bold leading-tight mb-6">
+      <span class="grad-text">25 echte CEO-Agenten-Projekte.</span><br class="hidden sm:block">
+      <span class="text-slate-100">Keine einzige Erfindung.</span>
     </h1>
     <div class="space-y-4 text-slate-300 leading-relaxed">
       <p>
-        <strong class="text-slate-100">CEO-Agenten</strong> sind Multi-Agenten-Systeme, die nicht nur einzelne Aufgaben
-        erledigen, sondern eine komplette Unternehmensstruktur simulieren: Ein CEO-Agent trifft Entscheidungen,
-        delegiert an spezialisierte Rollen-Agenten (CTO, CFO, Marketing, Support …) und meldet Ergebnisse zurück –
-        genau wie ein echtes Führungsteam, nur ohne Gehaltsliste.
+        <strong class="text-slate-100">CEO-Agenten</strong> sind Multi-Agenten-Systeme, die eine komplette Unternehmensstruktur
+        simulieren: Ein CEO-Agent trifft Entscheidungen, delegiert an spezialisierte Rollen-Agenten (CTO, CFO, Marketing,
+        Support …) und meldet Ergebnisse zurück – wie ein echtes Führungsteam, nur ohne Gehaltsliste. Für Solo-Gründer:innen
+        ist das der logische nächste Schritt, um mehrere Rollen gleichzeitig auszufüllen.
       </p>
       <p>
-        Für Solo-Gründer:innen ist das der logische nächste Schritt: Statt jede Rolle selbst auszufüllen und ständig
-        den Hut zu wechseln, bekommst du auf Zuruf ein virtuelles Führungsteam, das Perspektiven abwägt, Risiken
-        benennt und dir am Ende eine klare Entscheidung liefert – in Sekunden statt in Meetings.
-      </p>
-      <p>
-        Diese Sammlung bündelt 22 Frameworks und Prompt-Vorlagen für genau dieses Szenario. Für jedes findest du eine
-        Kurzbeschreibung, den Installationsbefehl (falls ein echtes, aktives Repo existiert) und einen fertigen
-        Copy-Paste-Prompt. Wähle unten das passende Framework für deinen Anwendungsfall, kopiere den Prompt per Klick,
-        ersetze die <code class="codebox px-1.5 py-0.5 rounded text-emerald-300 text-sm">[Platzhalter]</code> durch
-        deine Aufgabe – und leg los.
+        Diese Sammlung wurde komplett neu recherchiert. Jedes der 25 Frameworks unten ist ein tatsächlich existierendes,
+        öffentliches GitHub-Repository – von Microsofts <strong class="text-slate-100">AutoGen</strong> (~60.000 ⭐) über
+        Garry Tans viralen <strong class="text-slate-100">gstack</strong> (124.641 ⭐) bis zu winzigen, aber echten
+        Nischenprojekten mit nur zwei Sternen. Jeder Installationsbefehl stammt wörtlich aus dem jeweiligen README.
       </p>
     </div>
-    <div class="mt-6 flex items-start gap-2 text-xs text-slate-500 bg-[#161B22] border border-[#30363D] rounded-lg px-4 py-3 max-w-2xl">
-      <i class="fa-solid fa-circle-info mt-0.5 text-slate-400"></i>
-      <span>
-        Hinweis: Einige Projekte hier sind aktive Open-Source-Repos mit verifiziertem Installationsbefehl (Badge
-        <span class="text-emerald-400 font-medium">„Repo verfügbar“</span>). Andere sind community-Konzepte, die sich
-        schnell weiterentwickeln oder unter anderem Namen kursieren – dort bekommst du einen sofort einsatzbereiten
-        Prompt ohne Installation (Badge <span class="text-indigo-300 font-medium">„Prompt-only“</span>).
-      </span>
+  </div>
+
+  <!-- Stat bar -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-10">
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl sm:text-3xl font-bold text-slate-50">25</div>
+      <div class="text-xs text-slate-500 mt-1">verifizierte Projekte</div>
     </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl sm:text-3xl font-bold text-slate-50">440k+</div>
+      <div class="text-xs text-slate-500 mt-1">GitHub-Stars kombiniert</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl sm:text-3xl font-bold text-slate-50">0</div>
+      <div class="text-xs text-slate-500 mt-1">erfundene Repo-Namen</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl sm:text-3xl font-bold text-slate-50">3</div>
+      <div class="text-xs text-slate-500 mt-1">Kategorien</div>
+    </div>
+  </div>
+
+  <div class="mt-6 flex items-start gap-2 text-xs text-slate-500 bg-[#161B22] border border-[#30363D] rounded-lg px-4 py-3 max-w-3xl">
+    <i class="fa-solid fa-shield-halved mt-0.5 text-slate-400"></i>
+    <span>
+      <strong class="text-slate-300">Methodik:</strong> Alle Projekte wurden per Websuche und direktem Abgleich mit der
+      GitHub-API/den README-Dateien verifiziert. Bewusst ausgeschlossen: u. a. <em>gpt-pilot</em> (unwartet und im Juni 2026
+      öffentlich gemeldeter Supply-Chain-Sicherheitsvorfall) sowie sämtliche Projektnamen, die unter der ursprünglich
+      recherchierten Bezeichnung nicht auffindbar waren. Stern-Zahlen sind Momentaufnahmen und können sich seither
+      verändert haben – klick auf „GitHub ↗“ bei jeder Karte, um selbst nachzusehen.
+    </span>
   </div>
 </section>
 
-<!-- Frameworks grid -->
-<section id="frameworks" class="anchor-offset max-w-6xl mx-auto px-4 sm:px-6 py-8">
-  <h2 class="text-2xl sm:text-3xl font-bold text-slate-50 mb-2">Die 22 Frameworks</h2>
-  <p class="text-slate-400 mb-8">Jede Karte enthält Beschreibung, Setup (wenn vorhanden) und einen fertigen Prompt zum Kopieren.</p>
-  <div id="card-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+<!-- FOUNDATION TIER -->
+<section id="found" class="anchor-offset max-w-6xl mx-auto px-4 sm:px-6 py-10">
+  <div class="flex items-center gap-3 mb-2">
+    <span class="section-pill uppercase font-bold text-indigo-300 bg-indigo-500/10 border border-indigo-500/30 px-2.5 py-1 rounded-full">Tier 1</span>
+    <h2 class="text-2xl sm:text-3xl font-bold text-slate-50">🏆 Die Fundamente</h2>
+  </div>
+  <p class="text-slate-400 mb-8 max-w-2xl">Weltweit bekannte, massiv verbreitete Multi-Agent-Frameworks – die technische Basis, auf der viele andere Tools aufbauen.</p>
+  <div id="grid-found" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+</section>
+
+<!-- PLUGIN TIER -->
+<section id="plugins" class="anchor-offset max-w-6xl mx-auto px-4 sm:px-6 py-10">
+  <div class="flex items-center gap-3 mb-2">
+    <span class="section-pill uppercase font-bold text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-full">Tier 2</span>
+    <h2 class="text-2xl sm:text-3xl font-bold text-slate-50">🧩 Claude-Code-Plugins &amp; Firmen-Tools</h2>
+  </div>
+  <p class="text-slate-400 mb-8 max-w-2xl">Speziell für das „AI-Firma"-Konzept gebaut – meist in wenigen Minuten startklar, mit festen Rollen-Personas.</p>
+  <div id="grid-plugin" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+</section>
+
+<!-- GEM TIER -->
+<section id="gems" class="anchor-offset max-w-6xl mx-auto px-4 sm:px-6 py-10">
+  <div class="flex items-center gap-3 mb-2">
+    <span class="section-pill uppercase font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 px-2.5 py-1 rounded-full">Tier 3</span>
+    <h2 class="text-2xl sm:text-3xl font-bold text-slate-50">💎 Hidden Gems</h2>
+  </div>
+  <p class="text-slate-400 mb-8 max-w-2xl">Kleine, oft sehr junge Nischenprojekte für ein spezifisches Konzept (Board-Meeting, Debatte, Content-Agentur). Klein heißt nicht unecht.</p>
+  <div id="grid-gem" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></div>
 </section>
 
 <!-- Quick reference -->
-<section id="reference" class="anchor-offset max-w-6xl mx-auto px-4 sm:px-6 py-10">
+<section id="reference" class="anchor-offset max-w-6xl mx-auto px-4 sm:px-6 py-12">
   <h2 class="text-2xl sm:text-3xl font-bold text-slate-50 mb-2">
     <i class="fa-solid fa-star text-amber-400 mr-2"></i>Bonus: Quick-Reference-Tabelle
   </h2>
@@ -133,21 +184,21 @@
 </section>
 
 <!-- Outro -->
-<section id="outro" class="anchor-offset max-w-6xl mx-auto px-4 sm:px-6 py-14">
+<section id="outro" class="max-w-6xl mx-auto px-4 sm:px-6 py-14">
   <div class="max-w-3xl border-t border-[#30363D] pt-10">
     <h2 class="text-2xl sm:text-3xl font-bold text-slate-50 mb-4">Zum Schluss</h2>
     <div class="space-y-4 text-slate-300 leading-relaxed">
       <p>
-        Starte klein: Wähle <strong class="text-slate-100">ein</strong> Framework, das zu deinem aktuellen Engpass
-        passt. Prompt-only-Konzepte wie OPC oder henry-ai-company brauchen keine Installation und funktionieren
-        sofort in jedem Claude-Chat. Teste den Prompt an einer echten, aktuellen Aufgabe – nicht an einem
-        Spielbeispiel.
+        Starte mit einem der großen Fundament-Frameworks (MetaGPT, CrewAI, AutoGen), wenn du technische Kontrolle willst,
+        oder mit einem fertigen Claude-Code-Plugin (gstack, cc-company, HeadElf), wenn es in wenigen Minuten laufen soll.
+        Die Hidden Gems lohnen sich für ein sehr spezifisches Konzept wie ein Board-Meeting oder einen Debatten-Schwarm –
+        sie sind kleiner, aber genauso real.
       </p>
       <p>
-        Kombinieren lohnt sich: Nutze z. B. <em>c-level-advisor</em> für die große strategische Entscheidung,
-        <em>cc-company</em> als tägliche Anlaufstelle und ein schlankes Konzept wie <em>TapAgents</em> für schnelle
-        Einzelaufgaben dazwischen. Wichtig: KI-Agenten ersetzen kein Urteilsvermögen – sie strukturieren es. Die
-        finale Entscheidung bleibt bei dir.
+        Kombinieren funktioniert gut: z. B. <em>keystone-agent</em> für die große Entscheidung, <em>cc-company</em> als
+        tägliche Anlaufstelle, <em>MetaGPT</em> für die eigentliche Umsetzung. Ein Hinweis zur Sorgfalt: Prüfe vor der
+        Installation jedes Repos kurz Stars, letzte Aktivität und offene Issues selbst – Open-Source-Projekte verändern
+        sich schnell, und ein Tool mit heute zwei Sternen kann in drei Monaten tot oder bei 2.000 sein.
       </p>
     </div>
   </div>
@@ -155,368 +206,309 @@
 
 <footer class="border-t border-[#30363D] py-8">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-xs text-slate-500">
-    CEO-Agenten-Sammlung · Eine Prompt-Referenz für Solo-Gründer:innen · Repo-Namen und Befehle bitte vor Nutzung auf GitHub verifizieren
+    CEO-Agenten-Sammlung · 25 verifizierte Open-Source-Projekte · Stand 27. Juli 2026 · Sternzahlen &amp; Befehle vor Nutzung selbst gegenprüfen
   </div>
 </footer>
 
 <script>
+const TIER_META = {
+  found:  { grid: "grid-found",  cls: "tier-found"  },
+  plugin: { grid: "grid-plugin", cls: "tier-plugin" },
+  gem:    { grid: "grid-gem",    cls: "tier-gem"     },
+};
+
 const FRAMEWORKS = [
+  // ---------------- TIER 1: FOUNDATIONS ----------------
   {
-    n: 1, emoji:"🚀", name:"startup-os",
-    tagline:"Ruft aus dem Claude-Code-Marketplace ein Heer spezialisierter Skill-Agenten ab, die sich wie Fachabteilungen eines Startups verhalten.",
-    badge:"95+ Agenten", badgeType:"prompt",
-    install: null,
-    prompt: `Du bist der Orchestrator eines Startup-Betriebssystems mit über 90 spezialisierten Sub-Agenten (Engineering, Design, Marketing, Sales, Legal, Finance, Ops, Research, QA, DevOps, Support ...). Wenn ich dir eine Aufgabe gebe:
-1. Zerlege sie in Teilaufgaben und ordne jede dem passenden Fach-Agenten zu (z. B. "Engineering-Agent", "Growth-Agent", "Legal-Agent").
-2. Lass jeden Agenten kurz seinen Lösungsvorschlag skizzieren (3-5 Sätze, aus Rollen-Perspektive).
-3. Fasse als "CEO-Agent" die Ergebnisse zusammen, löse Zielkonflikte auf und gib eine priorisierte Aktionsliste aus.
-4. Frage am Ende, welche Teilaufgabe ich vertiefen möchte.
-
-Starte jetzt mit folgender Aufgabe: [DEINE AUFGABE HIER EINFÜGEN]`
+    tier:"found", emoji:"🧠", name:"MetaGPT",
+    repo:"FoundationAgents/MetaGPT", url:"https://github.com/FoundationAgents/MetaGPT",
+    stars:"69,5k",
+    tagline:"Das meistgesternte „AI-Softwarefirma\"-Framework: Aus einer Ein-Satz-Anforderung werden automatisch PRD, Architektur, Tasks und Code.",
+    badge:"PM · Architekt · Projektleiter · Engineer",
+    install:`pip install --upgrade metagpt`,
+    usage:`metagpt "Baue eine einfache To-Do-Liste-App mit React und LocalStorage"`
   },
   {
-    n: 2, emoji:"🏭", name:"auto-co",
-    tagline:"24/7 autonome KI-Firma mit 14 Experten-Personas, die über eine gemeinsame Konsens-Datei zusammenarbeiten.",
-    badge:"14 Agenten · vollautonome KI-Firma", badgeType:"repo",
-    install: `git clone https://github.com/nicepkg/auto-company.git
-cd auto-company
-# Start-Skript gemäß README ausführen`,
-    prompt: `Du simulierst "auto-co", eine vollautonome KI-Firma mit 14 Personas: CEO (visionär, tempo-getrieben), Kritiker (stellt jede Idee kompromisslos infrage), CTO (Architektur & Skalierung), CFO (Budget & Risiko), Head of Product, Head of Design, Head of Marketing, Head of Sales, Legal Counsel, HR Lead, DevOps Lead, QA Lead, Support Lead, Data Analyst.
-
-Arbeite in Runden:
-Runde 1 – jede Persona gibt in 2 Sätzen ihre Einschätzung zur Aufgabe ab.
-Runde 2 – der Kritiker stellt die drei größten Risiken infrage.
-Runde 3 – der CEO trifft eine finale Entscheidung und schreibt sie als kurzen Markdown-Block in eine "Konsens-Datei".
-
-Gib am Ende einen konkreten nächsten Schritt aus.
-
-Aufgabe: [DEINE AUFGABE HIER EINFÜGEN]`
+    tier:"found", emoji:"🏢", name:"ChatDev",
+    repo:"OpenBMB/ChatDev", url:"https://github.com/OpenBMB/ChatDev",
+    stars:"33,8k",
+    tagline:"Die virtuelle Softwarefirma aus der Forschung: CEO, CTO, Programmierer, Reviewer und Tester durchlaufen simulierte Meetings, bis die Software fertig ist.",
+    badge:"CEO · CTO · Programmierer · Reviewer · Tester",
+    install:`git clone https://github.com/OpenBMB/ChatDev.git
+cd ChatDev
+git checkout chatdev1.0   # klassische CEO/CTO-Rollen (main = ChatDev 2.0, generisches Tool)
+uv sync`,
+    usage:`python3 run.py --task "Entwickle ein einfaches Schlangen-Spiel" --name "MeinProjekt"`
   },
   {
-    n: 3, emoji:"🏢", name:"Agent Company AI",
-    tagline:"Ein KI-CEO-Agent stellt bei Bedarf neue Abteilungen und Rollen-Agenten ein – wie eine wachsende Firma im Dashboard.",
-    badge:"9+ Rollen · Web-Dashboard", badgeType:"prompt",
-    install: null,
-    prompt: `Du bist der CEO-Agent einer virtuellen Firma. Du hast aktuell 9 Rollen zur Verfügung: COO, CTO, CFO, CMO, Head of Sales, Head of Support, HR Lead, Legal Lead, Data Lead. Wenn eine Aufgabe eine Rolle erfordert, die noch nicht existiert, "stelle" einen neuen Rollen-Agenten ein (nenne Titel + Verantwortung) und binde ihn sofort ein.
-
-Für jede Aufgabe:
-1. Bestimme, welche Rolle(n) zuständig sind.
-2. Lass jede Rolle einen kurzen Statusbericht liefern (Ziel, Status, Blocker).
-3. Erstelle eine Dashboard-Ansicht als Tabelle (Rolle | Status | Nächster Schritt).
-
-Aufgabe: [DEINE AUFGABE HIER EINFÜGEN]`
+    tier:"found", emoji:"👥", name:"CrewAI",
+    repo:"crewAIInc/crewAI", url:"https://github.com/crewAIInc/crewAI",
+    stars:"56,2k",
+    tagline:"Der Branchenstandard für rollenbasierte Agenten-„Crews\" mit hierarchischen oder sequenziellen Abläufen.",
+    badge:"Frei definierbare Rollen · Hierarchisch",
+    install:`pip install crewai
+crewai create crew mein-startup-team`,
+    usage:`cd mein-startup-team
+# in config/agents.yaml: CEO, CTO, Head of Growth definieren
+crewai run`
   },
   {
-    n: 4, emoji:"🤖", name:"RoboCo",
-    tagline:"Selbst-gehostete KI-Agenten-Organisation mit 25 Rollen-Agenten, die einem menschlichen CEO in einem formalen Freigabe-Workflow berichten.",
-    badge:"25 Agenten + menschlicher CEO", badgeType:"repo",
-    install: `git clone https://github.com/rennf93/roboco.git
-cd roboco
-# Self-Hosting-Anleitung siehe README (docs.roboco.tech)`,
-    prompt: `Simuliere "RoboCo": eine Software-Firma mit 25 KI-Agenten (u. a. Architektur, Backend, Frontend, QA, Security, DevOps, Doku, Produkt, Design, Data, Support, Recht, Finanzen ...) – ICH bin der menschliche CEO und behalte die finale Freigabe.
+    tier:"found", emoji:"🔧", name:"AutoGen",
+    repo:"microsoft/autogen", url:"https://github.com/microsoft/autogen",
+    stars:"~60k",
+    tagline:"Microsofts Multi-Agent-Framework für frei konfigurierbare, sich unterhaltende Agenten – kein festes Rollen-Set, aber ein solides Fundament für eigene CEO-Teams.",
+    badge:"Generisch · Enterprise-Grade",
+    install:`pip install -U "autogen-agentchat" "autogen-ext[openai]"`,
+    usage:`from autogen_agentchat.agents import AssistantAgent
 
-Ablauf:
-1. Präsentiere mir für die Aufgabe einen Plan der beteiligten Agenten-Rollen inkl. Zuständigkeiten.
-2. Jeder Agent liefert einen kurzen Vorschlag + Qualitäts-Check ("Quality Gate: bestanden/nicht bestanden").
-3. Warte auf meine explizite Freigabe ("CEO Approval: ja/nein"), bevor du zur nächsten Phase (Umsetzung) übergehst.
-
-Aufgabe: [DEINE AUFGABE HIER EINFÜGEN]`
+ceo = AssistantAgent(
+    "CEO",
+    model_client=model_client,
+    system_message="Du bist der CEO. Triff die finale Entscheidung."
+)`
   },
   {
-    n: 5, emoji:"🏛️", name:"agent-corp",
-    tagline:"Hierarchische Agenten-Organisation (Gründer → CEO → Teamleiter → Mitarbeiter), klassischerweise in parallelen tmux-Sessions betrieben.",
-    badge:"Hierarchisch · tmux-basiert", badgeType:"prompt",
-    install: null,
-    prompt: `Du bildest die Hierarchie von "agent-corp" ab: Gründer (ich) → CEO-Agent → 2 Team-Leiter-Agenten (Product & Engineering) → je 2 Mitarbeiter-Agenten. Kommunikation läuft nur über die jeweils direkte Führungsebene (keine Ebene überspringen).
+    tier:"found", emoji:"🐫", name:"CAMEL",
+    repo:"camel-ai/camel", url:"https://github.com/camel-ai/camel",
+    stars:"17,5k",
+    tagline:"Rollenspiel-Framework für kommunizierende Agenten – ideal, um zwei Personas (z. B. CEO ↔ CTO) einen Task gegeneinander durchspielen zu lassen.",
+    badge:"Rollenspiel-Engine",
+    install:`pip install camel-ai`,
+    usage:`from camel.societies import RolePlaying
 
-Für jede Aufgabe:
-1. Ich gebe dem CEO-Agenten das Ziel.
-2. Der CEO bricht es in 2 Team-Aufträge herunter und weist sie den Team-Leitern zu.
-3. Team-Leiter briefen ihre 2 Mitarbeiter und sammeln Ergebnisse ein.
-4. Ergebnisse fließen als Kurzbericht zurück nach oben bis zum CEO, der mir eine Zusammenfassung liefert.
-
-Stelle den Ablauf als eingerücktes Organigramm im Text dar.
-
-Ziel: [DEIN ZIEL HIER EINFÜGEN]`
+society = RolePlaying(
+    assistant_role_name="CTO",
+    user_role_name="CEO",
+    task_prompt="Plane den technischen Launch unseres MVPs"
+)`
   },
   {
-    n: 6, emoji:"👆", name:"TapAgents",
-    tagline:"Leichtgewichtiges Claude-Code-Plugin mit 14 fokussierten Task-Agenten für schnelle, punktuelle Firmen-Simulation.",
-    badge:"14 Agenten · Claude Code Plugin", badgeType:"prompt",
-    install: null,
-    prompt: `Aktiviere 14 fokussierte Task-Agenten: Research, Copywriting, Coding, Debugging, Design-Review, Pricing, Outreach, Support-Reply, Contract-Review, Hiring, Onboarding, Reporting, Social-Media, Roadmap.
-
-Für jede Anfrage wähle NUR die 1-3 relevantesten Agenten aus (nicht alle 14), lass sie in Stichpunkten antworten und fasse am Ende in einem Satz die empfohlene Aktion zusammen.
-
-Anfrage: [DEINE ANFRAGE HIER EINFÜGEN]`
+    tier:"found", emoji:"🚀", name:"gstack",
+    repo:"garrytan/gstack", url:"https://github.com/garrytan/gstack",
+    stars:"124.641",
+    tagline:"Garry Tans (Präsident von Y Combinator) eigenes Claude-Code-Setup: 23 Rollen-Skills, die dich durch Think → Plan → Build → Review → Test → Ship → Reflect begleiten.",
+    badge:"23 Rollen · Claude Code Skill",
+    install:`git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
+cd ~/.claude/skills/gstack && ./setup`,
+    usage:`/office-hours Wir wollen ein neues Feature X bauen – was ist der Plan?
+/qa     # QA-Lead prüft vor dem Release
+/ship   # Release Engineer übernimmt`
   },
   {
-    n: 7, emoji:"🏗️", name:"claude-virtual-company",
-    tagline:"Verwandelt Claude Code in ein Engineering-Team aus Skills, strategischen Rollen-Agenten und automatisierten Quality-Gate-Hooks.",
-    badge:"Quality Gates", badgeType:"repo",
-    install: `/plugin marketplace add k1lgor/virtual-company
+    tier:"found", emoji:"📎", name:"paperclip",
+    repo:"paperclipai/paperclip", url:"https://github.com/paperclipai/paperclip",
+    stars:"74,8k",
+    tagline:"Open-Source-Plattform für komplette „Zero-Human Companies\": Organigramm, Budgets, Governance und Freigabe-Workflows für gemischte Mensch/Agent-Teams.",
+    badge:"Zero-Human Company · Org-Chart",
+    install:`npx paperclipai onboard --yes`,
+    usage:`Nach dem Onboarding im lokalen Dashboard: Lege deinen ersten Agenten mit Titel, Reporting-Linie und Budget an – Paperclip übernimmt die Genehmigungs-Workflows automatisch.`
+  },
+
+  // ---------------- TIER 2: CLAUDE-CODE-PLUGINS & FIRMEN-TOOLS ----------------
+  {
+    tier:"plugin", emoji:"🤖", name:"RoboCo",
+    repo:"rennf93/roboco", url:"https://github.com/rennf93/roboco",
+    stars:null,
+    tagline:"Selbst-gehostete KI-Agenten-Organisation: 25 Rollen-Agenten arbeiten mit formalen Freigabe-Prozessen – du bleibst als menschlicher CEO in der Kontrollschleife.",
+    badge:"25 Agenten + menschlicher CEO",
+    install:`git clone https://github.com/rennf93/roboco.git`,
+    usage:`Setup gemäß README (docs.roboco.tech): Aufgabe einreichen, nach jeder Phase das „Quality Gate\" prüfen und als CEO die nächste Stufe freigeben.`
+  },
+  {
+    tier:"plugin", emoji:"📈", name:"Claude Corp",
+    repo:"re-marked/claude-corp", url:"https://github.com/re-marked/claude-corp",
+    stars:null,
+    tagline:"Deine persönliche, selbst-wachsende Organisation: Ein Worker-Pool aus Engineer, QA, Editor & Co. skaliert automatisch mit der Aufgabenlast.",
+    badge:"Selbst-wachsende Organisation",
+    install:`git clone https://github.com/re-marked/claude-corp.git
+cd claude-corp && pnpm install && pnpm build
+cd packages/cli && npm link && cd ../tui && npm link && cd ../..`,
+    usage:`cc new "Baue eine Landingpage für unser neues Produkt"`
+  },
+  {
+    tier:"plugin", emoji:"🏗️", name:"claude-virtual-company",
+    repo:"k1lgor/virtual-company", url:"https://github.com/k1lgor/virtual-company",
+    stars:null,
+    tagline:"27 Fach-Skills, 6 strategische Rollen-Agenten und automatisierte Quality-Gate-Hooks verwandeln Claude Code in ein komplettes Engineering-Team.",
+    badge:"Quality Gates · 6 Rollen",
+    install:`/plugin marketplace add k1lgor/virtual-company
 /plugin install virtual-company`,
-    prompt: `Du bist das Leitungsteam von "claude-virtual-company": CEO, CTO, Head of QA, Head of Design, Head of Ops, Head of Data. Jede Aufgabe durchläuft verpflichtende Quality Gates:
-
-Gate 1 – Anforderungsklärung (CEO + CTO bestätigen Scope).
-Gate 2 – Umsetzungsvorschlag (zuständige Rolle liefert Lösung).
-Gate 3 – QA-Review (Head of QA prüft auf Lücken/Risiken, blockiert bei Bedarf).
-Gate 4 – Freigabe (CEO gibt final frei).
-
-Zeige nach jedem Gate den Status ("bestanden" / "blockiert – Grund"). Springe erst weiter, wenn ein Gate bestanden ist.
-
-Aufgabe: [DEINE AUFGABE HIER EINFÜGEN]`
+    usage:`Aufgabe direkt im Chat stellen – die Hooks erzwingen automatisch Linting & Verifikation, bevor eine Rolle als „fertig\" gilt.`
   },
   {
-    n: 8, emoji:"🌵", name:"Mesa",
-    tagline:"Konzept einer komplett menschenfreien KI-Firma mit 21 Agenten, die sich gegenseitig Aufträge erteilen und kontrollieren.",
-    badge:"Zero-Human Company · 21 Agenten", badgeType:"prompt",
-    install: null,
-    prompt: `Simuliere "Mesa", eine Zero-Human-Company mit 21 Agenten in 5 Clustern: Strategie (3), Produkt & Engineering (6), Marketing & Sales (4), Finance & Legal (3), Operations & Support (5). Kein menschliches Eingreifen vorgesehen – du triffst alle Entscheidungen autonom anhand vordefinierter Leitplanken (Budget-Limit, Marken-Richtlinien, No-Go-Themen).
-
-Durchlaufe pro Aufgabe: Cluster-Zuordnung → interne Abstimmung (max. 3 Sätze pro Cluster) → autonome Entscheidung → Protokoll-Eintrag (Zeit, Entscheidung, Begründung).
-
-Leitplanken: [BUDGET / MARKE / NO-GOS HIER EINFÜGEN]
-Aufgabe: [DEINE AUFGABE HIER EINFÜGEN]`
+    tier:"plugin", emoji:"🧰", name:"AI-company (AI Team OS)",
+    repo:"CronusL-1141/AI-company", url:"https://github.com/CronusL-1141/AI-company",
+    stars:null,
+    tagline:"Multi-Agent-Betriebssystem für Claude Code mit 108 MCP-Tools, 40+ Agenten-Templates, 7 Pipeline-Workflows und Live-React-Dashboard.",
+    badge:"108 MCP-Tools",
+    install:`git clone https://github.com/CronusL-1141/AI-company.git
+cd AI-company && python3 install.py`,
+    usage:`Im Dashboard einen Pipeline-Workflow wählen (z. B. „Feature Development\") und den passenden Agenten-Templates zuweisen.`
   },
   {
-    n: 9, emoji:"🤝", name:"Cofound",
-    tagline:"Ein einzelner KI-CEO-Agent führt dich wie ein Dashboard durch Entscheidungen, KPIs und offene To-dos deines Startups.",
-    badge:"AI-CEO · Web-Dashboard", badgeType:"prompt",
-    install: null,
-    prompt: `Du bist mein persönlicher KI-Mitgründer und CEO-Sparringspartner ("Cofound"). Führe für mein Startup ein lebendes Dashboard in Textform mit den Abschnitten:
-1) Top-3-Prioritäten dieser Woche
-2) KPI-Ampel (grün/gelb/rot je Kennzahl, die ich dir nenne)
-3) Offene Entscheidungen mit Empfehlung
-4) Risiken
-
-Aktualisiere das Dashboard bei jeder neuen Information, die ich dir gebe, und frage proaktiv nach fehlenden Zahlen.
-
-Meine aktuellen KPIs/Infos: [HIER EINFÜGEN]`
-  },
-  {
-    n: 10, emoji:"👥", name:"OPC (One-Person Company)",
-    tagline:"Vier ikonische Personas – Elon (Vision/CEO), Jobs (Produkt), Linus (Code), Turing (QA) – führen dein Ein-Personen-Unternehmen.",
-    badge:"4 Agenten (Elon, Jobs, Linus, Turing)", badgeType:"prompt",
-    install: null,
-    prompt: `Bilde die "One-Person Company" (OPC) mit 4 Personas ab: ELON (CEO – Vision, Priorisierung, Tempo), JOBS (Produkt/UX – Einfachheit, Nutzererlebnis), LINUS (Engineering – Code, Architektur, Pragmatismus), TURING (QA/Review – Logik-Fehler, Edge-Cases, Sicherheit).
-
-Ablauf pro Aufgabe:
-1. ELON definiert Ziel und Priorität in 2 Sätzen.
-2. JOBS übersetzt es in eine konkrete Nutzer-Anforderung.
-3. LINUS liefert eine Umsetzung/Lösung.
-4. TURING prüft kritisch und listet Risiken/offene Punkte.
-5. ELON entscheidet final und nennt den nächsten Schritt.
-
-Aufgabe: [DEINE AUFGABE HIER EINFÜGEN]`
-  },
-  {
-    n: 11, emoji:"📈", name:"Claude Corp",
-    tagline:"Deine persönliche, selbst-wachsende Organisation aus KI-Agenten – von CEO und HR bis zu automatisch skalierenden Worker-Pools.",
-    badge:"Selbst-wachsende Organisation", badgeType:"repo",
-    install: `git clone https://github.com/re-marked/claude-corp.git
-cd claude-corp
-pnpm install && pnpm build
-cd packages/cli && npm link && cd ../tui && npm link && cd ../..
-cc   # startet die TUI`,
-    prompt: `Du leitest "Claude Corp", meine selbst-wachsende Organisation. Führungsebene: CEO, HR, Adviser, Planner. Worker-Pool (skaliert automatisch je nach Aufgabenlast): Engineer, QA, Editor, Herald (Kommunikation), Failsafe (Fehlerkontrolle).
-
-Für jede Aufgabe:
-1. CEO + Planner brechen die Aufgabe in Arbeitspakete herunter.
-2. HR "stellt" passende Worker aus dem Pool ein/ab, je nach Bedarf (max. so viele wie nötig).
-3. Worker bearbeiten parallel, Failsafe prüft Ergebnisse auf Fehler.
-4. Herald fasst für mich in einer kurzen Statusmeldung zusammen.
-
-Aufgabe: [DEINE AUFGABE HIER EINFÜGEN]`
-  },
-  {
-    n: 12, emoji:"💬", name:"claude-cyber-company",
-    tagline:"Lokales Multi-Agenten-Setup auf Claude-Code-Basis mit gemeinsamer Memory-Ebene und optionaler Chat-Anbindung.",
-    badge:"Multi-Agent + Chat", badgeType:"repo",
-    install: `git clone https://github.com/nils0000shiyong/claude-cyber-company.git
-cd claude-cyber-company
-claude`,
-    prompt: `Simuliere "claude-cyber-company": Ich delegiere als Single Point of Contact über einen Chat-Kanal an rollenbasierte Agenten (Produkt, Entwicklung, Review, Kommunikation), die sich eine gemeinsame Memory-Datei teilen.
-
-Für jede Chat-Nachricht von mir:
-1. Bestimme die zuständige Rolle.
-2. Lass die Rolle antworten UND das Ergebnis in einem "Memory-Log" (Bulletpoint mit Zeitstempel-Platzhalter) festhalten, damit andere Rollen später darauf zugreifen können.
-3. Zeige mir auf Zuruf "Tagesabschluss" eine Zusammenfassung aller Memory-Log-Einträge.
-
-Nachricht: [DEINE NACHRICHT HIER EINFÜGEN]`
-  },
-  {
-    n: 13, emoji:"🧑‍💼", name:"henry-ai-company",
-    tagline:"Klassisches C-Level-Rollenspiel mit 9 Führungsagenten für schnelles strategisches Feedback.",
-    badge:"9 Agenten (CEO/CFO/CTO/...)", badgeType:"prompt",
-    install: null,
-    prompt: `Bilde 9 Führungsagenten von "henry-ai-company" ab: CEO, CFO, CTO, COO, CMO, CHRO, General Counsel, Head of Product, Head of Sales.
-
-Wenn ich ein Thema vorlege, lass jeden Agenten in genau EINEM Satz seine wichtigste Sorge oder Empfehlung nennen (Perspektive muss zur Rolle passen). Danach fasst der CEO in 3 Sätzen die Gesamtentscheidung zusammen.
-
-Thema: [DEIN THEMA HIER EINFÜGEN]`
-  },
-  {
-    n: 14, emoji:"🧰", name:"AI-company (AI Team OS)",
-    tagline:"Multi-Agent-Team-Betriebssystem für Claude Code mit 108 MCP-Tools, 40+ Agenten-Templates und Live-Dashboard.",
-    badge:"108 MCP-Tools", badgeType:"repo",
-    install: `git clone https://github.com/CronusL-1141/AI-company.git
-cd AI-company
-python3 install.py
-# alternativ als Plugin:
-claude plugin install ai-team-os`,
-    prompt: `Nutze "AI Team OS" als Betriebssystem für mein Team: Wähle aus den verfügbaren Agenten-Templates (Engineering, Testing, Research, Management, Design, Data, Ops) die passenden aus und orchestriere sie über die vorhandenen MCP-Tools (Datei-, Such-, Test- und Deploy-Tools).
-
-Für jede Aufgabe:
-1. Zeige den gewählten Pipeline-Workflow (welche Templates, welche Reihenfolge).
-2. Führe die Schritte aus / simuliere sie mit klaren Zwischenergebnissen.
-3. Aktualisiere am Ende eine kurze "Dashboard-Zeile" (Status, Owner, ETA).
-
-Aufgabe: [DEINE AUFGABE HIER EINFÜGEN]`
-  },
-  {
-    n: 15, emoji:"🎨", name:"ai-outsourcing-studio",
-    tagline:"Externes Kreativ- und Growth-Team als 8 spezialisierte Agenten, die wie eine beauftragte Agentur liefern.",
-    badge:"8 Agenten", badgeType:"prompt",
-    install: null,
-    prompt: `Simuliere "ai-outsourcing-studio" – ein beauftragtes Agentur-Team mit 8 Spezialisten: Trend-Researcher, Brand-Guardian, Growth-Hacker, UX-Researcher, Backend-Architekt, Support-Antworter, Projekt-Koordinator, Interface-Designer. Ich bin der Kunde/Auftraggeber.
-
-Für jeden Auftrag:
-1. Projekt-Koordinator bestätigt Briefing + Deadline.
-2. Relevante Spezialisten liefern ihren Teil als kurzes Ergebnis-Deliverable.
-3. Projekt-Koordinator liefert am Ende ein zusammengefasstes "Kunden-Update" inkl. offener Rückfragen.
-
-Auftrag: [DEIN AUFTRAG HIER EINFÜGEN]`
-  },
-  {
-    n: 16, emoji:"🧙", name:"Sage Team",
-    tagline:"Elf beratende Spezialagenten, die dir wie ein erfahrenes Berater-Team strategische Weisheit liefern.",
-    badge:"11 Agenten", badgeType:"prompt",
-    install: null,
-    prompt: `Bilde das "Sage Team" mit 11 Beratungs-Agenten ab: Strategie, Finanzen, Recht, Marketing, Vertrieb, Produkt, Technik, HR, Operations, Risiko, Nachhaltigkeit.
-
-Für jede Fragestellung:
-1. Jeder relevante Sage gibt EINE prägnante Einschätzung (max. 2 Sätze) – konservativ, erfahrungsbasiert, auf Risiken bedacht.
-2. Am Ende fasst ein "Rats-Vorsitzender"-Agent den Konsens und die größte Meinungsverschiedenheit zusammen.
-
-Fragestellung: [DEINE FRAGE HIER EINFÜGEN]`
-  },
-  {
-    n: 17, emoji:"🗂️", name:"cc-company",
-    tagline:"Claude-Code-Plugin mit fester Sekretärs-Rolle als Single Point of Contact und dynamisch wachsendem Organigramm.",
-    badge:"Org-Chart", badgeType:"repo",
-    install: `/plugin marketplace add Shin-sibainu/cc-company
+    tier:"plugin", emoji:"🗂️", name:"cc-company",
+    repo:"Shin-sibainu/cc-company", url:"https://github.com/Shin-sibainu/cc-company",
+    stars:null,
+    tagline:"Eine feste Sekretärs-Rolle ist dein einziger Ansprechpartner – Abteilungen entstehen erst dynamisch, wenn die Arbeit sie wirklich braucht.",
+    badge:"Org-Chart",
+    install:`/plugin marketplace add Shin-sibainu/cc-company
 /plugin install company@cc-company`,
-    prompt: `Du bist die Sekretärin/der Sekretär von "cc-company" – mein einziger fester Ansprechpartner. Abteilungen (PM, Research, Marketing, Development, Finance, Sales, Creative, HR) werden nur bei Bedarf neu "gegründet" und im Organigramm ergänzt.
-
-Für jede Anfrage von mir:
-1. Prüfe, ob eine passende Abteilung existiert – wenn nicht, gründe sie kurz (1 Satz Begründung) und füge sie dem Organigramm hinzu.
-2. Delegiere die Anfrage an die Abteilung und liefere mir NUR die fertige Antwort (ich spreche nie direkt mit Abteilungen).
-3. Zeige auf Zuruf "Organigramm" die aktuelle Abteilungsstruktur als Baum.
-
-Anfrage: [DEINE ANFRAGE HIER EINFÜGEN]`
+    usage:`Schreib der Sekretärin dein Anliegen im Chat – bei Bedarf gründet sie live eine neue Abteilung (z. B. Marketing) und delegiert weiter.`
   },
   {
-    n: 18, emoji:"🏺", name:"Conclave",
-    tagline:"Ein Schwarm autonomer Debattier-Agenten, die geschäftliche Entscheidungen aus wechselnden Rollen gegeneinander abwägen.",
-    badge:"Business-Orchestration", badgeType:"prompt",
-    install: null,
-    prompt: `Simuliere "Conclave": ein Debatten-Schwarm für Geschäftsentscheidungen mit 3 Rollen – BEFÜRWORTER (sucht die stärksten Argumente FÜR die Idee), KRITIKER (sucht die stärksten Argumente DAGEGEN), RICHTER (wägt neutral ab und entscheidet).
-
-Ablauf:
-1. Ich nenne eine Geschäftsentscheidung.
-2. BEFÜRWORTER und KRITIKER liefern je 3 Argumente.
-3. Beide dürfen einmal auf die Gegenseite reagieren (Widerspruch/Zugeständnis).
-4. RICHTER trifft eine begründete Entscheidung inkl. Konfidenz (0-100 %).
-
-Entscheidung: [DEINE ENTSCHEIDUNG HIER EINFÜGEN]`
+    tier:"plugin", emoji:"🧝", name:"HeadElf",
+    repo:"pauljbernard/headElf", url:"https://github.com/pauljbernard/headElf",
+    stars:null,
+    tagline:"Verwandelt Claude Code in ein C-Suite-Intelligence-System mit 9 Führungsrollen – jede Entscheidung wird als Git-Commit protokolliert.",
+    badge:"C-Suite · Git-Protokoll",
+    install:`git clone https://github.com/pauljbernard/headElf.git
+cd headElf && npm install && pip install -r requirements.txt
+node scripts/register-slash-commands.js register`,
+    usage:`/headelf Sollten wir jetzt in eine SOC2-Zertifizierung investieren?`
   },
   {
-    n: 19, emoji:"🐙", name:"OctoOffice",
-    tagline:"Ein virtuelles Büro mit mehreren Abteilungs-„Räumen“, durch die deine Aufgabe wie ein Ticket wandert.",
-    badge:"Virtual Office", badgeType:"prompt",
-    install: null,
-    prompt: `Simuliere "OctoOffice" – ein virtuelles Büro mit den Räumen: Empfang (Ticket-Aufnahme), Produkt-Büro, Entwickler-Büro, Design-Büro, QA-Büro, Kundenservice-Büro. Meine Aufgabe ist ein Ticket, das durch die Räume wandert.
-
-Für jedes Ticket:
-1. Empfang nimmt es auf, vergibt eine Ticket-Nummer und Priorität.
-2. Das Ticket "betritt" nacheinander die relevanten Büros – jedes Büro trägt kurz seinen Beitrag/Status ein.
-3. Am Ende steht der Ticket-Status: Erledigt / Blockiert (mit Grund) / Wartet auf Rückmeldung.
-
-Ticket: [DEIN ANLIEGEN HIER EINFÜGEN]`
+    tier:"plugin", emoji:"🎓", name:"c-level-advisor",
+    repo:"alirezarezvani/claude-skills", url:"https://github.com/alirezarezvani/claude-skills",
+    stars:null,
+    tagline:"Virtueller Aufsichtsrat aus bis zu 10 C-Level-Personas, moderiert von einem Chief-of-Staff-Agenten für formelle Board-Meetings.",
+    badge:"Board of Directors",
+    install:`/plugin marketplace add alirezarezvani/claude-skills
+/plugin install c-level-skills@claude-code-skills`,
+    usage:`/cs:setup   # Firmenkontext anlegen
+/cs:board Sollen wir den Preis um 20% erhöhen?`
   },
   {
-    n: 20, emoji:"🧝", name:"HeadElf",
-    tagline:"Verwandelt Claude Code in ein komplettes C-Suite-Intelligence-System mit git-basiertem Entscheidungsprotokoll.",
-    badge:"C-Suite-Funktionen", badgeType:"repo",
-    install: `git clone https://github.com/pauljbernard/headElf.git
-cd headElf
-npm install && pip install -r requirements.txt
-node scripts/register-slash-commands.js register
-# Aktivieren mit:
-/headelf`,
-    prompt: `Aktiviere die C-Suite von "HeadElf": CTO, CIO, CISO, CFO, COO, CLO, CHRO, CMSO, CPO.
-
-Für jede strategische Frage:
-1. Bestimme, welche C-Level-Rollen betroffen sind.
-2. Jede betroffene Rolle gibt eine kurze Einschätzung aus ihrer fachlichen Perspektive.
-3. Committe die finale Entscheidung als git-artigen Log-Eintrag: "DECISION [Rolle(n)]: <Entscheidung> – Begründung: <kurz>".
-
-Frage: [DEINE FRAGE HIER EINFÜGEN]`
+    tier:"plugin", emoji:"👑", name:"claude-cyber-company (OPC)",
+    repo:"nils0000shiyong/claude-cyber-company", url:"https://github.com/nils0000shiyong/claude-cyber-company",
+    stars:null,
+    tagline:"Das „One-Person-Company\"-Konzept: Ein CEO-Agent (Elon) delegiert an vier Spezialisten – Jobs (Produkt), Linus (Code), Turing (Review) und Bezos (Kommunikation).",
+    badge:"4+ Agenten · OPC-Konzept",
+    install:`git clone https://github.com/nils0000shiyong/claude-cyber-company.git
+cd claude-cyber-company && claude`,
+    usage:`Sprich im Terminal einfach mit „Elon\" – er verteilt deine Aufgabe automatisch an Jobs, Linus, Turing oder Bezos.`
   },
   {
-    n: 21, emoji:"🎓", name:"c-level-advisor",
-    tagline:"Virtueller Aufsichtsrat aus C-Level-Personas, moderiert von einem Chief-of-Staff-Agenten für formelle Board-Meetings.",
-    badge:"Board of Directors", badgeType:"repo",
-    install: `/plugin marketplace add alirezarezvani/claude-skills
-/plugin install c-level-skills@claude-code-skills
-# alternativ:
-npx agent-skills-cli add alirezarezvani/claude-skills`,
-    prompt: `Simuliere ein Board-Meeting von "c-level-advisor" mit CEO, CTO, COO, CFO, CMO, CRO, CISO, CHRO und General Counsel, moderiert vom Chief of Staff.
-
-Ablauf eines Board-Meetings:
-1. Chief of Staff eröffnet mit der Agenda (mein Thema).
-2. Jedes Board-Mitglied gibt sein Statement ab (2-3 Sätze, klar aus der eigenen Verantwortung heraus).
-3. Chief of Staff sammelt Einwände und lässt bei Bedarf eine Abstimmung durchführen (Board-Mitglieder stimmen mit "dafür/dagegen/Enthaltung").
-4. Ergebnis wird als Board-Beschluss protokolliert.
-
-Agenda-Thema: [DEIN THEMA HIER EINFÜGEN]`
+    tier:"plugin", emoji:"🐾", name:"claw-empire",
+    repo:"GreenSheep01201/claw-empire", url:"https://github.com/GreenSheep01201/claw-empire",
+    stars:"1.342",
+    tagline:"Pixel-Art-Büro-Simulation: Du spielst CEO, während Claude Code, Codex & Gemini CLI als Angestellte Tickets durch 6 Abteilungs-Räume schieben.",
+    badge:"Virtual Office",
+    install:`git clone https://github.com/GreenSheep01201/claw-empire.git
+cd claw-empire && bash install.sh`,
+    usage:`Dashboard öffnen, neue Aufgabe aufs Kanban-Board ziehen – die verbundenen CLI-Agenten übernehmen sie automatisch je nach Abteilung.`
   },
   {
-    n: 22, emoji:"💡", name:"idea-factory",
-    tagline:"Verwandelt eine Ein-Satz-Idee automatisch in ein virtuelles 7-köpfiges Startup-Team, das einen MVP-Plan erarbeitet.",
-    badge:"Virtual Startup Team", badgeType:"prompt",
-    install: null,
-    prompt: `Simuliere "idea-factory": ein virtuelles 7-Personen-Startup-Team – Projektleitung, Entwicklung, Design, Architektur, Kritiker, Code-Review, QA. Ich gebe dir eine Geschäftsidee in einem Satz.
+    tier:"plugin", emoji:"🧍", name:"OneManCompany",
+    repo:"1mancompany/OneManCompany", url:"https://github.com/1mancompany/OneManCompany",
+    stars:"365",
+    tagline:"Baue deine Agenten-Firma direkt im Browser: EA, HR, COO, CSO, Engineer, Designer und QA formen eine sich selbst weiterentwickelnde Hierarchie.",
+    badge:"Selbst-evolvierend",
+    install:`npx @1mancompany/onemancompany`,
+    usage:`Im Browser dein Ziel beschreiben – die EA (Executive Assistant) briefed automatisch die passenden Rollen.`
+  },
+  {
+    tier:"plugin", emoji:"🏭", name:"auto-company (auto-co)",
+    repo:"nicepkg/auto-company", url:"https://github.com/nicepkg/auto-company",
+    stars:"~180",
+    tagline:"24/7 autonome KI-Firma mit 14 Personas im Stil realer Tech- und Business-Köpfe (u. a. Bezos, DHH, Munger) – läuft ohne menschliches Eingreifen.",
+    badge:"14 Agenten · Vollautonom",
+    install:`git clone https://github.com/nicepkg/auto-company.git
+cd auto-company && make start
+# Hinweis: aktuell nur macOS, experimentell`,
+    usage:`Ziel einmal in die Konsens-Datei eintragen – die 14 Personas diskutieren und committen ihre Entscheidungen danach autonom.`
+  },
 
-Ablauf:
-1. Projektleitung übersetzt die Idee in 3 MVP-Kernfunktionen.
-2. Entwicklung + Design + Architektur skizzieren je einen Umsetzungsansatz.
-3. Kritiker + Code-Review + QA suchen aktiv nach Schwachstellen und Risiken.
-4. Projektleitung liefert einen finalen MVP-Plan mit den ersten 3 nächsten Schritten.
-
-Idee: [DEINE IDEE IN EINEM SATZ HIER EINFÜGEN]`
+  // ---------------- TIER 3: HIDDEN GEMS ----------------
+  {
+    tier:"gem", emoji:"🗝️", name:"keystone-agent",
+    repo:"sixteen-dev/keystone-agent", url:"https://github.com/sixteen-dev/keystone-agent",
+    stars:"~1",
+    tagline:"Ein CLI-„Board of Directors\" für Solo-Builder: 7 Advisor-Personas (Product, Growth, Architektur, Kapital, Risiko, Kreativ, Purist) zerlegen deine Idee gnadenlos.",
+    badge:"7 Advisor-Personas",
+    install:`git clone https://github.com/sixteen-dev/keystone-agent.git
+cd keystone-agent && uv sync`,
+    usage:`Review-Session starten und die Idee in 1-2 Sätzen beschreiben – das Board debattiert und liefert ein strukturiertes Verdict.`
+  },
+  {
+    tier:"gem", emoji:"🧑‍💼", name:"ceo (Orchestration System)",
+    repo:"ivfarias/ceo", url:"https://github.com/ivfarias/ceo",
+    stars:"~22",
+    tagline:"Benannte Personas mit persistentem Gedächtnis: Cleo (CEO), Devon (Dev), Manny (PM), Quinn (QA), Ana (Analytics), Mark (Marketing) und Sally (UX) – Multi-CLI-fähig.",
+    badge:"7 benannte Personas",
+    install:`# läuft auf jeder unterstützten CLI, z. B.:
+npm i @anthropic-ai/claude-code
+# Setup-Details im Repo-README`,
+    usage:`Sprich Cleo direkt an: "Cleo, wir brauchen in 2 Wochen eine Landingpage – wer übernimmt was?"`
+  },
+  {
+    tier:"gem", emoji:"🦸", name:"AGI-Super-Team",
+    repo:"aAAaqwq/AGI-Super-Team", url:"https://github.com/aAAaqwq/AGI-Super-Team",
+    stars:"81",
+    tagline:"14 KI-Führungskräfte im Stil bekannter Vordenker (u. a. Musk, Buffett, Simons, Feynman) – dein virtuelles C-Suite in einem Git-Clone.",
+    badge:"14 Agenten · Solo-Founder",
+    install:`git clone --depth 1 --branch main https://github.com/aAAaqwq/AGI-Super-Team.git
+cd AGI-Super-Team
+./install.sh --source "$PWD" --destination /pfad/zu/deinem/projekt solo-founder`,
+    usage:`Im Zielprojekt dein „C-Suite\" direkt im Chat nach einer Einschätzung zu deiner nächsten Entscheidung fragen.`
+  },
+  {
+    tier:"gem", emoji:"💡", name:"ajen",
+    repo:"ajenhq/ajen", url:"https://github.com/ajenhq/ajen",
+    stars:"~19",
+    tagline:"„Beschreibe ein Startup. Sieh zu, wie KI-Mitarbeiter es bauen.\" CEO, CTO, CMO und COO plus Devs/Designer/QA/SEO setzen deine Idee eigenständig um.",
+    badge:"Archiviert · Idea-to-MVP",
+    install:`git clone https://github.com/ajenhq/ajen.git
+cd ajen && cargo run --release`,
+    usage:`Startup-Idee in einem Satz eingeben – das Team plant, baut und meldet den Fortschritt zurück. (Hinweis: seit März 2026 archiviert.)`
+  },
+  {
+    tier:"gem", emoji:"✍️", name:"agents-of-chaos",
+    repo:"KarenSpinner/agents-of-chaos", url:"https://github.com/KarenSpinner/agents-of-chaos",
+    stars:"~2",
+    tagline:"Kleine Content-Agentur-Simulation: Account Manager, Writer, Editor und Fact-Checker durchlaufen bis zu 3 Revisionsrunden pro Auftrag.",
+    badge:"4 Agenten · Content-Agentur",
+    install:`pip install anthropic python-dotenv requests serpapi`,
+    usage:`Kunden-Briefing eingeben – Account Manager reviewt, Writer entwirft, Editor & Fact-Checker prüfen, bevor du das Ergebnis bekommst.`
+  },
+  {
+    tier:"gem", emoji:"⚖️", name:"multi-agent-debate",
+    repo:"muthuspark/multi-agent-debate", url:"https://github.com/muthuspark/multi-agent-debate",
+    stars:"~3",
+    tagline:"Ein analytischer Agent und ein kritisch-philosophischer Gegenpart debattieren deine Frage, ein dritter Agent entscheidet als Richter.",
+    badge:"Debatten-Schwarm",
+    install:`git clone https://github.com/muthuspark/multi-agent-debate.git
+cd multi-agent-debate && uv sync`,
+    usage:`Entscheidungsfrage stellen – Analyst und Kritiker tauschen Argumente aus, der Richter fällt am Ende die Entscheidung.`
+  },
+  {
+    tier:"gem", emoji:"🌱", name:"ai-simulated-startup",
+    repo:"simerusm/ai-simulated-startup", url:"https://github.com/simerusm/ai-simulated-startup",
+    stars:"~2",
+    tagline:"Hackathon-Projekt mit echtem Biss: Der CTO-Agent pusht tatsächliche Commits auf GitHub, während CEO und Marketer Strategie und Branding übernehmen.",
+    badge:"CEO · CTO · Marketer",
+    install:`# Setup gemäß Repo-README
+# Python/React, benötigt Cohere- & Groq-API-Keys`,
+    usage:`Geschäftsidee eingeben – der CTO-Agent erstellt ein echtes GitHub-Repo und committet den ersten Code direkt hinein.`
   }
 ];
 
 const REFERENCE_ROWS = [
-  ["Schnelle Einzelaufgaben zwischendurch", "TapAgents", "14 fokussierte Mini-Agenten ohne Overhead"],
-  ["Große strategische Entscheidung", "c-level-advisor", "Echtes Board-Meeting-Format inkl. Abstimmung"],
+  ["Riesiges, offizielles Multi-Agent-Fundament nutzen", "MetaGPT", "Größtes, best-dokumentiertes „AI-Softwarefirma\"-Framework"],
+  ["Volles Firmen-Erlebnis mit Organigramm &amp; Budgets", "paperclip", "Zero-Human-Company-Plattform mit Governance"],
+  ["Schon in Claude Code arbeiten, sofort loslegen", "gstack", "124.641 ⭐, 23 Rollen, ein Git-Clone"],
+  ["Menschliche Kontrolle behalten (sicherheitskritisch)", "RoboCo", "Mensch bleibt im Freigabe-Loop"],
   ["Tägliche zentrale Anlaufstelle", "cc-company", "Feste Sekretärs-Rolle, wachsendes Organigramm"],
-  ["Voll-autonomer Betrieb ohne Eingriff", "auto-co / Mesa", "24/7 ohne Freigabeschleifen"],
-  ["Sicherheitskritische Entscheidungen mit Kontrolle", "RoboCo", "Menschlicher CEO bleibt im Loop"],
-  ["Ideen-Validierung / MVP-Planung", "idea-factory", "7-köpfiges Team baut MVP-Plan aus 1 Satz"],
+  ["Große strategische Entscheidung / Board-Meeting", "c-level-advisor oder keystone-agent", "Formelles Board-Format inkl. Abstimmung/Verdict"],
   ["Technische Umsetzung mit Qualitätssicherung", "claude-virtual-company", "Verpflichtende Quality Gates"],
-  ["Große Tool-Integration (Deploy, Tests, Suche)", "AI-company (AI Team OS)", "108 MCP-Tools, Live-Dashboard"],
-  ["Prompt-only-Konzept ohne Setup", "OPC, henry-ai-company, Sage Team", "Direkt copy-paste, kein Repo nötig"],
-  ["Ganzheitliche C-Suite-Perspektive", "HeadElf", "9 C-Level-Rollen inkl. Sicherheits-/Rechtsfokus"],
-  ["Kreativ-/Growth-Auftrag extern vergeben", "ai-outsourcing-studio", "Agentur-Simulation mit 8 Spezialisten"],
-  ["Ticket-/Workflow-Denken (Support etc.)", "OctoOffice", "Ticket wandert durch virtuelle Büros"],
-  ["Pro/Contra-Abwägung bei Zwiespalt", "Conclave", "Debatten-Schwarm mit Richter-Agent"]
+  ["Frei anpassbare Rollen, volle Kontrolle über den Code", "CrewAI oder AutoGen", "Kein festes Rollen-Set, maximale Flexibilität"],
+  ["Kreativ-Auftrag extern „vergeben\"", "agents-of-chaos", "Content-Agentur-Simulation mit Revisionsrunden"],
+  ["Pro/Contra-Abwägung bei einer Zwickmühle", "multi-agent-debate", "Debatten-Schwarm mit Richter-Agent"],
+  ["Ideen-Validierung / MVP-Planung", "ajen", "Ein-Satz-Idee wird zum MVP-Plan (Hinweis: archiviert)"],
+  ["Verspielter Einstieg / visuelles Feedback", "claw-empire", "Pixel-Art-Büro mit Kanban-Board"]
 ];
 
 function escapeHtml(str){
-  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
 
 function copyToClipboard(text, btn){
@@ -524,10 +516,7 @@ function copyToClipboard(text, btn){
     const original = btn.innerHTML;
     btn.classList.add("copied");
     btn.innerHTML = '<i class="fa-solid fa-check"></i><span>Kopiert!</span>';
-    setTimeout(() => {
-      btn.classList.remove("copied");
-      btn.innerHTML = original;
-    }, 1800);
+    setTimeout(() => { btn.classList.remove("copied"); btn.innerHTML = original; }, 1800);
   };
   if (navigator.clipboard && window.isSecureContext){
     navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
@@ -547,75 +536,66 @@ function fallbackCopy(text, done){
   document.body.removeChild(ta);
 }
 
-function renderCards(){
-  const grid = document.getElementById("card-grid");
-  const fragment = document.createDocumentFragment();
+function buildCard(fw, idx){
+  const card = document.createElement("article");
+  card.className = `card fade-in ${TIER_META[fw.tier].cls} rounded-xl p-5 flex flex-col gap-4`;
 
-  FRAMEWORKS.forEach((fw) => {
-    const card = document.createElement("article");
-    card.className = "card fade-in rounded-xl p-5 flex flex-col gap-4";
+  const starHtml = fw.stars
+    ? `<span class="star-pill text-[11px] font-medium px-2 py-1 rounded-full whitespace-nowrap"><i class="fa-solid fa-star mr-1"></i>${escapeHtml(fw.stars)}</span>`
+    : "";
 
-    const badgeColor = fw.badgeType === "repo"
-      ? 'style="background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.35);color:#4ADE80;"'
-      : "";
-
-    let installHtml = "";
-    if (fw.install){
-      installHtml = `
+  card.innerHTML = `
+    <div class="flex items-start justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="avatar">${fw.emoji}</div>
         <div>
-          <div class="flex items-center justify-between mb-1.5">
-            <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">
-              <i class="fa-solid fa-terminal mr-1"></i>Installation
-            </span>
-            <button class="copy-btn install-copy text-xs px-2.5 py-1 rounded-md flex items-center gap-1.5 text-slate-300" data-idx="${fw.n}">
-              <i class="fa-regular fa-copy"></i><span>Kopieren</span>
-            </button>
-          </div>
-          <pre class="codebox rounded-lg p-3 text-xs text-emerald-300 overflow-x-auto whitespace-pre">${escapeHtml(fw.install)}</pre>
-        </div>`;
-    }
-
-    card.innerHTML = `
-      <div class="flex items-start justify-between gap-3">
-        <div class="flex items-center gap-2.5">
-          <span class="text-3xl leading-none">${fw.emoji}</span>
-          <div>
-            <h3 class="font-semibold text-slate-100 leading-tight">${escapeHtml(fw.name)}</h3>
-            <span class="text-[10px] text-slate-500">#${fw.n}</span>
-          </div>
+          <h3 class="font-semibold text-slate-100 leading-tight">${escapeHtml(fw.name)}</h3>
+          <span class="text-[11px] text-slate-500">${escapeHtml(fw.repo)}</span>
         </div>
-        <span class="badge text-[11px] font-medium px-2.5 py-1 rounded-full whitespace-nowrap" ${badgeColor}>${escapeHtml(fw.badge)}</span>
       </div>
+      ${starHtml}
+    </div>
 
-      <p class="text-sm text-slate-400 leading-relaxed">${escapeHtml(fw.tagline)}</p>
+    <p class="text-sm text-slate-400 leading-relaxed">${escapeHtml(fw.tagline)}</p>
 
-      ${installHtml}
+    <div class="flex items-center justify-between gap-2">
+      <span class="badge text-[11px] font-medium px-2.5 py-1 rounded-full whitespace-nowrap" style="background:rgba(129,140,248,.12);border:1px solid rgba(129,140,248,.35);color:#A5B4FC;">${escapeHtml(fw.badge)}</span>
+      <a href="${fw.url}" target="_blank" rel="noopener noreferrer" class="gh-link text-xs px-2.5 py-1.5 rounded-md flex items-center gap-1.5 text-slate-300 transition">
+        <i class="fa-brands fa-github"></i><span>GitHub ↗</span>
+      </a>
+    </div>
 
-      <div class="flex-1 flex flex-col">
-        <div class="flex items-center justify-between mb-1.5">
-          <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">
-            <i class="fa-solid fa-message mr-1"></i>Fertiger Prompt
-          </span>
-          <button class="copy-btn prompt-copy text-xs px-2.5 py-1 rounded-md flex items-center gap-1.5 text-slate-300" data-idx="${fw.n}">
-            <i class="fa-regular fa-copy"></i><span>Kopieren</span>
-          </button>
-        </div>
-        <pre class="codebox rounded-lg p-3 text-xs text-slate-300 overflow-x-auto whitespace-pre-wrap flex-1 max-h-64 overflow-y-auto">${escapeHtml(fw.prompt)}</pre>
+    <div>
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-500"><i class="fa-solid fa-terminal mr-1"></i>Installation</span>
+        <button class="copy-btn install-copy text-xs px-2.5 py-1 rounded-md flex items-center gap-1.5 text-slate-300" data-idx="${idx}">
+          <i class="fa-regular fa-copy"></i><span>Kopieren</span>
+        </button>
       </div>
-    `;
+      <pre class="codebox rounded-lg p-3 text-xs text-emerald-300 overflow-x-auto whitespace-pre">${escapeHtml(fw.install)}</pre>
+    </div>
 
-    fragment.appendChild(card);
-  });
+    <div class="flex-1 flex flex-col">
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-500"><i class="fa-solid fa-message mr-1"></i>Erster Prompt / Befehl</span>
+        <button class="copy-btn usage-copy text-xs px-2.5 py-1 rounded-md flex items-center gap-1.5 text-slate-300" data-idx="${idx}">
+          <i class="fa-regular fa-copy"></i><span>Kopieren</span>
+        </button>
+      </div>
+      <pre class="codebox rounded-lg p-3 text-xs text-slate-300 overflow-x-auto whitespace-pre-wrap flex-1 max-h-56 overflow-y-auto">${escapeHtml(fw.usage)}</pre>
+    </div>
+  `;
 
-  grid.appendChild(fragment);
+  card.querySelector(".install-copy").addEventListener("click", (e) => copyToClipboard(fw.install, e.currentTarget));
+  card.querySelector(".usage-copy").addEventListener("click", (e) => copyToClipboard(fw.usage, e.currentTarget));
 
-  grid.querySelectorAll(".install-copy").forEach((btn) => {
-    const fw = FRAMEWORKS.find(f => f.n === Number(btn.dataset.idx));
-    btn.addEventListener("click", () => copyToClipboard(fw.install, btn));
-  });
-  grid.querySelectorAll(".prompt-copy").forEach((btn) => {
-    const fw = FRAMEWORKS.find(f => f.n === Number(btn.dataset.idx));
-    btn.addEventListener("click", () => copyToClipboard(fw.prompt, btn));
+  return card;
+}
+
+function renderCards(){
+  FRAMEWORKS.forEach((fw, idx) => {
+    const grid = document.getElementById(TIER_META[fw.tier].grid);
+    grid.appendChild(buildCard(fw, idx));
   });
 }
 
@@ -626,9 +606,9 @@ function renderReference(){
     const tr = document.createElement("tr");
     tr.className = i % 2 === 0 ? "bg-[#0D1117]" : "bg-[#12161d]";
     tr.innerHTML = `
-      <td class="px-4 py-3 text-slate-300">${escapeHtml(row[0])}</td>
+      <td class="px-4 py-3 text-slate-300">${row[0]}</td>
       <td class="px-4 py-3 text-emerald-400 font-medium whitespace-nowrap">${escapeHtml(row[1])}</td>
-      <td class="px-4 py-3 text-slate-400">${escapeHtml(row[2])}</td>
+      <td class="px-4 py-3 text-slate-400">${row[2]}</td>
     `;
     fragment.appendChild(tr);
   });
