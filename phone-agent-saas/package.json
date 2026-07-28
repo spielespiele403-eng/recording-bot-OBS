@@ -1,0 +1,36 @@
+{
+  "name": "phone-agent-saas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "KI-Telefon-/Chat-Agent + Terminbuchung für lokale Dienstleister (Missed-Call-Recovery via SMS, Live-Booking via Vapi + Cal.com)",
+  "type": "module",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "tsx prisma/seed.ts",
+    "provision": "tsx scripts/provisionBusiness.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.20.0",
+    "@vapi-ai/server-sdk": "1.2.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "twilio": "^5.3.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.7.4",
+    "prisma": "^5.20.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
+}

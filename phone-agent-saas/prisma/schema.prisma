@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// A tenant: one local business using the phone agent. Config-driven so the
+// same codebase serves any industry (Handwerker, Zahnarzt, Kfz-Werkstatt, ...)
+// without code changes - industry-specific behavior comes from these fields.
+model Business {
+  id                    String   @id @default(cuid())
+  slug                  String   @unique
+  name                  String
+  industry              String
+  timezone              String   @default("Europe/Berlin")
+  // Weekly opening hours, e.g. {"mon":[{"start":"08:00","end":"17:00"}], "tue": [...], ...}
+  businessHours         String
+  escalationPhoneNumber String
+  // Optional FAQ entries used to answer caller questions, e.g. [{"question":"...","answer":"..."}]
+  faq                   String?
+
+  vapiAssistantId       String   @unique
+  vapiPhoneNumberId     String   @unique
+  voicePhoneNumber      String   @unique
+  twilioSmsFromNumber   String
+
+  calcomApiKey          String
+  calcomUsername        String
+
+  services              Service[]
+  calls                 Call[]
+  appointments          Appointment[]
+  missedCallSms         MissedCallSms[]
+
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+model Service {
+  id                String   @id @default(cuid())
+  businessId        String
+  business          Business @relation(fields: [businessId], references: [id])
+  name              String
+  durationMinutes   Int
+  calcomEventTypeId Int
+  // Free-form hint for the LLM's qualification logic, e.g. "emergency" | "routine"
+  priority          String?
+
+  appointments      Appointment[]
+
+  @@index([businessId])
+}
+
+model Call {
+  id           String     @id @default(cuid())
+  businessId   String
+  business     Business   @relation(fields: [businessId], references: [id])
+  vapiCallId   String?    @unique
+  fromNumber   String
+  toNumber     String
+  // SQLite has no native enum support - enforced as a CallStatus union in TS
+  // (see src/calls/call.types.ts): IN_PROGRESS | BOOKED | ESCALATED | MISSED |
+  // MISSED_RECOVERED | ABANDONED
+  status       String     @default("IN_PROGRESS")
+  transcript   String?
+  summary      String?
+  recordingUrl String?
+
+  appointment  Appointment?
+  smsLogs      MissedCallSms[]
+
+  startedAt    DateTime   @default(now())
+  endedAt      DateTime?
+
+  @@index([businessId])
+  @@index([toNumber])
+}
+
+model Appointment {
+  id              String   @id @default(cuid())
+  businessId      String
+  business        Business @relation(fields: [businessId], references: [id])
+  callId          String?  @unique
+  call            Call?    @relation(fields: [callId], references: [id])
+  serviceId       String
+  service         Service  @relation(fields: [serviceId], references: [id])
+  calcomBookingId String   @unique
+  customerName    String
+  customerPhone   String
+  startTime       DateTime
+  endTime         DateTime
+  // CONFIRMED | CANCELLED | RESCHEDULED
+  status          String   @default("CONFIRMED")
+
+  createdAt       DateTime @default(now())
+
+  @@index([businessId])
+}
+
+model MissedCallSms {
+  id               String   @id @default(cuid())
+  businessId       String
+  business         Business @relation(fields: [businessId], references: [id])
+  callId           String
+  call             Call     @relation(fields: [callId], references: [id])
+  toNumber         String
+  twilioMessageSid String
+  bookingLinkUrl   String
+  // SENT | FAILED
+  status           String
+  sentAt           DateTime @default(now())
+
+  @@index([businessId])
+}
