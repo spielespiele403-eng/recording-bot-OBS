@@ -8,18 +8,21 @@ Losgelöst vom Twitch/OBS-Bot in diesem Repo (`bot.py`) — eigenständiges Proj
 
 ## Hauptanwendungsfall
 
-**Prompt → fertiges Video mit eigenem Avatar in eigener Stimme:**
+**Prompt → fertiges Video mit Avatar + Stimme**, in zwei wählbaren Modi (`pipeline.py` bzw. MCP-Tool `generate_avatar_video`):
 
 ```
 Prompt
-  → llm/           (Skript schreiben)
-  → voice/          (Audio in geklonter eigener Stimme)
-  → lipsync-avatar/ (sprechender Avatar aus eigenem Foto/Video)
-  → upscale/        (Endpolitur)
+  → llm/            (Skript schreiben)
+  → [image-gen/      (nur falls kein eigenes Foto: Avatar automatisch generieren)]
+  → voice/           (Audio: eigene geklonte Stimme ODER Preset-Stimme)
+  → lipsync-avatar/  (sprechender Avatar aus Foto/Video)
+  → upscale/         (Endpolitur)
   → fertiges Video
 ```
 
-Voraussetzung einmalig: eine Stimmprobe (`voice/`) und ein Foto/Video (`lipsync-avatar/`) von dir selbst hinterlegen.
+- **Eigener Avatar/eigene Stimme**: `face_image_path` (eigenes Foto) + `speaker_wav` (eigene Stimmprobe) angeben
+- **Automatisch generierter Avatar/Preset-Stimme**: beides weglassen — dann erzeugt `image-gen/` einen Avatar aus `avatar_prompt`, und `voice/` nutzt ein Preset aus `voice/presets/presets.json` (`voice_preset`, Standard `"default"`)
+- Mischformen möglich: z.B. eigenes Foto + Preset-Stimme, oder generierter Avatar + eigene Stimme
 
 ## Module
 

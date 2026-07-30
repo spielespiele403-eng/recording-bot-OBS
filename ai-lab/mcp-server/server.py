@@ -139,11 +139,20 @@ def lipsync_avatar(
 
 @mcp.tool()
 def generate_speech(
-    text: str, speaker_wav: str, language: str = "en", output: str = "out.wav"
+    text: str,
+    speaker_wav: str = None,
+    voice_preset: str = "default",
+    language: str = "en",
+    output: str = "out.wav",
 ) -> dict:
-    """Synthesize speech in a cloned voice from a reference sample. (voice/)"""
+    """Synthesize speech. Pass speaker_wav to clone a voice, or omit it and use voice_preset for a preset voice. (voice/)"""
     return _run_module(
-        "voice", text=text, speaker_wav=speaker_wav, language=language, output=output
+        "voice",
+        text=text,
+        speaker_wav=speaker_wav,
+        voice_preset=voice_preset,
+        language=language,
+        output=output,
     )
 
 
@@ -159,6 +168,42 @@ def generate_audio(prompt: str, duration_seconds: int = 10, output: str = "out.w
 def predict_virality(text: str) -> dict:
     """Score a script/caption for predicted virality with reasoning. (virality-predictor/)"""
     return _run_module("virality-predictor", text=text)
+
+
+@mcp.tool()
+def generate_avatar_video(
+    prompt: str,
+    speaker_wav: str = None,
+    voice_preset: str = "default",
+    face_image_path: str = None,
+    avatar_prompt: str = None,
+    language: str = "en",
+    output: str = "final_video.mp4",
+) -> dict:
+    """Main use case: prompt -> finished avatar video. Pass face_image_path/speaker_wav
+    for your own avatar+voice, or omit both to auto-generate an avatar (image-gen) and
+    use a preset voice (voice_preset). Runs the full llm -> voice -> lipsync-avatar ->
+    upscale pipeline. (pipeline.py)"""
+    pipeline_dir = AI_LAB_DIR
+    sys.path.insert(0, str(pipeline_dir))
+    try:
+        spec = importlib.util.spec_from_file_location("ai_lab_pipeline", pipeline_dir / "pipeline.py")
+        pipeline = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(pipeline)
+        kwargs = {
+            "prompt": prompt,
+            "speaker_wav": speaker_wav,
+            "voice_preset": voice_preset,
+            "face_image_path": face_image_path,
+            "language": language,
+            "output": output,
+        }
+        if avatar_prompt is not None:
+            kwargs["avatar_prompt"] = avatar_prompt
+        output_path = pipeline.generate_video(**kwargs)
+        return {"output_path": output_path, "metadata": {}}
+    finally:
+        sys.path.remove(str(pipeline_dir))
 
 
 if __name__ == "__main__":

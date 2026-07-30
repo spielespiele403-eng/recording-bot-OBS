@@ -1,0 +1,6 @@
+{
+  "default": {
+    "wav": "presets/default.wav",
+    "description": "Neutraler Standard-Sprecher (Platzhalter-Preset)"
+  }
+}

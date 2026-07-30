@@ -16,8 +16,16 @@ from TTS.tts.models.xtts import Xtts
 
 BASE_MODEL_DIR = Path(__file__).parent / "checkpoints"
 FINETUNED_DIR = Path(__file__).parent / "checkpoints" / "finetuned"
+PRESETS_DIR = Path(__file__).parent / "presets"
 
 _model = None
+
+
+def _resolve_speaker_wav(speaker_wav: str, voice_preset: str) -> str:
+    if speaker_wav:
+        return speaker_wav
+    presets = json.loads((PRESETS_DIR / "presets.json").read_text())
+    return str(PRESETS_DIR.parent / presets[voice_preset]["wav"])
 
 
 def _load():
@@ -32,8 +40,16 @@ def _load():
         _model.cuda()
 
 
-def run(text: str, speaker_wav: str, language: str = "en", output: str = "out.wav", **kwargs) -> dict:
+def run(
+    text: str,
+    speaker_wav: str = None,
+    voice_preset: str = "default",
+    language: str = "en",
+    output: str = "out.wav",
+    **kwargs,
+) -> dict:
     _load()
+    speaker_wav = _resolve_speaker_wav(speaker_wav, voice_preset)
     latents_path = FINETUNED_DIR / "speaker_latents.pth"
     if latents_path.exists():
         gpt_cond_latent, speaker_embedding = torch.load(latents_path)
@@ -56,9 +72,16 @@ def run(text: str, speaker_wav: str, language: str = "en", output: str = "out.wa
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--text", required=True)
-    parser.add_argument("--speaker_wav", required=True)
+    parser.add_argument("--speaker_wav", default=None, help="Eigene Referenz-Stimme (Cloning). Weglassen fuer ein Preset.")
+    parser.add_argument("--voice_preset", default="default", help="Preset aus presets/presets.json, falls kein speaker_wav angegeben ist.")
     parser.add_argument("--language", default="en")
     parser.add_argument("--output", default="out.wav")
     args = parser.parse_args()
-    result = run(text=args.text, speaker_wav=args.speaker_wav, language=args.language, output=args.output)
+    result = run(
+        text=args.text,
+        speaker_wav=args.speaker_wav,
+        voice_preset=args.voice_preset,
+        language=args.language,
+        output=args.output,
+    )
     print(json.dumps(result, indent=2))
