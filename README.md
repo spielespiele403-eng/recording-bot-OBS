@@ -47,7 +47,7 @@ dein-bot-ordner/
 
 ### 3. .env konfigurieren
 
-Öffne `.env` mit Editor und ersetze den Token:
+Kopiere `.env.example` zu `.env` und ersetze den Token:
 
 ```
 TWITCH_BOT_OAUTH=DEIN_TOKEN_HIER
@@ -62,9 +62,11 @@ Token holen:
 
 Speichern (Ctrl+S)
 
+**Wichtig:** `.env` enthält dein Geheim-Token und wird von Git ignoriert (siehe `.gitignore`) — lade diese Datei nie in ein Repo oder öffentlich hoch. Falls du dieses Repo aus einer älteren Version geklont hast, in der `.env` mit einem echten Token committet war: **generiere den Token sofort neu**, der alte gilt als kompromittiert.
+
 ### 4. config.json anpassen
 
-Öffne `config.json` und fülle deine Werte ein:
+Kopiere `config.example.json` zu `config.json` und fülle deine Werte ein:
 
 ```json
 {
@@ -74,10 +76,13 @@ Speichern (Ctrl+S)
     "password": "DEIN_OBS_WEBSOCKET_PASSWORT"
   },
   "chat": {
-    "username": "DEIN_TWITCH_USERNAME"
+    "username": "DEIN_TWITCH_USERNAME",
+    "allowed_roles": ["broadcaster", "moderator"]
   }
 }
 ```
+
+`allowed_roles` legt fest, wer `!rec`/`!stoprec` nutzen darf. Der Broadcaster darf immer, unabhängig von dieser Liste.
 
 **Wie du deine OBS-Daten findest:**
 
@@ -173,7 +178,7 @@ Bot kann Tage laufen ohne Probleme.
 ## FAQ
 
 **F: Nur Mods dürfen Commands?**  
-  A: Nein noch alle, aber wird alles gemacht .
+  A: Ja. Nur Broadcaster und Moderatoren (konfigurierbar über `allowed_roles` in `config.json`) dürfen `!rec`/`!stoprec` nutzen.
 
 **F: Mehrere Kanäle?**  
 A: Nein. Eine Installation = ein Channel.
@@ -182,7 +187,7 @@ A: Nein. Eine Installation = ein Channel.
   A: Nicht in dieser Version. Nur Recording.
 
 **F: Sicherheit?**  
-  A: OAuth Token nicht public machen. config.json lokal halten.
+  A: OAuth Token nicht public machen (`.env` ist in `.gitignore` und wird nie committet). `config.json` lokal halten. Die IRC-Verbindung läuft verschlüsselt über TLS (Port 6697). Chat-Commands sind auf Broadcaster/Mods beschränkt, damit nicht jeder Zuschauer deine Aufnahme steuern kann.
 
 ## Support
 

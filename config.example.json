@@ -1,0 +1,11 @@
+{
+  "software": {
+    "host": "DEINE_OBS_IP",
+    "port": 4455,
+    "password": "DEIN_OBS_WEBSOCKET_PASSWORT"
+  },
+  "chat": {
+    "username": "DEIN_TWITCH_USERNAME",
+    "allowed_roles": ["broadcaster", "moderator"]
+  }
+}
